@@ -5,8 +5,7 @@ const NavBar = () => {
   return (
     <div>
       <ul>
-        <Link to='/home'>Home</Link>
-
+        <button onClick={() => window.location.reload()}><Link to='/home'>Home</Link></button>
       </ul>
     </div>
   )

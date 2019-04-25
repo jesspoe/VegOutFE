@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import jwtDecode from 'jwt-decode'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import RestaurantContainer from './RestaurantContainer';
 import NavBar from '../component/NavBar'
+import MapContainer from './MapContainer'
+import Search from '../component/Search'
 
 class Home extends Component {
   constructor(props) {
@@ -21,10 +26,22 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <NavBar />
-        <RestaurantContainer restaurants={this.props.restaurants} />
-      </div>
+      <Container>
+        <Row>
+          <Col xs={12} md={12}>
+            <NavBar />
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={12} align='right'><Search searchResults={this.props.searchResults} /></Col>
+        </Row>
+
+        <Row>
+          <Col xs={6}><RestaurantContainer restaurants={this.props.restaurants} /></Col>
+          <Col xs={6}><MapContainer /></Col>
+        </Row>
+      </Container>
     );
   }
 }

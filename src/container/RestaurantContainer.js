@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Restaurant from '../component/Restaurant'
 
 class RestaurantContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     return (
       <div>

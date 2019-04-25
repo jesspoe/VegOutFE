@@ -37,7 +37,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+        <form onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
 
           <label htmlFor='email'>Email</label><br />
           <input type='email' name='email' id='email' /><br />
