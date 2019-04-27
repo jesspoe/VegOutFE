@@ -6,6 +6,7 @@ import AuthRoute from './component/AuthRoute';
 import Signup from './component/Signup.js'
 import Login from './component/Login.js'
 import Home from './container/Home.js'
+import GroupContainer from './container/GroupContainer.js'
 
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
     super()
     this.state = {
       restaurants: [],
+      groups: [],
       citySearch: "",
       filterChoice: ""
     }
@@ -26,10 +28,25 @@ class App extends Component {
         this.setState({
           restaurants: json
         })
-      })
+      }).then(this.grabGroups())
   }
 
-  //make a post request that passes in params to the body and then populate the url with the params that you passed. 
+
+
+  grabGroups = () => {
+    fetch('http://localhost:3000/groups', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.jwt}`
+      }
+    }).then(response => {
+      return response.json()
+    }).then(json => {
+      this.setState({
+        groups: json
+      })
+    })
+  }
 
   searchResults = (data) => {
     this.setState({
@@ -55,9 +72,10 @@ class App extends Component {
       <div>
         <Router>
           <div>
-            <UnAuthRoute exact path='/' component={Signup} />
+            <UnAuthRoute exact path='/signup' component={Signup} />
             <UnAuthRoute exact path='/login' component={Login} />
-            <AuthRoute exact path='/home' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} />} />
+            <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} />} />
+            <AuthRoute exact path='/groups' component={() => <GroupContainer groups={this.state.groups} grabGroups={this.grabGroups} />} />
           </div>
         </Router>
       </div>

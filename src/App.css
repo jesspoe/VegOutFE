@@ -1,9 +1,21 @@
+.single-rest{
+  padding: 5px;
+  margin: 5px;
 
-#map {
-  float: right; 
-  border: 5px solid;
-  margin: 10px; 
-  width: 100%;
-  height: 600px;
-  background-color: grey;
+}
+
+.group-form{
+  padding: 5px;
+  margin: 5px;
+
+}
+
+.group-card-single{
+  padding: 5px;
+  margin: 5px;
+
+}
+
+.form-submit-btn{
+  margin: 5px;
 }

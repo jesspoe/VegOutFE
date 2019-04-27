@@ -23,7 +23,7 @@ class Login extends Component {
     })
       .then(res => res.json())
       .then(res => window.localStorage.setItem('jwt', res.jwt))
-      .then(() => this.props.history.push('/home'))
+      .then(() => this.props.history.push('/'))
       .catch(function (error) { console.log(" There is an error: ", error.message) })
   }
 

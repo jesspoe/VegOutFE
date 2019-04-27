@@ -15,14 +15,32 @@ class Home extends Component {
       user_id: 0,
       first_name: "",
       last_name: "",
-      email: ""
+      email: "",
+      currentLat: 0,
+      currentLong: 0
     }
   }
   componentDidMount() {
+    this.getLocation()
     let jwt = window.localStorage.getItem("jwt")
     let result = jwtDecode(jwt)
     this.setState({ first_name: result.first_name, last_name: result.last_name, user_id: result.user_id, email: result.email })
   }
+
+  getLocation = () => {
+    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key="
+    fetch(url, {
+      method: 'POST'
+    })
+      .then(result => result.json())
+      .then(data => {
+        this.setState({
+          currentLat: 0,
+          currentLong: 0
+        })
+      })
+  }
+
 
   render() {
     return (
@@ -39,7 +57,7 @@ class Home extends Component {
 
         <Row>
           <Col xs={6}><RestaurantContainer restaurants={this.props.restaurants} /></Col>
-          <Col xs={6}><MapContainer /></Col>
+          <Col xs={6}><MapContainer restaurants={this.props.restaurants} currentLat={this.state.currentLat} currentLong={this.state.currentLong} /></Col>
         </Row>
       </Container>
     );
