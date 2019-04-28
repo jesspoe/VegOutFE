@@ -23,11 +23,13 @@ class GroupContainer extends Component {
       headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({
         group: {
+          user_id: this.props.user,
           name: this.state.name,
           description: this.state.description
         }
       })
     }).then(() => this.props.grabGroups()
+    ).then(() => this.props.addUserGroup()
     ).catch(function (error) { console.log(" There is an error: ", error.message) })
   }
 

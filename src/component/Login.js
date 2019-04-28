@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBIcon, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 
 class Login extends Component {
   constructor() {
@@ -37,18 +38,71 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
+        <MDBContainer>
+          <MDBRow>
+            <MDBCol>
+              <MDBJumbotron style={{ padding: 0 }}>
+                <MDBCol className="text-white text-center py-5 px-4 my-5" style={{ backgroundImage: `url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)` }}>
+                  <MDBCol className="py-5">
+                    <MDBCardTitle className="h1-responsive pt-3 m-5 font-bold">Welcome to VegOut!</MDBCardTitle>
+                    <p className="mx-5 mb-5">A place to find vegan-friendly restaurants and collobrate with your friends and family!
+                </p>
+                  </MDBCol>
+                </MDBCol>
+                <MDBContainer className="sign-up">
+                  <MDBRow>
+                    <MDBCol sm="3">
+                    </MDBCol>
+                    <MDBCol sm="6">
+                      <MDBCard>
+                        <MDBCardBody>
+                          <form onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
+                            <p className="h4 text-center mb-4">Sign in</p>
+                            <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
+                              Email
+                            </label>
+                            <input
+                              type="email"
+                              id="defaultFormLoginEmailEx"
+                              className="form-control"
+                              name="email"
+                            />
+                            <br />
+                            <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
+                              Password
+            </label>
+                            <input
+                              type="password"
+                              id="defaultFormLoginPasswordEx"
+                              className="form-control"
+                              name="password"
+                            />
+                            <div className="text-center mt-4">
+                              <MDBBtn gradient="peach" type="submit">Login</MDBBtn>
+                            </div>
+                            <p className="font-small grey-text d-flex justify-content-center">
+                              Need an account?
+                    <a onClick={() => this.props.history.push('/signup')} className="blue-text ml-1">
 
-          <label htmlFor='email'>Email</label><br />
-          <input type='email' name='email' id='email' /><br />
+                                Sign Up
+                    </a>
+                            </p>
+                          </form>
 
-          <label htmlFor='password'>Password</label><br />
-          <input type='password' name='password' id='password' /><br />
+                        </MDBCardBody>
+                      </MDBCard>
 
-          <input type='submit' value="Log In" />
-
-        </form>
+                    </MDBCol>
+                    <MDBCol sm="3">
+                    </MDBCol>
+                  </MDBRow>
+                </MDBContainer>
+              </MDBJumbotron>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
       </div>
+
     );
   }
 }

@@ -20,3 +20,15 @@
   margin: 5px;
 }
 
+.sign-up{
+  margin: 10px;
+  padding: 10px;
+  justify-self: center;
+}
+
+.input-group.md-form.form-sm.form-1 input {
+  border: 1px solid #bdbdbd;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  
+}

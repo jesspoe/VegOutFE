@@ -1,18 +1,57 @@
-import React from 'react';
+import React, { Component } from 'react';
+import RestaurantCard from './RestaurantCard'
+import Button from 'react-bootstrap/Button'
 
-const Restaurant = props => {
+class Restaurant extends Component {
+  constructor() {
+    super()
+    this.state = {
+      isShowing: true
+    }
+  }
 
+  handleClick = () => {
+    console.log("im in the click")
+    this.setState({
+      isShowing: !this.state.isShowing
+    })
+  }
 
-  return (
-    <React.Fragment>
-      <div className='single-rest' onClick={() => this.handleClick}>
-        <a href={props.restaurant.website} target='blank'><h5>{props.restaurant.sortable_name}</h5 ></a>
-        Neighborhood: <span>{props.restaurant.neighborhood ? props.restaurant.neighborhood : 'Unavailable'}</span>
-        <br />
-        Price: <span>{props.restaurant.price_range}</span>
-      </div>
-    </React.Fragment>
-  )
+  cuisines = () => {
+
+    return this.props.restaurant.cuisines.map((type) => {
+      return type + " "
+    })
+  }
+
+  render() {
+    return (
+      this.state.isShowing ?
+        <React.Fragment>
+          <div className='single-rest' >
+            <a href={this.props.restaurant.website} target='blank'><h5>{this.props.restaurant.sortable_name}</h5 ></a>
+            Cuisine: <span>{this.cuisines()}</span>
+          </div>
+          <Button onClick={this.handleClick}>More Info</Button>
+        </React.Fragment>
+        :
+
+        <RestaurantCard handleClick={this.handleClick} restaurant={this.props.restaurant} cuisines={this.cuisines} />
+
+    );
+  }
 }
+
 export default Restaurant;
+
+
+
+
+
+
+
+
+
+
+
 

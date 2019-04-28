@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBIcon, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 
 class Signup extends Component {
   constructor() {
@@ -15,6 +15,7 @@ class Signup extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
+    event.target.className += " was-validated"
     fetch('http://localhost:3000/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -41,35 +42,155 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
 
-          <label htmlFor='name'>First Name</label><br />
-          <input type='first_name' name='first_name' id='first_name' /><br />
+      <MDBContainer>
+        <MDBRow>
+          <MDBCol>
+            <MDBJumbotron style={{ padding: 0 }}>
+              <MDBCol className="text-white text-center py-5 px-4 my-5" style={{ backgroundImage: `url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)` }}>
+                <MDBCol className="py-5">
+                  <MDBCardTitle className="h1-responsive pt-3 m-5 font-bold">Welcome to VegOut!</MDBCardTitle>
+                  <p className="mx-5 mb-5">A place to find vegan-friendly restaurants and collobrate with your friends and family!
+                </p>
+                </MDBCol>
+              </MDBCol>
 
-          <label htmlFor='name'>Last Name</label><br />
-          <input type='last_name' name='last_name' id='last_name' /><br />
 
-          <label htmlFor='username'>Username</label><br />
-          <input type='username' name='username' id='username' /><br />
+              <MDBContainer className="sign-up">
+                <MDBRow >
+                  <MDBCol md="3">
+                  </MDBCol>
+                  <MDBCol md="6">
+                    <MDBCard>
+                      <MDBCardBody>
+                        <form onSubmit={this.handleSubmit} onChange={this.handleChange} className="needs-validation" noValidate>
+                          <p className="h4 text-center mb-4">Sign up</p>
+                          <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
+                            First Name
+            </label>
+                          <input
+                            type="text"
+                            id="defaultFormRegisterNameEx"
+                            className="form-control"
+                            type='first_name'
+                            name='first_name'
+                            required
+                          />
+                          <div className="invalid-feedback">
+                            Please provide a name.
+              </div>
+                          <div className="valid-feedback">Looks good!</div>
+                          <br />
+                          <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
+                            Last Name
+            </label>
+                          <input
+                            type="text"
+                            id="defaultFormRegisterNameEx"
+                            className="form-control"
+                            type='last_name'
+                            name='last_name'
+                            required
+                          />
+                          <div className="invalid-feedback">
+                            Please provide a name.
+              </div>
+                          <div className="valid-feedback">Looks good!</div>
+                          <br />
+                          <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
+                            Username
+            </label>
+                          <input
+                            type="text"
+                            id="defaultFormRegisterNameEx"
+                            className="form-control"
+                            type='username'
+                            name='username'
+                            required
+                          />
+                          <div className="invalid-feedback">
+                            Please provide a username.
+              </div>
+                          <div className="valid-feedback">Looks good!</div>
+                          <br />
+                          <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
+                            Email
+            </label>
+                          <input
+                            type="email"
+                            id="defaultFormRegisterEmailEx"
+                            className="form-control"
+                            type='email'
+                            name='email'
+                            required
+                          />
+                          <div className="invalid-feedback">
+                            Please provide a valid email.
+              </div>
+                          <div className="valid-feedback">Looks good!</div>
+                          <br />
+                          <label
+                            htmlFor="defaultFormRegisterPasswordEx"
+                            className="grey-text"
+                          >
+                            Password
+            </label>
+                          <input
+                            type="password"
+                            id="defaultFormRegisterPasswordEx"
+                            className="form-control"
+                            name="password"
+                            required
+                          />
+                          <div className="invalid-feedback">
+                            Please provide a password.
+              </div>
+                          <div className="valid-feedback">Looks good!</div>
+                          <div className="text-center mt-4">
+                            <MDBBtn onClick={() => this.handleSubmit} gradient="aqua" type="submit">
+                              Register
+              </MDBBtn>
+                            <p className="font-small grey-text d-flex justify-content-center">
+                              Have an account?
+                    <a onClick={() => this.props.history.push('/login')} className="blue-text ml-1">
 
-          <label htmlFor='email'>Email</label><br />
-          <input type='email' name='email' id='email' /><br />
+                                Log in
+                    </a>
+                            </p>
+                          </div>
+                        </form>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol md="3">
+                  </MDBCol>
+                </MDBRow>
 
-          <label htmlFor='password'>Password</label><br />
-          <input type='password' name='password' id='password' /><br />
+              </MDBContainer>
 
-          <input type='submit' value="Sign Up!" />
+            </MDBJumbotron>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
 
-        </form>
-        <div>
-          <h2>Already Using VegOut?</h2>
-          <button onClick={() => this.props.history.push('/login')}>Log-In</button>
-        </div>
 
-      </div>
+
+
+
+
+
+
+
+
+
+
     );
   }
 }
 
 export default Signup;
+
+
+
+
+

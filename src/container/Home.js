@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import RestaurantContainer from './RestaurantContainer';
-import NavBar from '../component/NavBar'
+import NavbarPage from '../component/NavbarPage'
 import MapContainer from './MapContainer'
 import Search from '../component/Search'
 
@@ -14,12 +14,12 @@ class Home extends Component {
       <Container>
         <Row>
           <Col xs={12} md={12}>
-            <NavBar />
+            <NavbarPage />
           </Col>
         </Row>
 
         <Row>
-          <Col xs={12} align='right'><Search searchResults={this.props.searchResults} currentLat={this.props.currentLat} currentLong={this.props.currentLong} /></Col>
+          <Col xs={12} align='right'><Search searchResults={this.props.searchResults} /></Col>
         </Row>
 
         <Row>

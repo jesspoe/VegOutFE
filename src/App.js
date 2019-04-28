@@ -5,8 +5,11 @@ import UnAuthRoute from './component/UnAuthRoute';
 import AuthRoute from './component/AuthRoute';
 import Signup from './component/Signup.js'
 import Login from './component/Login.js'
+import Logout from './container/Logout.js'
 import Home from './container/Home.js'
 import GroupContainer from './container/GroupContainer.js'
+import jwtDecode from 'jwt-decode'
+import RestaurantCard from './component/RestaurantCard';
 
 
 class App extends Component {
@@ -19,7 +22,8 @@ class App extends Component {
       filterChoice: "",
       currentLat: 47.608051499999995,
       currentLong: -122.3334927,
-      currentCity: ""
+      currentCity: "",
+      user_id: 0
     }
   }
 
@@ -28,16 +32,21 @@ class App extends Component {
     this.getCity()
     this.grabGroups()
 
-    // fetch(`http://localhost:3000/restaurants`)
-    //   .then(response => response.json())
-    //   .then(json => {
-    //     console.log("restaurant json", json)
-    //     this.setState({
-    //       restaurants: json
-    //     })
-    //   }).then(this.grabGroups()).then(this.getLocation()).then(this.getCity())
+    fetch(`http://localhost:3000/restaurants`)
+      .then(response => response.json())
+      .then(json => {
+        console.log("restaurant json", json)
+        this.setState({
+          restaurants: json
+        })
+      }).then(this.grabGroups()).then(this.getLocation()).then(this.getCity())
   }
 
+  setUserId() {
+    let jwt = window.localStorage.getItem("jwt")
+    let result = jwtDecode(jwt)
+    this.setState({ user_id: result.user_id })
+  }
 
   setInitial = () => {
     console.log("do we have current city", this.state.currentCity)
@@ -67,10 +76,10 @@ class App extends Component {
     })
       .then(result => result.json())
       .then(data => {
-        this.setState({
-          currentLat: data.location.lat,
-          currentLong: data.location.lng
-        })
+        // this.setState({
+        //   currentLat: data.location.lat,
+        //   currentLong: data.location.lng
+        // })
       })
   }
 
@@ -107,6 +116,7 @@ class App extends Component {
     })
   }
 
+
   searchResults = (data) => {
     this.setState({
       citySearch: data.search
@@ -133,8 +143,10 @@ class App extends Component {
           <div>
             <UnAuthRoute exact path='/signup' component={Signup} />
             <UnAuthRoute exact path='/login' component={Login} />
-            <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} />} />
-            <AuthRoute exact path='/groups' component={() => <GroupContainer groups={this.state.groups} grabGroups={this.grabGroups} />} />
+            <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} />} />
+            <AuthRoute exact path='/groups' component={() => <GroupContainer groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
+            <AuthRoute exact path='/logout' component={() => <Logout />} />
+
           </div>
         </Router>
       </div>
