@@ -10,7 +10,8 @@ class MapContainer extends Component {
       activeMarker: {},
       selectedPlace: {},
       addy: [],
-      locations: []
+      locations: [],
+      mapRef: null
     };
   }
 
@@ -27,17 +28,53 @@ class MapContainer extends Component {
     }, () => this.getGeo())
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log("Are we in componentDidUpdate")
+  //   const node = ReactDOM.findDOMNode(this.state.mapRef)
+  //   console.log("what's node", node)
+  //   let map = new this.props.google.maps.Map(node)
+  //   console.log("What's map", map)
+  //   let center = new this.props.google.maps.LatLng(34.98767, -122.87645)
+  //   console.log("whats center.", center)
+  //   map.panTo(center)
+  // }
+
+  onMapMounted = (ref) => {
+    // console.log('ref', ref)
+    this.setState({
+      mapRef: ref
+    })
+  }
 
 
   getGeo = () => {
     let local = []
     let newItem = {}
     this.state.addy.map((item) => {
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address='${item.address}',+'${item.city}'+'${item.state}'&key=`)
+      let encodedAddress = encodeURIComponent(`${item.address}, ${item.city}, ${item.state}`)
+      let cachedKey = encodedAddress
+      // console.log("Checking cache for", cachedKey)
+      let cachedResult = localStorage.getItem(cachedKey)
+      if (cachedResult) {
+        // console.log("Found cache entry for", cachedKey, ':', cachedResult)
+        let parsedResult = JSON.parse(cachedResult)
+        newItem = { name: item.name, lat: parsedResult.lat, lng: parsedResult.lng }
+        local.push(newItem)
+        this.setState({
+          locations: local
+        })
+        return
+      }
+      // console.log("Did not find cache entry for", cachedKey)
+      // console.log("Geocoding:", encodedAddress)
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=`)
         .then(response => response.json())
         .then(json => {
           if (json.results.length > 0) {
-            newItem = { name: item.name, lat: json.results[0].geometry.location.lat, lng: json.results[0].geometry.location.lng }
+            let lat = json.results[0].geometry.location.lat
+            let lng = json.results[0].geometry.location.lng
+            localStorage.setItem(cachedKey, JSON.stringify({ lat: lat, lng: lng }))
+            newItem = { name: item.name, lat: lat, lng: lng }
             local.push(newItem)
           }
         })
@@ -52,22 +89,25 @@ class MapContainer extends Component {
   displayMarkers = () => {
 
     return this.state.locations.map((rest, index) => {
-      return <Marker key={index} id={index} position={{
+      return <Marker onClick={this.onMarkerClick} key={index} id={index} position={{
         name: rest.name,
         lat: rest.lat,
         lng: rest.lng
-      }} />
+      }}
+      />
     })
+
   }
 
 
-
   onMarkerClick = (props, marker, e) => {
+
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
+    // console.log("on click selected places", this.state.selectedPlace.position.name)
   }
 
   onClose = props => {
@@ -79,27 +119,28 @@ class MapContainer extends Component {
     }
   };
 
+
+
   render() {
     const mapStyles = {
       width: '600px',
       height: '600px',
-      margin: '10px'
+      margin: '20px'
     };
 
     return (
       <React.Fragment>
-
         <Map
+          ref={this.onMapMounted}
           google={this.props.google}
-          zoom={12}
+          zoom={4}
           style={mapStyles}
           initialCenter={
             {
-              lat: 47.608051499999995,
-              lng: -122.3334927
+              lat: 39.8333333,
+              lng: -98.585522
             }}
         >
-
           {this.state.locations.length > 0 ? this.displayMarkers() : null}
 
           <InfoWindow
@@ -108,9 +149,11 @@ class MapContainer extends Component {
             onClose={this.onClose}
           >
             <div>
-              <h4>{this.state.selectedPlace.name}</h4>
+              <h4>{"I can't update state properly here"}</h4>
             </div>
           </InfoWindow>
+
+
         </Map>
       </React.Fragment>
 

@@ -5,7 +5,7 @@ const UnAuthRoute = ({ component: Component, ...state }) => (
   <Route {...state} render={props => (
     localStorage.getItem('jwt') ? (
       <Redirect to={{
-        pathname: '/home',
+        pathname: '/',
         state: { from: props.location }
       }} />
     ) : (

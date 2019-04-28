@@ -8,10 +8,9 @@ const UnAuthRoute = ({ component: Component, ...state }) => (
         <Component {...props} />
       )
       :
-
       (
         <Redirect to={{
-          pathname: '/',
+          pathname: '/signup',
           state: { from: props.location }
         }} />
       )

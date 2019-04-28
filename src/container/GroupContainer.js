@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container'
 import NavBar from '../component/NavBar'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
 class GroupContainer extends Component {
@@ -65,17 +64,15 @@ class GroupContainer extends Component {
 
                 <label htmlFor='group'>Description: </label> {" "}
                 <input type='text' name='description' id='groupDescription' />
-                <Button className='form-submit-btn' type='submit' value="Add" variant="info">Info</Button>
-
-
+                <Button className='form-submit-btn' type='submit' value="Add" variant="info">Add</Button>
               </form>
             </div>
+
           </Col>
         </Row>
-
-
-        {this.props.groups.map((group) => {
-          return <Group group={group} />
+        <h5>Your Groups</h5>
+        {this.props.groups.map((group, index) => {
+          return <Group group={group} key={index} />
         })}
 
       </Container>

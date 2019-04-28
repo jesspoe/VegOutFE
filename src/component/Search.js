@@ -9,16 +9,6 @@ class Search extends Component {
     }
   }
 
-  // getGeo = () => {
-  //   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address='${this.state.search}'&key=`)
-  //     .then(response => response.json())
-  //     .then(json => {
-  //       console.log("search json", json)
-  //       // this.setState({
-  //       //   search: json
-  //       // })
-  //     })
-  // }
 
 
   handleChange = event => {
