@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBIcon, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 
 class Signup extends Component {
@@ -13,9 +14,9 @@ class Signup extends Component {
     }
   }
 
+
   handleSubmit = event => {
     event.preventDefault()
-    event.target.className += " was-validated"
     fetch('http://localhost:3000/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -28,11 +29,14 @@ class Signup extends Component {
           password: this.state.password
         }
       })
-    })
-      .then(res => res.json()).then(res => window.localStorage.setItem('jwt', res.jwt))
-      .then(() => this.props.history.push('/'))
+    }).then(response => response.json())
+      .then(json => {
+        localStorage.setItem('jwt', json.jwt);
+        this.props.setUserId(json.user.id)
+      })
       .catch(function (error) { console.log(" There is an error: ", error.message) })
   }
+
 
   handleChange = event => {
     this.setState({
@@ -51,11 +55,9 @@ class Signup extends Component {
                 <MDBCol className="py-5">
                   <MDBCardTitle className="h1-responsive pt-3 m-5 font-bold">Welcome to VegOut!</MDBCardTitle>
                   <p className="mx-5 mb-5">A place to find vegan-friendly restaurants and collobrate with your friends and family!
-                </p>
+</p>
                 </MDBCol>
               </MDBCol>
-
-
               <MDBContainer className="sign-up">
                 <MDBRow >
                   <MDBCol md="3">
@@ -63,102 +65,80 @@ class Signup extends Component {
                   <MDBCol md="6">
                     <MDBCard>
                       <MDBCardBody>
-                        <form onSubmit={this.handleSubmit} onChange={this.handleChange} className="needs-validation" noValidate>
+                        <form onChange={(event) => this.handleChange(event)} className="needs-validation">
                           <p className="h4 text-center mb-4">Sign up</p>
                           <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
                             First Name
-            </label>
+</label>
                           <input
                             type="text"
                             id="defaultFormRegisterNameEx"
                             className="form-control"
                             type='first_name'
-                            name='first_name'
-                            required
-                          />
-                          <div className="invalid-feedback">
-                            Please provide a name.
-              </div>
-                          <div className="valid-feedback">Looks good!</div>
+                            name='first_name' />
                           <br />
                           <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
                             Last Name
-            </label>
+</label>
                           <input
                             type="text"
                             id="defaultFormRegisterNameEx"
                             className="form-control"
                             type='last_name'
                             name='last_name'
-                            required
+
                           />
-                          <div className="invalid-feedback">
-                            Please provide a name.
-              </div>
-                          <div className="valid-feedback">Looks good!</div>
+
                           <br />
                           <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
                             Username
-            </label>
+</label>
                           <input
                             type="text"
                             id="defaultFormRegisterNameEx"
                             className="form-control"
                             type='username'
                             name='username'
-                            required
+
                           />
-                          <div className="invalid-feedback">
-                            Please provide a username.
-              </div>
-                          <div className="valid-feedback">Looks good!</div>
+
                           <br />
                           <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
                             Email
-            </label>
+</label>
                           <input
                             type="email"
                             id="defaultFormRegisterEmailEx"
                             className="form-control"
                             type='email'
                             name='email'
-                            required
+
                           />
-                          <div className="invalid-feedback">
-                            Please provide a valid email.
-              </div>
-                          <div className="valid-feedback">Looks good!</div>
+
                           <br />
                           <label
                             htmlFor="defaultFormRegisterPasswordEx"
                             className="grey-text"
                           >
                             Password
-            </label>
+</label>
                           <input
                             type="password"
                             id="defaultFormRegisterPasswordEx"
                             className="form-control"
                             name="password"
-                            required
-                          />
-                          <div className="invalid-feedback">
-                            Please provide a password.
-              </div>
-                          <div className="valid-feedback">Looks good!</div>
-                          <div className="text-center mt-4">
-                            <MDBBtn onClick={() => this.handleSubmit} gradient="aqua" type="submit">
-                              Register
-              </MDBBtn>
-                            <p className="font-small grey-text d-flex justify-content-center">
-                              Have an account?
-                    <a onClick={() => this.props.history.push('/login')} className="blue-text ml-1">
 
-                                Log in
-                    </a>
-                            </p>
+                          />
+
+                          <div className="text-center mt-4">
+                            <MDBBtn onClick={(event) => this.handleSubmit(event)} gradient="aqua" type="submit">Register</MDBBtn>
+
+                            <p className="font-small grey-text d-flex justify-content-center">
+                              Have an account? <Link to='/login' > Login </Link></p>
                           </div>
                         </form>
+
+
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
@@ -171,19 +151,7 @@ class Signup extends Component {
             </MDBJumbotron>
           </MDBCol>
         </MDBRow>
-      </MDBContainer>
-
-
-
-
-
-
-
-
-
-
-
-
+      </MDBContainer >
     );
   }
 }

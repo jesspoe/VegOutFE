@@ -9,7 +9,6 @@ import Logout from './container/Logout.js'
 import Home from './container/Home.js'
 import GroupContainer from './container/GroupContainer.js'
 import jwtDecode from 'jwt-decode'
-import RestaurantCard from './component/RestaurantCard';
 
 
 class App extends Component {
@@ -23,7 +22,7 @@ class App extends Component {
       currentLat: 47.608051499999995,
       currentLong: -122.3334927,
       currentCity: "",
-      user_id: 0
+      user_id: localStorage.getItem('user')
     }
   }
 
@@ -32,21 +31,25 @@ class App extends Component {
     this.getCity()
     this.grabGroups()
 
-    fetch(`http://localhost:3000/restaurants`)
+    fetch(`http://localhost:3000/restaurants`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then(response => response.json())
       .then(json => {
-        console.log("restaurant json", json)
         this.setState({
           restaurants: json
         })
       }).then(this.grabGroups()).then(this.getLocation()).then(this.getCity())
   }
 
-  setUserId() {
-    let jwt = window.localStorage.getItem("jwt")
-    let result = jwtDecode(jwt)
-    this.setState({ user_id: result.user_id })
+
+  setUserId = (id) => {
+    this.setState({ user_id: id }, () => localStorage.setItem('user', id))
   }
+
 
   setInitial = () => {
     console.log("do we have current city", this.state.currentCity)
@@ -83,6 +86,7 @@ class App extends Component {
       })
   }
 
+
   getCity = () => {
     let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=`
     fetch(url, {
@@ -93,7 +97,6 @@ class App extends Component {
     })
       .then(result => result.json())
       .then(data => {
-        // console.log("what's city", data.results[0].address_components[3].long_name)
         this.setState({
           currentCity: data.results[0].address_components[3].long_name
         }, () => this.setInitial())
@@ -141,12 +144,11 @@ class App extends Component {
       <div>
         <Router>
           <div>
-            <UnAuthRoute exact path='/signup' component={Signup} />
-            <UnAuthRoute exact path='/login' component={Login} />
+            <UnAuthRoute exact path='/signup' component={() => <Signup setUserId={this.setUserId} />} />
+            <UnAuthRoute exact path='/login' component={() => <Login setUserId={this.setUserId} />} />
             <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} />} />
             <AuthRoute exact path='/groups' component={() => <GroupContainer groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
             <AuthRoute exact path='/logout' component={() => <Logout />} />
-
           </div>
         </Router>
       </div>

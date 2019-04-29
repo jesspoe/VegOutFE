@@ -123,39 +123,43 @@ class MapContainer extends Component {
 
   render() {
     const mapStyles = {
+      border: '1px solid #aa66cc',
       width: '600px',
       height: '600px',
-      margin: '20px'
+      // margin: '20px'
+
     };
 
     return (
-      <React.Fragment>
-        <Map
-          ref={this.onMapMounted}
-          google={this.props.google}
-          zoom={4}
-          style={mapStyles}
-          initialCenter={
-            {
-              lat: 39.8333333,
-              lng: -98.585522
-            }}
+
+      <Map
+
+        ref={this.onMapMounted}
+        google={this.props.google}
+        zoom={4}
+        style={mapStyles}
+        initialCenter={
+          {
+            lat: 39.8333333,
+            lng: -98.585522
+          }}
+      >
+        {this.state.locations.length > 0 ? this.displayMarkers() : null}
+
+        <InfoWindow
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}
+          onClose={this.onClose}
         >
-          {this.state.locations.length > 0 ? this.displayMarkers() : null}
-
-          <InfoWindow
-            marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}
-            onClose={this.onClose}
-          >
-            <div>
-              <h4>{"I can't update state properly here"}</h4>
-            </div>
-          </InfoWindow>
+          <div>
+            <h4>{"I can't update state properly here"}</h4>
+          </div>
+        </InfoWindow>
 
 
-        </Map>
-      </React.Fragment>
+      </Map>
+
+
 
     );
   }

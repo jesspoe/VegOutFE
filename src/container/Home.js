@@ -22,11 +22,14 @@ class Home extends Component {
           <Col xs={12} align='right'><Search searchResults={this.props.searchResults} /></Col>
         </Row>
 
-        <Row>
-          <Col xs={6}><RestaurantContainer restaurants={this.props.restaurants} /></Col>
-          <Col className='map' xs={6}><MapContainer restaurants={this.props.restaurants} /></Col>
+        <Row >
+          <div class="col-md-5" style={{ overflow: 'scroll' }}>
+            <div ><RestaurantContainer restaurants={this.props.restaurants} /></div>
+          </div>
+          <div class="col-md-6"><MapContainer restaurants={this.props.restaurants} /></div>
+
         </Row>
-      </Container>
+      </Container >
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBIcon, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { Link } from 'react-router-dom'
 
 class Login extends Component {
   constructor() {
@@ -11,6 +12,7 @@ class Login extends Component {
   }
 
   handleSubmit = event => {
+    console.log("I'm here in the click")
     event.preventDefault()
     fetch('http://localhost:3000/login', {
       method: 'POST',
@@ -21,19 +23,32 @@ class Login extends Component {
           password: this.state.password
         }
       })
-    })
-      .then(res => res.json())
-      .then(res => window.localStorage.setItem('jwt', res.jwt))
-      .then(() => this.props.history.push('/'))
+    }).then(response => response.json())
+      .then(json => {
+        localStorage.setItem('jwt', json.jwt)
+        this.props.setUserId(json.user.id)
+      })
       .catch(function (error) { console.log(" There is an error: ", error.message) })
   }
-
 
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
+
+  // getUser = (jwt) => {
+  //   fetch('http://localhost:3000/profile', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json', Authorization: `Bearer ${jwt}`
+  //     }
+  //   }).then(response => response.json())
+  //     .then(json => {
+  //       localStorage.setItem('jwt', json.jwt);
+  //       this.props.setUserId(json.user.id)
+  //     })
+  // }
 
   render() {
     return (
@@ -46,7 +61,7 @@ class Login extends Component {
                   <MDBCol className="py-5">
                     <MDBCardTitle className="h1-responsive pt-3 m-5 font-bold">Welcome to VegOut!</MDBCardTitle>
                     <p className="mx-5 mb-5">A place to find vegan-friendly restaurants and collobrate with your friends and family!
-                </p>
+                  </p>
                   </MDBCol>
                 </MDBCol>
                 <MDBContainer className="sign-up">
@@ -54,13 +69,16 @@ class Login extends Component {
                     <MDBCol sm="3">
                     </MDBCol>
                     <MDBCol sm="6">
+
+
                       <MDBCard>
                         <MDBCardBody>
-                          <form onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
+
+                          <form onChange={(event) => this.handleChange(event)} >
                             <p className="h4 text-center mb-4">Sign in</p>
                             <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
                               Email
-                            </label>
+                              </label>
                             <input
                               type="email"
                               id="defaultFormLoginEmailEx"
@@ -70,7 +88,7 @@ class Login extends Component {
                             <br />
                             <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
                               Password
-            </label>
+                              </label>
                             <input
                               type="password"
                               id="defaultFormLoginPasswordEx"
@@ -78,17 +96,13 @@ class Login extends Component {
                               name="password"
                             />
                             <div className="text-center mt-4">
-                              <MDBBtn gradient="peach" type="submit">Login</MDBBtn>
+                              <MDBBtn gradient="peach" type="submit" onClick={(event) => this.handleSubmit(event)}>Login</MDBBtn>
                             </div>
                             <p className="font-small grey-text d-flex justify-content-center">
                               Need an account?
-                    <a onClick={() => this.props.history.push('/signup')} className="blue-text ml-1">
-
-                                Sign Up
-                    </a>
+                              <Link to='/signup' > Signup </Link>
                             </p>
                           </form>
-
                         </MDBCardBody>
                       </MDBCard>
 

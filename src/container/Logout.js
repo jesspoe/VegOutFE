@@ -2,7 +2,7 @@ import React from "react";
 import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle } from "mdbreact";
 
 const Logout = () => {
-  localStorage.removeItem('jwt')
+  localStorage.clear()
   return (
     <MDBContainer>
       <MDBRow>
