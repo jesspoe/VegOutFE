@@ -12,6 +12,7 @@ class Home extends Component {
   render() {
     return (
       <Container>
+
         <Row>
           <Col xs={12} md={12}>
             <NavbarPage />
@@ -27,8 +28,8 @@ class Home extends Component {
             <div ><RestaurantContainer restaurants={this.props.restaurants} groups={this.props.groups} user={this.props.user} /></div>
           </div>
           <div className="col-md-6"><MapContainer restaurants={this.props.restaurants} /></div>
-
         </Row>
+
       </Container >
     );
   }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button'
+import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+
 
 class GroupCard extends Component {
   constructor(props) {
@@ -32,7 +34,7 @@ class GroupCard extends Component {
   groupMembers = () => {
     if (this.props.group.users.length > 1) {
       return this.props.group.users.map((user) => {
-        return <h5>{user.first_name + " " + user.last_name}</h5>
+        return <span><h5>{user.first_name + " " + user.last_name}</h5></span>
       })
     } else {
       return <h5>Add some members!</h5>
@@ -72,24 +74,29 @@ class GroupCard extends Component {
 
   render() {
     return (
-      <div className="jumbotron">
-        <h3 className="display-4">Group: {this.props.group.name}</h3>
-        <h3 className="display-7">Welcome, {this.props.group.users[0].first_name}</h3>
-        <p className="lead">Invite other users to join your group!</p>
-        <div>
-          <form onChange={(event) => this.handleChange(event)}>
-            <label htmlFor='group'>User Email: </label> {" "}
-            <input type='email' name='email' id='email' /> {" "}
-            <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="info">Add</Button>
-          </form>
-
-          <p className="lead">Members of this group:</p>
+      <div>
+        <div className="jumbotron mdb-color purple lighten-5  mx-2 mb-5">
+          <h3 className="display-4 text-center">{this.props.group.name}</h3>
+          <h3 className="display-7 text-center">Welcome, {this.props.group.users[0].first_name}</h3>
+          <p className="lead text-right">Invite other users to join your group!</p>
+          <div className="text-right">
+            <form onChange={(event) => this.handleChange(event)}>
+              <label htmlFor='group'>User Email: </label> {" "}
+              <input type='email' name='email' id='email' /> {" "}
+              <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="info">Add</Button>
+            </form>
+          </div>
+          <p >Members of this group:</p>
           <span>{this.groupMembers()}</span>
+
+          <hr className="my-4" />
+          <h4>Saved Restaurants</h4>
+          <div>
+            {this.restaurantInfo()}
+          </div>
+          <Button onClick={this.handleThis}>Hide Group</Button>
         </div>
-        <hr className="my-4" />
-        <h4>Saved Restaurants</h4>
-        {this.restaurantInfo()}
-        <Button onClick={this.handleThis}>Hide Group</Button>
+
       </div>
     );
   }

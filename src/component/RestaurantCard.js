@@ -22,16 +22,12 @@ class RestaurantCard extends Component {
   }
 
 
-
-
-
   handleChange = (event) => {
     this.setState({ groupNum: event.target.value });
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log("I was clicked")
     fetch('http://localhost:3000/restaurants', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
@@ -67,15 +63,16 @@ class RestaurantCard extends Component {
             <p className="card-text"><strong>Phone:</strong> <span>{this.props.restaurant.phone}</span></p>
             <p className="card-text"><strong>Address:</strong> <span>{this.props.restaurant.address1} {this.props.restaurant.city}, {this.props.restaurant.region}</span></p>
             <p className="card-text"><strong>Accepts Reservations:</strong> <span>{this.props.restaurant.accepts_reservations === 1 ? 'Yes' : 'No'} </span></p>
-            <MDBBtn onClick={this.props.handleClick} type="button" className="btn btn-outline-secondary waves-effect btn-sm">Go Back</MDBBtn>
 
             <form onChange={(event) => { this.handleChange(event) }} >
               <select className="browser-default custom-select">
-                <option>Add this restaurant to a group!</option>
+                <option>Choose a group to add this restaurant.</option>
                 {this.populateOptions(this.props.groups)}
               </select>
-              <MDBBtn onClick={(event) => this.handleSubmit(event)} type="submit" className="btn btn-outline-secondary waves-effect btn-sm">Add Restaurant to Group</MDBBtn>
+              <MDBBtn onClick={(event) => this.handleSubmit(event)} type="submit" className="btn btn-outline-secondary waves-effect btn-sm">Add </MDBBtn>
             </form>
+
+            <MDBBtn onClick={this.props.handleClick} type="button" className="btn btn-outline-secondary waves-effect btn-sm">Less Info</MDBBtn>
 
           </div>
         </div>

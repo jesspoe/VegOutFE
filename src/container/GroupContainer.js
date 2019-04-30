@@ -52,35 +52,33 @@ class GroupContainer extends Component {
           </Col>
         </Row>
 
-        <Row>
-          <Col align="center">Your Groups</Col>
-        </Row>
+
 
         <Row>
-          <Col align="center" className="group-form">
+          <Col align="right" className="group-form">
             <div>
-              <form onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
-                <h5>Create A New Group</h5><br />
+              <form className="user-form" onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
                 <label htmlFor='group'>Group Name: </label> {" "}
                 <input type='text' name='name' id='groupName' /> {" "}
-
+                <br />
                 <label htmlFor='group'>Description: </label> {" "}
-                <input type='text' name='description' id='groupDescription' />
-                <Button className='form-submit-btn' type='submit' value="Add" variant="info">Add</Button>
+                <input type='text' name='description' id='groupDescription' /> <br />
+                <Button className='form-submit-btn' type='submit' value="Add" variant="yellow lighten-5" >Add a New Group</Button>
               </form>
             </div>
           </Col>
         </Row>
 
-        <h5>Your Groups</h5>
-        {this.props.groups.map((group, index) => {
-          for (let i = 0; i < group.user_groups.length; i++) {
-            if (group.user_groups[i].user_id === parseInt(this.props.user)) {
-              return <Group group={group} key={index} grabGroups={this.props.grabGroups} />
+        <div className="single-group-card">
+          {this.props.groups.map((group, index) => {
+            for (let i = 0; i < group.user_groups.length; i++) {
+              if (group.user_groups[i].user_id === parseInt(this.props.user)) {
+                return <Group group={group} key={index} grabGroups={this.props.grabGroups} />
+              }
             }
+          })
           }
-        })
-        }
+        </div>
 
       </Container>
     );

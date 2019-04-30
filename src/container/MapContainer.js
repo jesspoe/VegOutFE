@@ -19,7 +19,7 @@ class MapContainer extends Component {
     let myAddy = []
     let newItem = {}
     this.props.restaurants.map((rest) => {
-      newItem = { name: rest.sortable_name, address: rest.address1, city: rest.city, state: rest.region }
+      newItem = { name: rest.sortable_name, veg_level: rest.veg_level_description, address: rest.address1, city: rest.city, state: rest.region }
       myAddy.push(newItem)
       return undefined
     })
@@ -58,7 +58,7 @@ class MapContainer extends Component {
       if (cachedResult) {
         // console.log("Found cache entry for", cachedKey, ':', cachedResult)
         let parsedResult = JSON.parse(cachedResult)
-        newItem = { name: item.name, lat: parsedResult.lat, lng: parsedResult.lng }
+        newItem = { name: item.name, veg_level: item.veg_level_description, lat: parsedResult.lat, lng: parsedResult.lng }
         local.push(newItem)
         this.setState({
           locations: local
@@ -74,7 +74,7 @@ class MapContainer extends Component {
             let lat = json.results[0].geometry.location.lat
             let lng = json.results[0].geometry.location.lng
             localStorage.setItem(cachedKey, JSON.stringify({ lat: lat, lng: lng }))
-            newItem = { name: item.name, lat: lat, lng: lng }
+            newItem = { name: item.name, veg_level: item.veg_level_description, lat: lat, lng: lng }
             local.push(newItem)
           }
         })
@@ -87,7 +87,6 @@ class MapContainer extends Component {
   }
 
   displayMarkers = () => {
-
     return this.state.locations.map((rest, index) => {
       return <Marker onClick={this.onMarkerClick} key={index} id={index} position={{
         name: rest.name,
@@ -96,18 +95,16 @@ class MapContainer extends Component {
       }}
       />
     })
-
   }
 
 
   onMarkerClick = (props, marker, e) => {
-
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
-    });
-    // console.log("on click selected places", this.state.selectedPlace.position.name)
+    }, async () => console.log("on click selected places", this.state.selectedPlace))
+
   }
 
   onClose = props => {
@@ -126,7 +123,6 @@ class MapContainer extends Component {
       border: '1px solid #aa66cc',
       width: '600px',
       height: '600px',
-      // margin: '20px'
 
     };
 
@@ -152,7 +148,7 @@ class MapContainer extends Component {
           onClose={this.onClose}
         >
           <div>
-            <h4>{"I can't update state properly here"}</h4>
+            <h4>{this.state.selectedPlace.name && this.state.selectedPlace.position.name}</h4>
           </div>
         </InfoWindow>
 
