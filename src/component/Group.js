@@ -1,4 +1,3 @@
-import Card from 'react-bootstrap/Card'
 import React, { Component } from 'react';
 import GroupCard from './GroupCard'
 import Button from 'react-bootstrap/Button'
@@ -20,16 +19,16 @@ class Group extends Component {
 
     return (
       <div>
-        {this.state.isClicked ? <GroupCard group={this.props.group} isClicked={this.state.isClicked} handleClick={this.handleClick} /> :
-          <Card className="group-card-single" border="info" style={{ width: '18rem' }} >
-            <Card.Header>{this.props.group.name}</Card.Header>
-            <Card.Body>
-              <Card.Text>
-                {this.props.group.description}
-              </Card.Text>
-              <Button onClick={this.handleClick}>I'm Here</Button>
-            </Card.Body>
-          </Card>
+        {this.state.isClicked ? <GroupCard group={this.props.group} grabGroups={this.props.grabGroups} isClicked={this.state.isClicked} handleClick={this.handleClick} /> :
+          <div className="card-deck">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">{this.props.group.name}</h5>
+                <p className="card-text"> {this.props.group.description}</p>
+                <Button variant="info" onClick={this.handleClick}>I'm Here</Button>
+              </div>
+            </div>
+          </div>
         }
       </div>
     );

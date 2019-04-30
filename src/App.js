@@ -8,7 +8,6 @@ import Login from './component/Login.js'
 import Logout from './container/Logout.js'
 import Home from './container/Home.js'
 import GroupContainer from './container/GroupContainer.js'
-import jwtDecode from 'jwt-decode'
 
 
 class App extends Component {
@@ -125,7 +124,7 @@ class App extends Component {
       citySearch: data.search
     }, () => fetch(`http://localhost:3000/search`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({
         citySearch: this.state.citySearch
       })

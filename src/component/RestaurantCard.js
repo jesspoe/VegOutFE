@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container'
 import { MDBBtn } from "mdbreact";
 
 
-
 class RestaurantCard extends Component {
   constructor() {
     super()
@@ -12,14 +11,19 @@ class RestaurantCard extends Component {
     }
   }
 
-
   populateOptions(groups) {
     return groups.map((group, index) => {
-      if (group.user_groups[0].user_id === parseInt(this.props.user)) {
-        return <option name="groupNum" key={index} value={group.id}>{group.name}</option>
+      for (let i = 0; i < group.user_groups.length; i++) {
+        if (group.user_groups[i].user_id === parseInt(this.props.user)) {
+          return <option name="groupNum" key={index} value={group.id}>{group.name}</option>
+        }
       }
     });
   }
+
+
+
+
 
   handleChange = (event) => {
     this.setState({ groupNum: event.target.value });
@@ -45,52 +49,40 @@ class RestaurantCard extends Component {
         short_descrition: this.props.restaurant.short_description,
         veg_level_description: this.props.restaurant.veg_level_description
       })
-    })
+    }).then(alert("Added to your list!"))
   }
 
   render() {
+
+
     return (
       <Container >
-        <div class="card border-secondary mb-3">
-          <div class="card-header">
-            <a href={this.props.restaurant.website} target='blank'><h5 class="card-title">{this.props.restaurant.sortable_name}</h5 ></a>
+        <div className="card border-secondary mb-3">
+          <div className="card-header">
+            <a href={this.props.restaurant.website} target='blank'><h5 className="card-title">{this.props.restaurant.sortable_name}</h5 ></a>
           </div>
-          <div class="card-body">
-            <p class="card-text"><strong>Price Range:</strong> <span>{this.props.restaurant.price_range}</span></p>
-            <p class="card-text"><strong>Neighborhood:</strong> <span>{this.props.restaurant.neighborhood ? this.props.restaurant.neighborhood : 'Unavailable'}</span></p>
-            <p class="card-text"><strong>Phone:</strong> <span>{this.props.restaurant.phone}</span></p>
-            <p class="card-text"><strong>Address:</strong> <span>{this.props.restaurant.address1} {this.props.restaurant.city}, {this.props.restaurant.region}</span></p>
-            <p class="card-text"><strong>Accepts Reservations:</strong> <span>{this.props.restaurant.accepts_reservations === 1 ? 'Yes' : 'No'} </span></p>
-            <MDBBtn onClick={this.props.handleClick} type="button" class="btn btn-outline-secondary waves-effect btn-sm">Go Back</MDBBtn>
+          <div className="card-body">
+            <p className="card-text"><strong>Price Range:</strong> <span>{this.props.restaurant.price_range}</span></p>
+            <p className="card-text"><strong>Neighborhood:</strong> <span>{this.props.restaurant.neighborhood ? this.props.restaurant.neighborhood : 'Unavailable'}</span></p>
+            <p className="card-text"><strong>Phone:</strong> <span>{this.props.restaurant.phone}</span></p>
+            <p className="card-text"><strong>Address:</strong> <span>{this.props.restaurant.address1} {this.props.restaurant.city}, {this.props.restaurant.region}</span></p>
+            <p className="card-text"><strong>Accepts Reservations:</strong> <span>{this.props.restaurant.accepts_reservations === 1 ? 'Yes' : 'No'} </span></p>
+            <MDBBtn onClick={this.props.handleClick} type="button" className="btn btn-outline-secondary waves-effect btn-sm">Go Back</MDBBtn>
 
             <form onChange={(event) => { this.handleChange(event) }} >
-              <select class="browser-default custom-select">
-                <option>Choose a Group</option>
+              <select className="browser-default custom-select">
+                <option>Add this restaurant to a group!</option>
                 {this.populateOptions(this.props.groups)}
               </select>
-              <MDBBtn onClick={(event) => this.handleSubmit(event)} type="submit" class="btn btn-outline-secondary waves-effect btn-sm">Add Restaurant to Group</MDBBtn>
+              <MDBBtn onClick={(event) => this.handleSubmit(event)} type="submit" className="btn btn-outline-secondary waves-effect btn-sm">Add Restaurant to Group</MDBBtn>
             </form>
 
           </div>
         </div>
-      </Container>
+      </Container >
     );
   }
 }
 
 export default RestaurantCard;
 
-
-
-// <select class="browser-default custom-select">
-//   <option selected>Select Your Group</option>
-//   <option value="1">One</option>
-//   <option value="2">Two</option>
-//   <option value="3">Three</option>
-// </select>
-
-//   <div className="browser-default custom-select">
-//     <select>
-//       {this.state.options.map((option, key) => <option key={key} >{option}</option>)}
-//     </select>
-//   </div>

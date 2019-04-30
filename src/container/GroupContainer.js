@@ -13,7 +13,6 @@ class GroupContainer extends Component {
       name: " ",
       description: ""
     }
-
   }
 
   handleSubmit = event => {
@@ -32,9 +31,8 @@ class GroupContainer extends Component {
           description: this.state.description
         }
       })
-    }).then(() => this.props.grabGroups())
-      // .then(() => this.myGroups())
-      .catch(function (error) { console.log(" There is an error: ", error.message) })
+    }).then(() => this.props.grabGroups()
+    ).catch(function (error) { console.log(" There is an error: ", error.message) })
   }
 
   handleChange = event => {
@@ -42,9 +40,6 @@ class GroupContainer extends Component {
       [event.target.name]: event.target.value
     })
   }
-
-
-
 
 
   render() {
@@ -78,10 +73,11 @@ class GroupContainer extends Component {
         </Row>
 
         <h5>Your Groups</h5>
-
-        {this.props.groups.map((group) => {
-          if (group.user_groups[0].user_id === parseInt(this.props.user)) {
-            return <Group group={group} />
+        {this.props.groups.map((group, index) => {
+          for (let i = 0; i < group.user_groups.length; i++) {
+            if (group.user_groups[i].user_id === parseInt(this.props.user)) {
+              return <Group group={group} key={index} grabGroups={this.props.grabGroups} />
+            }
           }
         })
         }
@@ -92,3 +88,6 @@ class GroupContainer extends Component {
 }
 
 export default GroupContainer;
+
+
+

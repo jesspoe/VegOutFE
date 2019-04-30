@@ -32,7 +32,7 @@ class Search extends Component {
                   <MDBIcon className="text-white" icon="search" />
                 </span>
               </div>
-              <input className="form-control my-0 py-1" name="search" type="text" placeholder="Search" aria-label="Search" />
+              <input className="form-control my-0 py-1" name="search" type="text" placeholder="Search by Postal Code" aria-label="Search" />
             </div>
           </form>
         </MDBCol>

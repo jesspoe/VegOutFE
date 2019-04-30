@@ -23,10 +23,10 @@ class Home extends Component {
         </Row>
 
         <Row >
-          <div class="col-md-5" style={{ overflow: 'scroll' }}>
+          <div className="col-md-5" style={{ overflow: 'scroll' }}>
             <div ><RestaurantContainer restaurants={this.props.restaurants} groups={this.props.groups} user={this.props.user} /></div>
           </div>
-          <div class="col-md-6"><MapContainer restaurants={this.props.restaurants} /></div>
+          <div className="col-md-6"><MapContainer restaurants={this.props.restaurants} /></div>
 
         </Row>
       </Container >

@@ -19,7 +19,6 @@ class Restaurant extends Component {
   }
 
   cuisines = () => {
-
     return this.props.restaurant.cuisines.map((type) => {
       return type + " "
     })
@@ -29,14 +28,14 @@ class Restaurant extends Component {
     return (
       this.state.isShowing ?
         <Container >
-          <div class="card border-secondary mb-3">
-            <div class="card-header">
-              <a href={this.props.restaurant.website} target='blank'><h5 class="card-title">{this.props.restaurant.sortable_name}</h5 ></a>
+          <div className="card border-secondary mb-3">
+            <div className="card-header">
+              <a href={this.props.restaurant.website} target='blank'><h5 className="card-title">{this.props.restaurant.sortable_name}</h5 ></a>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">{this.props.restaurant.veg_level_description}</h5>
-              <h5 class="card-text"> Cuisine Type: <span>{this.cuisines()}</span></h5>
-              <MDBBtn onClick={this.handleClick} type="button" class="btn btn-outline-secondary waves-effect btn-sm">More Info</MDBBtn>
+            <div className="card-body">
+              <h5 className="card-title">{this.props.restaurant.veg_level_description}</h5>
+              <h5 className="card-text"> Cuisine Type: <span>{this.cuisines()}</span></h5>
+              <MDBBtn onClick={this.handleClick} type="button" className="btn btn-outline-secondary waves-effect btn-sm">More Info</MDBBtn>
             </div>
           </div>
         </Container>

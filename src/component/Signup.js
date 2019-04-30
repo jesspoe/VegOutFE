@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBIcon, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 
 class Signup extends Component {
   constructor() {
@@ -74,7 +74,6 @@ class Signup extends Component {
                             type="text"
                             id="defaultFormRegisterNameEx"
                             className="form-control"
-                            type='first_name'
                             name='first_name' />
                           <br />
                           <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
@@ -84,7 +83,6 @@ class Signup extends Component {
                             type="text"
                             id="defaultFormRegisterNameEx"
                             className="form-control"
-                            type='last_name'
                             name='last_name'
 
                           />
@@ -97,7 +95,6 @@ class Signup extends Component {
                             type="text"
                             id="defaultFormRegisterNameEx"
                             className="form-control"
-                            type='username'
                             name='username'
 
                           />
@@ -110,7 +107,6 @@ class Signup extends Component {
                             type="email"
                             id="defaultFormRegisterEmailEx"
                             className="form-control"
-                            type='email'
                             name='email'
 
                           />
