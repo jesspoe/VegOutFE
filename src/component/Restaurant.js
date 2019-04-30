@@ -42,7 +42,7 @@ class Restaurant extends Component {
         </Container>
         :
 
-        <RestaurantCard handleClick={this.handleClick} restaurant={this.props.restaurant} cuisines={this.cuisines} />
+        <RestaurantCard handleClick={this.handleClick} restaurant={this.props.restaurant} cuisines={this.cuisines} groups={this.props.groups} user={this.props.user} />
 
     );
   }

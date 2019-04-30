@@ -7,7 +7,7 @@ class RestaurantContainer extends Component {
       <div>
         {console.log("props", this.props)}
         {this.props.restaurants.map((restaurant, index) => {
-          return <Restaurant key={index} restaurant={restaurant} />
+          return <Restaurant key={index} restaurant={restaurant} groups={this.props.groups} user={this.props.user} />
         })}
       </div>
     );

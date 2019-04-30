@@ -31,7 +31,7 @@ class App extends Component {
     this.getCity()
     this.grabGroups()
 
-    fetch(`http://localhost:3000/restaurants`, {
+    fetch(`http://localhost:3000/api`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -146,7 +146,7 @@ class App extends Component {
           <div>
             <UnAuthRoute exact path='/signup' component={() => <Signup setUserId={this.setUserId} />} />
             <UnAuthRoute exact path='/login' component={() => <Login setUserId={this.setUserId} />} />
-            <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} />} />
+            <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} />} />
             <AuthRoute exact path='/groups' component={() => <GroupContainer groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
             <AuthRoute exact path='/logout' component={() => <Logout />} />
           </div>
