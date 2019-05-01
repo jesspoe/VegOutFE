@@ -21,7 +21,8 @@ class App extends Component {
       currentLat: 47.608051499999995,
       currentLong: -122.3334927,
       currentCity: "",
-      user_id: localStorage.getItem('user')
+      user_id: localStorage.getItem('user'),
+      errorMsg: "No Restaurants Available, Please Search a Different Postal Code."
     }
   }
 
@@ -99,10 +100,10 @@ class App extends Component {
       return response;
     }).then(result => result.json())
       .then(data => {
-        // this.setState({
-        //   currentLat: data.location.lat,
-        //   currentLong: data.location.lng
-        // })
+        this.setState({
+          currentLat: data.location.lat,
+          currentLong: data.location.lng
+        })
       }).catch((error) => {
         console.log(error)
       });
@@ -167,12 +168,19 @@ class App extends Component {
         citySearch: this.state.citySearch
       })
     }).then((response) => {
+      console.log("map search response", response)
       if (!response.ok) {
         throw Error(response.statusText);
       }
       return response;
     }).then(response => response.json())
       .then(json => {
+        if (json === null) {
+          throw Error("No Restaurants Available"),
+          this.setState({
+            restaurants: []
+          })
+        }
         this.setState({
           restaurants: json
         })
@@ -189,7 +197,7 @@ class App extends Component {
           <div>
             <UnAuthRoute exact path='/signup' component={() => <Signup setUserId={this.setUserId} />} />
             <UnAuthRoute exact path='/login' component={() => <Login setUserId={this.setUserId} />} />
-            <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} />} />
+            <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} error={this.state.errorMsg} />} />
             <AuthRoute exact path='/groups' component={() => <GroupContainer groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
             <AuthRoute exact path='/logout' component={() => <Logout />} />
           </div>

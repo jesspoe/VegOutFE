@@ -18,14 +18,22 @@ class MapContainer extends Component {
   componentDidMount() {
     let myAddy = []
     let newItem = {}
-    this.props.restaurants.map((rest) => {
-      newItem = { name: rest.sortable_name, veg_level: rest.veg_level_description, address: rest.address1, city: rest.city, state: rest.region }
-      myAddy.push(newItem)
-      return undefined
-    })
-    return this.setState({
-      addy: myAddy
-    }, () => this.getGeo())
+    if (this.props.restaurants === null) {
+      this.setState({
+        locations: [
+          { name: "", veg_level: "", lat: 0, lng: 0 }
+        ]
+      })
+    } else {
+      this.props.restaurants.map((rest) => {
+        newItem = { name: rest.sortable_name, veg_level: rest.veg_level_description, address: rest.address1, city: rest.city, state: rest.region }
+        myAddy.push(newItem)
+        return undefined
+      })
+      return this.setState({
+        addy: myAddy
+      }, () => this.getGeo())
+    }
   }
 
   // componentDidUpdate(prevProps, prevState) {
@@ -40,7 +48,7 @@ class MapContainer extends Component {
   // }
 
   onMapMounted = (ref) => {
-    // console.log('ref', ref)
+    console.log('ref', ref)
     this.setState({
       mapRef: ref
     })
@@ -65,9 +73,7 @@ class MapContainer extends Component {
         })
         return
       }
-      // console.log("Did not find cache entry for", cachedKey)
-      // console.log("Geocoding:", encodedAddress)
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=`)
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=AIzaSyAKTm2RXPRrZ9igv6NRfEPq398DWeK0WzA`)
         .then((response) => {
           if (!response.ok) {
             throw Error(response.statusText);
@@ -85,6 +91,7 @@ class MapContainer extends Component {
           }
         })
         .then(item => {
+          console.log("locatiosn storage", local)
           this.setState({
             locations: local
           })
@@ -125,45 +132,45 @@ class MapContainer extends Component {
   };
 
 
-
   render() {
     const mapStyles = {
-      border: '1px solid #aa66cc',
       width: '600px',
       height: '600px',
 
     };
+    if (this.state.locations[0]) {
+      return (
 
-    return (
+        <Map
 
-      <Map
-
-        ref={this.onMapMounted}
-        google={this.props.google}
-        zoom={4}
-        style={mapStyles}
-        initialCenter={
-          {
-            lat: 39.8333333,
-            lng: -98.585522
-          }}
-      >
-        {this.state.locations.length > 0 ? this.displayMarkers() : null}
-
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
+          ref={this.onMapMounted}
+          google={this.props.google}
+          zoom={1}
+          style={mapStyles}
+          onClick={this.onMapClicked}
+          center={
+            {
+              lat: this.state.locations[0].lat,
+              lng: this.state.locations[0].lng
+            }}
         >
-          <div>
-            <h4>{this.state.selectedPlace.name && this.state.selectedPlace.position.name}</h4>
-          </div>
-        </InfoWindow>
+          {this.state.locations.length > 0 ? this.displayMarkers() : null}
+
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            onClose={this.onClose}
+          >
+            <div>
+              <h4>{this.state.selectedPlace.name && this.state.selectedPlace.position.name}</h4>
+            </div>
+          </InfoWindow>
 
 
-      </Map>
+        </Map>
 
-    );
+      );
+    } else { return "No Restaurants Available" }
   }
 }
 

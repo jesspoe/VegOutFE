@@ -7,13 +7,35 @@ class GroupCard extends Component {
     super(props)
     this.state = {
       email: " ",
-      group_id: this.props.group.id
+      group_id: this.props.group.id,
+      editShowing: false,
+      newName: this.props.group.name,
+      newDescription: this.props.group.description
     }
   }
 
   handleThis = () => {
     console.log("props", this.props.group)
+    console.log("group creator id", this.props.group.user_groups[0].user_id)
+    console.log("current user id", this.props.user)
     this.props.handleClick()
+  }
+
+  handleEdit = () => {
+    this.setState({
+      editShowing: !this.state.editShowing
+    })
+  }
+
+  editing = (event) => {
+    event.preventDefault()
+    let data = {
+      group_id: this.state.group_id,
+      newName: this.state.newName,
+      newDescription: this.state.newDescription
+    }
+    this.processEdit(data)
+    this.handleEdit()
   }
 
 
@@ -77,14 +99,14 @@ class GroupCard extends Component {
   }
 
 
-  handleEdit = (group) => {
-    fetch(`http://localhost:3000/groups/${group.id}`,
+  processEdit = (data) => {
+    fetch(`http://localhost:3000/groups/${data.group_id}`,
       {
         method: 'PUT',
         body: JSON.stringify({
           group: {
-            name: group.name,
-            description: group.description
+            name: data.newName,
+            description: data.newDescription
           }
         }),
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
@@ -102,16 +124,40 @@ class GroupCard extends Component {
       });
   }
 
-  handleClick = () => {
-
-  }
-
 
   render() {
-    return (
-      <div>
+
+    let display;
+    if (parseInt(this.props.group.user_groups[0].user_id) === parseInt(this.props.user) && this.state.editShowing) {
+      display = <div>
         <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
-          <h3 className="display-5 text-center">{this.props.group.name}</h3>
+          <div className="text">
+            <form onChange={(event) => this.handleChange(event)}>
+              <h3 className="display-5 text-left">{this.props.group.name}</h3>
+              <input type='text' name='newName' id='newName' value={this.state.newName} /> {" "}
+              <p className="display-5 text-left">{this.props.group.description}</p>
+              <input type='text' name='newDescription' id='newDescription' value={this.state.newDescription} /> {" "}
+              <Button onClick={(event) => this.editing(event)} className='form-submit-btn' value="Edit" variant="white">Make Changes</Button>
+            </form>
+          </div>
+          <div className="group-text">Group Members</div>
+          <span>{this.groupMembers()}</span>
+
+          <hr className="my-4" />
+          <div className="group-text">Saved Restaurants</div>
+          <div >
+            {this.restaurantInfo()}
+          </div>
+          <br />
+          <Button variant="white" onClick={this.handleThis}>Close Group</Button>
+          <Button variant="white" onClick={this.handleDelete}>Delete Group</Button>
+        </div>
+      </div>
+    } else if (parseInt(this.props.group.user_groups[0].user_id) === parseInt(this.props.user)) {
+      display = <div>
+        <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
+          <h3 className="display-5 text-left">{this.props.group.name}</h3>
+          <p className="display-5 text-left">{this.props.group.description}</p>
           <p className="lead text-right">Invite friends to join your group!</p>
           <div className="text-right">
             <form onChange={(event) => this.handleChange(event)}>
@@ -130,15 +176,41 @@ class GroupCard extends Component {
           </div>
           <br />
           <Button variant="white" onClick={this.handleThis}>Close Group</Button>
-          <Button variant="white" onClick={this.handleEdit}>Edit Group</Button>
+          <Button variant="white" onClick={this.handleEdit}>Edit Group Info</Button>
           <Button variant="white" onClick={this.handleDelete}>Delete Group</Button>
-
         </div>
-
       </div>
-    );
+    } else {
+      display = <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
+        <h3 className="display-5 text-left">{this.props.group.name}</h3>
+        <p className="display-5 text-left">{this.props.group.description}</p>
+        <p className="lead text-right">Invite friends to join your group!</p>
+        <div className="text-right">
+          <form onChange={(event) => this.handleChange(event)}>
+            <label htmlFor='group'>Email Please: </label> {" "}
+            <input type='email' name='email' id='email' /> {" "}
+            <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
+          </form>
+        </div>
+        <div className="group-text">Group Members</div>
+        <span>{this.groupMembers()}</span>
+
+        <hr className="my-4" />
+        <div className="group-text" s>Saved Restaurants</div>
+        <div >
+          {this.restaurantInfo()}
+        </div>
+        <br />
+        <Button variant="white" onClick={this.handleThis}>Close Group</Button>
+      </div>
+
+    }
+    return (
+      <div>
+        {display}
+      </div >
+    )
   }
 }
 
 export default GroupCard;
-{/* <span className="card-title">{this.props.group.name}</span>{" "}<span><i onClick={this.handleClick} class="fas fa-pencil-alt"></i></span> */ }
