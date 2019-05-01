@@ -21,7 +21,7 @@ class Group extends Component {
 
     return (
       <div>
-        {this.state.isClicked ? <GroupCard group={this.props.group} grabGroups={this.props.grabGroups} isClicked={this.state.isClicked} handleClick={this.handleClick} /> :
+        {this.state.isClicked ? <GroupCard group={this.props.group} grabGroups={this.props.grabGroups} user={this.props.user} isClicked={this.state.isClicked} handleClick={this.handleClick} /> :
           <div className="card">
             <div className="card-body">
               <h3 className="card-title">{this.props.group.name}</h3>
