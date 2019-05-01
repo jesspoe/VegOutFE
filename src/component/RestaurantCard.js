@@ -45,7 +45,16 @@ class RestaurantCard extends Component {
         short_descrition: this.props.restaurant.short_description,
         veg_level_description: this.props.restaurant.veg_level_description
       })
-    }).then(alert("Added to your list!"))
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    })
+      .then(alert("Added to your list!"))
+      .catch((error) => {
+        console.log(error)
+      });
   }
 
   render() {

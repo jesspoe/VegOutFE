@@ -5,10 +5,16 @@ import { Link } from 'react-router-dom'
 class Login extends Component {
   constructor() {
     super()
-    this.state = {
-      email: "",
-      password: ""
-    }
+    this.state = this.initialState
+  }
+
+  initialState = {
+    email: "",
+    password: ""
+  }
+
+  handleFormReset = () => {
+    this.setState(() => this.initialState)
   }
 
   handleSubmit = event => {
@@ -23,6 +29,11 @@ class Login extends Component {
           password: this.state.password
         }
       })
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     }).then(response => response.json())
       .then(json => {
         localStorage.setItem('jwt', json.jwt)
@@ -37,18 +48,6 @@ class Login extends Component {
     })
   }
 
-  // getUser = (jwt) => {
-  //   fetch('http://localhost:3000/profile', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json', Authorization: `Bearer ${jwt}`
-  //     }
-  //   }).then(response => response.json())
-  //     .then(json => {
-  //       localStorage.setItem('jwt', json.jwt);
-  //       this.props.setUserId(json.user.id)
-  //     })
-  // }
 
   render() {
     return (
@@ -74,7 +73,7 @@ class Login extends Component {
                       <MDBCard>
                         <MDBCardBody>
 
-                          <form onChange={(event) => this.handleChange(event)} >
+                          <form onReset={this.handleFormReset} >
                             <p className="h4 text-center mb-4">Sign in</p>
                             <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
                               Email
@@ -84,6 +83,8 @@ class Login extends Component {
                               id="defaultFormLoginEmailEx"
                               className="form-control"
                               name="email"
+                              value={this.state.email}
+                              onChange={(event) => this.handleChange(event)}
                             />
                             <br />
                             <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
@@ -94,6 +95,8 @@ class Login extends Component {
                               id="defaultFormLoginPasswordEx"
                               className="form-control"
                               name="password"
+                              value={this.state.password}
+                              onChange={(event) => this.handleChange(event)}
                             />
                             <div className="text-center mt-4">
                               <MDBBtn gradient="peach" type="submit" onClick={(event) => this.handleSubmit(event)}>Login</MDBBtn>
