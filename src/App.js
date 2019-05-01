@@ -35,6 +35,11 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       }
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     })
       .then(response => response.json())
       .then(json => {
@@ -42,12 +47,16 @@ class App extends Component {
           restaurants: json
         })
       }).then(this.grabGroups()).then(this.getLocation()).then(this.getCity())
+      .catch((error) => {
+        console.log(error)
+      });
   }
 
 
   setUserId = (id) => {
     this.setState({ user_id: id }, () => localStorage.setItem('user', id))
   }
+
 
 
   setInitial = () => {
@@ -58,13 +67,21 @@ class App extends Component {
       body: JSON.stringify({
         currentCity: this.state.currentCity
       })
-    }).then(response => response.json())
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    })
+      .then(response => response.json())
       .then(json => {
         console.log("filtered json", json)
         this.setState({
           restaurants: json
         })
-      })
+      }).catch((error) => {
+        console.log(error)
+      });
   }
 
 
@@ -75,14 +92,20 @@ class App extends Component {
       headers: {
         Authorization: `Bearer ${localStorage.jwt}`
       }
-    })
-      .then(result => result.json())
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    }).then(result => result.json())
       .then(data => {
         // this.setState({
         //   currentLat: data.location.lat,
         //   currentLong: data.location.lng
         // })
-      })
+      }).catch((error) => {
+        console.log(error)
+      });
   }
 
 
@@ -93,13 +116,20 @@ class App extends Component {
       headers: {
         Authorization: `Bearer ${localStorage.jwt}`
       }
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     })
       .then(result => result.json())
       .then(data => {
         this.setState({
           currentCity: data.results[0].address_components[3].long_name
         }, () => this.setInitial())
-      })
+      }).catch((error) => {
+        console.log(error)
+      });
   }
 
 
@@ -109,13 +139,21 @@ class App extends Component {
       headers: {
         Authorization: `Bearer ${localStorage.jwt}`
       }
-    }).then(response => {
-      return response.json()
-    }).then(json => {
-      this.setState({
-        groups: json
-      })
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     })
+      .then(response => {
+        return response.json()
+      }).then(json => {
+        this.setState({
+          groups: json
+        })
+      }).catch((error) => {
+        console.log(error)
+      });
   }
 
 
@@ -128,12 +166,18 @@ class App extends Component {
       body: JSON.stringify({
         citySearch: this.state.citySearch
       })
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     }).then(response => response.json())
       .then(json => {
-        console.log("filtered json", json)
         this.setState({
           restaurants: json
         })
+      }).catch((error) => {
+        console.log(error)
       }))
 
   }

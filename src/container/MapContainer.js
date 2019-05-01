@@ -68,6 +68,12 @@ class MapContainer extends Component {
       // console.log("Did not find cache entry for", cachedKey)
       // console.log("Geocoding:", encodedAddress)
       fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=`)
+        .then((response) => {
+          if (!response.ok) {
+            throw Error(response.statusText);
+          }
+          return response;
+        })
         .then(response => response.json())
         .then(json => {
           if (json.results.length > 0) {
@@ -82,7 +88,9 @@ class MapContainer extends Component {
           this.setState({
             locations: local
           })
-        })
+        }).catch((error) => {
+          console.log(error)
+        });
     })
   }
 
@@ -154,8 +162,6 @@ class MapContainer extends Component {
 
 
       </Map>
-
-
 
     );
   }

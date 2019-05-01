@@ -12,7 +12,6 @@ class Restaurant extends Component {
   }
 
   handleClick = () => {
-    console.log("im in the click")
     this.setState({
       isShowing: !this.state.isShowing
     })

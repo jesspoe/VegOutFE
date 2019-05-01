@@ -29,7 +29,13 @@ class Signup extends Component {
           password: this.state.password
         }
       })
-    }).then(response => response.json())
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    })
+      .then(response => response.json())
       .then(json => {
         localStorage.setItem('jwt', json.jwt);
         this.props.setUserId(json.user.id)
@@ -133,8 +139,6 @@ class Signup extends Component {
                               Have an account? <Link to='/login' > Login </Link></p>
                           </div>
                         </form>
-
-
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>

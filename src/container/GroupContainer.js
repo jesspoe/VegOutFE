@@ -31,9 +31,16 @@ class GroupContainer extends Component {
           description: this.state.description
         }
       })
-    }).then(() => this.props.grabGroups()
-    ).catch(function (error) { console.log(" There is an error: ", error.message) })
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    })
+      .then(() => this.props.grabGroups()
+      ).catch(function (error) { console.log(" There is an error: ", error.message) })
   }
+
 
   handleChange = event => {
     this.setState({
@@ -63,7 +70,7 @@ class GroupContainer extends Component {
                 <br />
                 <label htmlFor='group'>Description: </label> {" "}
                 <input type='text' name='description' id='groupDescription' /> <br />
-                <Button className='form-submit-btn' type='submit' value="Add" variant="yellow lighten-5" >Add a New Group</Button>
+                <Button className='form-submit-btn' type='submit' value="Add" variant="white" >Add a New Group</Button>
               </form>
             </div>
           </Col>
@@ -86,6 +93,3 @@ class GroupContainer extends Component {
 }
 
 export default GroupContainer;
-
-
-
