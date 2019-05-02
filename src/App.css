@@ -69,3 +69,14 @@ body{
   width: 310px;
 }
 
+.rest-cont{
+  margin-top: 12px;
+  height: 870px;
+  overflow: scroll;
+}
+
+.map-cont{
+ margin-top: 12px;
+ width: auto;
+ height: 870px;
+}
