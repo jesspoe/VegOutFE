@@ -11,26 +11,28 @@ class Home extends Component {
 
   render() {
     return (
-      <Container>
+      <div className="container-fluid">
 
         <Row>
-          <Col xs={12} md={12}>
+          <Col >
             <NavbarPage />
           </Col>
         </Row>
 
         <Row>
-          <Col xs={12} align='right'><Search searchResults={this.props.searchResults} /></Col>
+          <Col align='right'><Search searchResults={this.props.searchResults} /></Col>
         </Row>
 
         <Row >
-          <div className="col-md-5" style={{ overflow: 'scroll' }}>
-            <div ><RestaurantContainer restaurants={this.props.restaurants} groups={this.props.groups} user={this.props.user} /></div>
+          <div className="col-md-5" >
+            <div className="rest-cont"><RestaurantContainer restaurants={this.props.restaurants} groups={this.props.groups} user={this.props.user} /></div>
           </div>
-          <div className="col-md-6"><MapContainer restaurants={this.props.restaurants} currentLat={this.props.currentLat} currentLong={this.props.currentLong} /></div>
+          <div className="col-md-6">
+            <div className="map-cont"><MapContainer restaurants={this.props.restaurants} currentLat={this.props.currentLat} currentLong={this.props.currentLong} /></div>
+          </div>
         </Row>
 
-      </Container >
+      </div >
     );
   }
 }
