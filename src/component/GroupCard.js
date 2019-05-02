@@ -27,6 +27,7 @@ class GroupCard extends Component {
     })
   }
 
+
   editing = (event) => {
     event.preventDefault()
     let data = {
@@ -124,6 +125,18 @@ class GroupCard extends Component {
       });
   }
 
+  handleDelete = (id) => {
+    fetch(`http://localhost:3000/groups/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}`
+        }
+      }).then((response) => {
+        this.props.grabGroups()
+      })
+  }
+
 
   render() {
 
@@ -150,7 +163,7 @@ class GroupCard extends Component {
           </div>
           <br />
           <Button variant="white" onClick={this.handleThis}>Close Group</Button>
-          <Button variant="white" onClick={this.handleDelete}>Delete Group</Button>
+          <Button variant="white" onClick={() => this.handleDelete(this.state.group_id)}>Delete Group</Button>
         </div>
       </div>
     } else if (parseInt(this.props.group.user_groups[0].user_id) === parseInt(this.props.user)) {
@@ -177,7 +190,7 @@ class GroupCard extends Component {
           <br />
           <Button variant="white" onClick={this.handleThis}>Close Group</Button>
           <Button variant="white" onClick={this.handleEdit}>Edit Group Info</Button>
-          <Button variant="white" onClick={this.handleDelete}>Delete Group</Button>
+          <Button variant="white" onClick={() => this.handleDelete(this.state.group_id)}>Delete Group</Button>
         </div>
       </div>
     } else {
