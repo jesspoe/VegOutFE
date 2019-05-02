@@ -27,7 +27,7 @@ class Home extends Component {
           <div className="col-md-5" style={{ overflow: 'scroll' }}>
             <div ><RestaurantContainer restaurants={this.props.restaurants} groups={this.props.groups} user={this.props.user} /></div>
           </div>
-          <div className="col-md-6"><MapContainer restaurants={this.props.restaurants} /></div>
+          <div className="col-md-6"><MapContainer restaurants={this.props.restaurants} currentLat={this.props.currentLat} currentLong={this.props.currentLong} /></div>
         </Row>
 
       </Container >

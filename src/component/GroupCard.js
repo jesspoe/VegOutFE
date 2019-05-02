@@ -9,8 +9,8 @@ class GroupCard extends Component {
       email: " ",
       group_id: this.props.group.id,
       editShowing: false,
-      newName: "",
-      newDescription: ""
+      newName: this.props.group.name,
+      newDescription: this.props.group.description
     }
   }
 
