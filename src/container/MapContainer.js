@@ -145,7 +145,7 @@ class MapContainer extends Component {
 
           ref={this.onMapMounted}
           google={this.props.google}
-          zoom={12}
+          zoom={1}
           style={mapStyles}
           onClick={this.onMapClicked}
           center={
@@ -175,5 +175,5 @@ class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAKTm2RXPRrZ9igv6NRfEPq398DWeK0WzA'
+  apiKey: ''
 })(MapContainer);

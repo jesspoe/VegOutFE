@@ -87,7 +87,7 @@ class App extends Component {
 
 
   getLocation = () => {
-    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAKTm2RXPRrZ9igv6NRfEPq398DWeK0WzA"
+    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key="
     fetch(url, {
       method: 'POST',
       headers: {
@@ -111,7 +111,7 @@ class App extends Component {
 
 
   getCity = () => {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=AIzaSyAKTm2RXPRrZ9igv6NRfEPq398DWeK0WzA`
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=`
     fetch(url, {
       method: 'POST',
       headers: {
