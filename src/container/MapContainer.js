@@ -36,17 +36,6 @@ class MapContainer extends Component {
     }
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log("Are we in componentDidUpdate")
-  //   const node = ReactDOM.findDOMNode(this.state.mapRef)
-  //   console.log("what's node", node)
-  //   let map = new this.props.google.maps.Map(node)
-  //   console.log("What's map", map)
-  //   let center = new this.props.google.maps.LatLng(34.98767, -122.87645)
-  //   console.log("whats center.", center)
-  //   map.panTo(center)
-  // }
-
   onMapMounted = (ref) => {
     console.log('ref', ref)
     this.setState({
@@ -133,11 +122,7 @@ class MapContainer extends Component {
 
 
   render() {
-    const mapStyles = {
-      width: '600px',
-      height: '600px',
 
-    };
     if (this.state.locations[0]) {
       return (
 
@@ -146,7 +131,6 @@ class MapContainer extends Component {
           ref={this.onMapMounted}
           google={this.props.google}
           zoom={1}
-          style={mapStyles}
           onClick={this.onMapClicked}
           center={
             {
@@ -165,8 +149,6 @@ class MapContainer extends Component {
               <h4>{this.state.selectedPlace.name && this.state.selectedPlace.position.name}</h4>
             </div>
           </InfoWindow>
-
-
         </Map>
 
       );
