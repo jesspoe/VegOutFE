@@ -62,7 +62,7 @@ class MapContainer extends Component {
         })
         return
       }
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=AIzaSyAKTm2RXPRrZ9igv6NRfEPq398DWeK0WzA`)
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=`)
         .then((response) => {
           if (!response.ok) {
             throw Error(response.statusText);
@@ -80,7 +80,7 @@ class MapContainer extends Component {
           }
         })
         .then(item => {
-          console.log("locatiosn storage", local)
+          console.log("location storage", local)
           this.setState({
             locations: local
           })
@@ -130,7 +130,7 @@ class MapContainer extends Component {
 
           ref={this.onMapMounted}
           google={this.props.google}
-          zoom={1}
+          zoom={14}
           onClick={this.onMapClicked}
           center={
             {
@@ -152,7 +152,7 @@ class MapContainer extends Component {
         </Map>
 
       );
-    } else { return "No Restaurants Available" }
+    } else { return null }
   }
 }
 

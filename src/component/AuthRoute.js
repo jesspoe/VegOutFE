@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 
-const UnAuthRoute = ({ component: Component, ...state }) => (
+const AuthRoute = ({ component: Component, ...state }) => (
   <Route {...state} render={props => (
     localStorage.getItem('jwt') ?
       (
@@ -17,7 +17,7 @@ const UnAuthRoute = ({ component: Component, ...state }) => (
   )} />
 )
 
-export default UnAuthRoute;
+export default AuthRoute;
 
 /**
   This route allows us to keep out non-logged in users

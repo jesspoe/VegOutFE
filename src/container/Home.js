@@ -28,7 +28,7 @@ class Home extends Component {
             <div className="rest-cont"><RestaurantContainer restaurants={this.props.restaurants} groups={this.props.groups} user={this.props.user} /></div>
           </div>
           <div className="col-md-6">
-            <div className="map-cont"><MapContainer restaurants={this.props.restaurants} currentLat={this.props.currentLat} currentLong={this.props.currentLong} /></div>
+            <div ><MapContainer restaurants={this.props.restaurants} currentLat={this.props.currentLat} currentLong={this.props.currentLong} /></div>
           </div>
         </Row>
 

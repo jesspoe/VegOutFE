@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button'
+import { Link } from 'react-router-dom';
+import Vote from './Vote.js'
+
 
 
 class GroupCard extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
     this.state = {
       email: " ",
       group_id: this.props.group.id,
@@ -12,13 +16,18 @@ class GroupCard extends Component {
       newName: this.props.group.name,
       newDescription: this.props.group.description
     }
+
+  }
+
+  componentDidMount() {
+    this.display()
+    console.log("showing props", this.props)
   }
 
   handleThis = () => {
     console.log("props", this.props.group)
     console.log("group creator id", this.props.group.user_groups[0].user_id)
     console.log("current user id", this.props.user)
-    this.props.handleClick()
   }
 
   handleEdit = () => {
@@ -137,12 +146,10 @@ class GroupCard extends Component {
       })
   }
 
-
-  render() {
-
+  display = () => {
     let display;
     if (parseInt(this.props.group.user_groups[0].user_id) === parseInt(this.props.user) && this.state.editShowing) {
-      display = <div>
+      display = <div className="container-fluid">
         <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
           <div className="text">
             <form onChange={(event) => this.handleChange(event)}>
@@ -162,12 +169,13 @@ class GroupCard extends Component {
             {this.restaurantInfo()}
           </div>
           <br />
-          <Button variant="white" onClick={this.handleThis}>Close Group</Button>
+          < Link to='/groups'>Back to Groups</Link >
           <Button variant="white" onClick={() => this.handleDelete(this.state.group_id)}>Delete Group</Button>
         </div>
       </div>
+
     } else if (parseInt(this.props.group.user_groups[0].user_id) === parseInt(this.props.user)) {
-      display = <div>
+      display = <div className="container-fluid">
         <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
           <h3 className="display-5 text-left">{this.props.group.name}</h3>
           <p className="display-5 text-left">{this.props.group.description}</p>
@@ -188,41 +196,53 @@ class GroupCard extends Component {
             {this.restaurantInfo()}
           </div>
           <br />
-          <Button variant="white" onClick={this.handleThis}>Close Group</Button>
+          < Link to='/groups'>Back to Groups</Link >
           <Button variant="white" onClick={this.handleEdit}>Edit Group Info</Button>
           <Button variant="white" onClick={() => this.handleDelete(this.state.group_id)}>Delete Group</Button>
         </div>
       </div>
-    } else {
-      display = <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
-        <h3 className="display-5 text-left">{this.props.group.name}</h3>
-        <p className="display-5 text-left">{this.props.group.description}</p>
-        <p className="lead text-right">Invite friends to join your group!</p>
-        <div className="text-right">
-          <form onChange={(event) => this.handleChange(event)}>
-            <label htmlFor='group'>Email Please: </label> {" "}
-            <input type='email' name='email' id='email' /> {" "}
-            <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
-          </form>
-        </div>
-        <div className="group-text">Group Members</div>
-        <span>{this.groupMembers()}</span>
 
-        <hr className="my-4" />
-        <div className="group-text" s>Saved Restaurants</div>
-        <div >
-          {this.restaurantInfo()}
+    } else {
+      display = display = <div className="container-fluid">
+        <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
+          <h3 className="display-5 text-left">{this.props.group.name}</h3>
+          <p className="display-5 text-left">{this.props.group.description}</p>
+          <p className="lead text-right">Invite friends to join your group!</p>
+          <div className="text-right">
+            <form onChange={(event) => this.handleChange(event)}>
+              <label htmlFor='group'>Email Please: </label> {" "}
+              <input type='email' name='email' id='email' /> {" "}
+              <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
+            </form>
+          </div>
+          <div className="group-text">Group Members</div>
+          <span>{this.groupMembers()}</span>
+
+          <hr className="my-4" />
+          <div className="group-text" s>Saved Restaurants</div>
+          <div >
+            {this.restaurantInfo()}
+          </div>
+          <br />
+          < Link to='/groups'>Back to Groups</Link >
         </div>
-        <br />
-        <Button variant="white" onClick={this.handleThis}>Close Group</Button>
       </div>
 
     }
-    return (
-      <div>
-        {display}
-      </div >
-    )
+    return display
+
+  }
+
+  render() {
+    if (this.state.group_id) {
+      return (
+        <div>
+          {this.display()}
+          <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
+        </div >
+      )
+    } else { return "No Restaurants Available" }
+
   }
 }
 

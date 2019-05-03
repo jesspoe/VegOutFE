@@ -81,7 +81,7 @@ class GroupContainer extends Component {
           {this.props.groups.map((group, index) => {
             for (let i = 0; i < group.user_groups.length; i++) {
               if (group.user_groups[i].user_id === parseInt(this.props.user)) {
-                return <div className="single-group"><Group group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} /></div>
+                return <div className="single-group"><Group sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} /></div>
               }
             }
           })

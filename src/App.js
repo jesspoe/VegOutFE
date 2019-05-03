@@ -8,6 +8,7 @@ import Login from './component/Login.js'
 import Logout from './container/Logout.js'
 import Home from './container/Home.js'
 import GroupContainer from './container/GroupContainer.js'
+import GroupCard from './component/GroupCard.js'
 
 
 class App extends Component {
@@ -22,7 +23,9 @@ class App extends Component {
       currentLong: -122.3334927,
       currentCity: "",
       user_id: localStorage.getItem('user'),
-      errorMsg: "No Restaurants Available, Please Search a Different Postal Code."
+      errorMsg: "No Restaurants Available, Please Search a Different Postal Code.",
+      currentCard: {},
+      singleGroup: {}
     }
   }
 
@@ -51,6 +54,13 @@ class App extends Component {
       .catch((error) => {
         console.log(error)
       });
+  }
+
+  sendProps = (group) => {
+    console.log('sendProps fired')
+    this.setState({
+      singleGroup: group
+    })
   }
 
 
@@ -198,7 +208,8 @@ class App extends Component {
             <UnAuthRoute exact path='/signup' component={() => <Signup setUserId={this.setUserId} />} />
             <UnAuthRoute exact path='/login' component={() => <Login setUserId={this.setUserId} />} />
             <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} error={this.state.errorMsg} />} />
-            <AuthRoute exact path='/groups' component={() => <GroupContainer groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
+            <AuthRoute exact path='/groups' component={() => <GroupContainer sendProps={this.sendProps} groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
+            <AuthRoute exact path='/card' component={() => <GroupCard user={this.state.user_id} groups={this.state.groups} grabGroups={this.grabGroups} group={this.state.singleGroup} />} />
             <AuthRoute exact path='/logout' component={() => <Logout />} />
           </div>
         </Router>
