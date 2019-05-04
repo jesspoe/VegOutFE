@@ -1,67 +1,72 @@
 import React, { Component } from 'react';
-import Poll from 'react-polls';
-
-
 
 class Vote extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      pollAnswers: [],
-      pollQuestion: 'Vote for your favorite restaurant!'
+      counts: {},
+      total: 0
     }
-
   }
 
 
-  componentDidMount() {
-    this.restaurantNames()
-    this.pollAnswers()
-    console.log("showing poll answers", this.state.pollAnswers)
-  }
 
-
-  restaurantNames = () => {
-    debugger
-    return this.props.group.restaurants.map((rest, index) => {
-      return rest.name
-
-    })
-  }
-
-  pollAnswers = () => {
-    let answers = []
-    this.restaurantNames().map((rest, index) => {
-      if (rest === undefined) {
-        return
-      } else {
-        answers.push({ option: rest, votes: 0 })
+  renderPercents = (rest) => {
+    let final;
+    this.state.counts.map((item) => {
+      if (rest.name === item) {
+        return final = this.state.total / item.value
       }
     })
-    return this.setState({ pollAnswers: answers })
+
+  }
+
+  renderNames = () => {
+    this.props.group.restaurants.map((rest, index) => {
+      if (rest.name === undefined) {
+        return
+      }
+    })
   }
 
 
-  // Handling user vote
-  // Increments the votes count of answer when the user votes
-  handleVote = voteAnswer => {
-    const { pollAnswers } = this.state
-    const newPollAnswers = pollAnswers.map(answer => {
-      if (answer.option === voteAnswer) answer.votes++
-      return answer
-    })
-    this.setState({
-      pollAnswers: [...newPollAnswers]
-    })
+
+  castVotes = (rest) => {
+    fetch('http://localhost:3000/votes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
+      body: JSON.stringify({
+        vote: {
+          group_id: this.props.group.id,
+          rest_name: rest
+        }
+      })
+    }).then((response) => {
+      (console.log("count response", response))
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    }).then(response => response.json())
+      .then(json => {
+        console.log("filtered json", json)
+        this.setState({
+          counts: json.counts,
+          total: json.total
+        })
+      }).catch((error) => {
+        console.log(error)
+      })
   }
 
   render() {
-    return (
-      <div>
-        <Poll question={this.state.pollQuestion} answers={this.state.pollAnswers} onVote={this.handleVote} />
-      </div>
-    )
 
+    return (
+      <div></div>
+    );
   }
-};
-export default Vote 
+}
+
+export default Vote;
+
