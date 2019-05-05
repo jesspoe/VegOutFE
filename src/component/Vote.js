@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Results from './Results'
 
 class Vote extends Component {
   constructor(props) {
@@ -6,21 +7,12 @@ class Vote extends Component {
 
     this.state = {
       counts: {},
-      total: 0
+      percents: {},
+      total: 0,
+      isShowing: true
     }
   }
 
-
-
-  renderPercents = (rest) => {
-    let final;
-    this.state.counts.map((item) => {
-      if (rest.name === item) {
-        return final = this.state.total / item.value
-      }
-    })
-
-  }
 
   renderNames = () => {
     this.props.group.restaurants.map((rest, index) => {
@@ -30,6 +22,11 @@ class Vote extends Component {
     })
   }
 
+  showResults = () => {
+    this.setState({
+      isShowing: false
+    })
+  }
 
 
   castVotes = (rest) => {
@@ -43,7 +40,6 @@ class Vote extends Component {
         }
       })
     }).then((response) => {
-      (console.log("count response", response))
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -53,9 +49,11 @@ class Vote extends Component {
         console.log("filtered json", json)
         this.setState({
           counts: json.counts,
-          total: json.total
+          total: json.total,
+          percents: json.percents
         })
-      }).catch((error) => {
+      }).then(this.showResults())
+      .catch((error) => {
         console.log(error)
       })
   }
@@ -63,10 +61,27 @@ class Vote extends Component {
   render() {
 
     return (
-      <div></div>
+      this.state.isShowing ?
+        <div>
+          {this.props.group.restaurants.map((rest) => {
+            if (rest.name === undefined) {
+              return
+            } else {
+              return <div>
+                {rest.name}
+                <button onClick={() => this.castVotes(rest.name)}>Vote</button>
+              </div>
+            }
+          })
+          }
+        </div>
+        :
+        <Results percent={this.state.percents} />
+
     );
   }
 }
+
 
 export default Vote;
 
