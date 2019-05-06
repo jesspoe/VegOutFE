@@ -28,7 +28,7 @@ class Search extends Component {
           <form onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
             <div className="input-group md-form form-sm form-1 pl-0">
               <div className="input-group-prepend">
-                <span className="input-group-text purple lighten-3" id="basic-text1">
+                <span className="input-group-text success-color-dark" id="basic-text1">
                   <MDBIcon className="text-white" icon="search" />
                 </span>
               </div>

@@ -5,6 +5,8 @@ import NavbarPage from '../component/NavbarPage'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import toaster from 'toasted-notes';
+
 
 class GroupContainer extends Component {
   constructor() {
@@ -38,7 +40,10 @@ class GroupContainer extends Component {
       return response;
     })
       .then(() => this.props.grabGroups()
-      ).catch(function (error) { console.log(" There is an error: ", error.message) })
+      ).then(toaster.notify('Group Created!', {
+        duration: 1000
+      }))
+      .catch(function (error) { console.log(" There is an error: ", error.message) })
   }
 
 

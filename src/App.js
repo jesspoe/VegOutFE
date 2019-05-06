@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css';
+import 'toasted-notes/src/styles.css';
 import UnAuthRoute from './component/UnAuthRoute';
 import AuthRoute from './component/AuthRoute';
 import Signup from './component/Signup.js'
@@ -9,6 +10,7 @@ import Logout from './container/Logout.js'
 import Home from './container/Home.js'
 import GroupContainer from './container/GroupContainer.js'
 import GroupCard from './component/GroupCard.js'
+import Resources from './container/Resources.js'
 
 
 class App extends Component {
@@ -211,6 +213,8 @@ class App extends Component {
             <AuthRoute exact path='/groups' component={() => <GroupContainer sendProps={this.sendProps} groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
             <AuthRoute exact path='/card' component={() => <GroupCard user={this.state.user_id} groups={this.state.groups} grabGroups={this.grabGroups} group={this.state.singleGroup} />} />
             <AuthRoute exact path='/logout' component={() => <Logout />} />
+            <AuthRoute exact path='/resources' component={() => <Resources />} />
+
           </div>
         </Router>
       </div>

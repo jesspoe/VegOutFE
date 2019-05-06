@@ -20,15 +20,15 @@ class Home extends Component {
         </Row>
 
         <Row>
-          <Col align='right'><Search searchResults={this.props.searchResults} /></Col>
+          <Col><Search searchResults={this.props.searchResults} /></Col>
         </Row>
 
-        <Row >
-          <div className="col-md-5" >
+        <Row className="container-fluid">
+          <div className="col-md-6" >
             <div className="rest-cont"><RestaurantContainer restaurants={this.props.restaurants} groups={this.props.groups} user={this.props.user} /></div>
           </div>
-          <div className="col-md-6">
-            <div ><MapContainer restaurants={this.props.restaurants} currentLat={this.props.currentLat} currentLong={this.props.currentLong} /></div>
+          <div className="col-md-6" id="wrapper">
+            <div  ><MapContainer restaurants={this.props.restaurants} currentLat={this.props.currentLat} currentLong={this.props.currentLong} /></div>
           </div>
         </Row>
 

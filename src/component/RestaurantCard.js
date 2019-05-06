@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container'
 import { MDBBtn } from "mdbreact";
+import toaster from 'toasted-notes';
+
 
 
 class RestaurantCard extends Component {
@@ -51,7 +53,10 @@ class RestaurantCard extends Component {
       }
       return response;
     })
-      .then(alert("Added to your list!"))
+      .then(toaster.notify("Restaurant Added!", {
+        position: 'top-left',
+        duration: 1500
+      }))
       .catch((error) => {
         console.log(error)
       });

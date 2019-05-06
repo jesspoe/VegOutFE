@@ -51,15 +51,15 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <MDBContainer>
+      <div className="opening-pages">
+        <div className="container" id='overall'>
           <MDBRow>
             <MDBCol>
-              <MDBJumbotron style={{ padding: 0 }}>
-                <MDBCol className="text-white text-center py-5 px-4 my-5" style={{ backgroundImage: `url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)` }}>
+              <div className="jumbotron" >
+                <MDBCol className="jumbotext">
                   <MDBCol className="py-5">
-                    <MDBCardTitle className="h1-responsive pt-3 m-5 font-bold">Welcome to VegOut!</MDBCardTitle>
-                    <p className="mx-5 mb-5">A place to find vegan-friendly restaurants and collobrate with your friends and family!
+                    <h1 className="h1-responsive  m-5 font-bold">VegOut!</h1>
+                    <p className="mx-5 mb-5">A place to find vegan-friendly restaurants with the ability to collobrate and vote on your favorites with friends and family!
                   </p>
                   </MDBCol>
                 </MDBCol>
@@ -99,12 +99,12 @@ class Login extends Component {
                               onChange={(event) => this.handleChange(event)}
                             />
                             <div className="text-center mt-4">
-                              <MDBBtn gradient="peach" type="submit" onClick={(event) => this.handleSubmit(event)}>Login</MDBBtn>
+                              <MDBBtn color="green" type="submit" onClick={(event) => this.handleSubmit(event)}>Login</MDBBtn>
                             </div>
-                            <p className="font-small grey-text d-flex justify-content-center">
-                              Need an account?
-                              <Link to='/signup' > Signup </Link>
-                            </p>
+                            <br />
+                            <p className="font-small green-text d-flex justify-content-center">
+                              Need an account? </p>  <Link to='/signup' className="font-small d-flex justify-content-center"> Signup </Link>
+
                           </form>
                         </MDBCardBody>
                       </MDBCard>
@@ -114,12 +114,12 @@ class Login extends Component {
                     </MDBCol>
                   </MDBRow>
                 </MDBContainer>
-              </MDBJumbotron>
+              </div>
             </MDBCol>
           </MDBRow>
-        </MDBContainer>
-      </div>
+        </div >
 
+      </div>
     );
   }
 }

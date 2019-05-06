@@ -17,7 +17,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
     "react-vote": "^3.3.3",
-    "toastr": "^2.1.4"
+    "toasted-notes": "^2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

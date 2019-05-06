@@ -76,7 +76,7 @@ class Vote extends Component {
           }
         </div>
         :
-        <Results percent={this.state.percents} />
+        <Results percent={this.state.percents} total={this.state.total} />
 
     );
   }

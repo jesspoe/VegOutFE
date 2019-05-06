@@ -16,7 +16,7 @@ class NavbarPage extends Component {
 
   render() {
     return (
-      <MDBNavbar color="purple lighten-3" dark expand="md">
+      <MDBNavbar color="success-color-dark" dark expand="md">
         <MDBNavbarBrand>
           <strong className="white-text">VegOut!</strong>
         </MDBNavbarBrand>
@@ -28,6 +28,9 @@ class NavbarPage extends Component {
             </MDBNavItem>
             <MDBNavItem >
               <Nav.Link href="/groups">Groups</Nav.Link>
+            </MDBNavItem>
+            <MDBNavItem>
+              <Nav.Link href="/resources">Resources</Nav.Link>
             </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>

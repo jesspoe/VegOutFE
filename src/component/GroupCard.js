@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 import Vote from './Vote.js'
+import toaster from 'toasted-notes';
+import createHistory from 'history/createBrowserHistory';
 
 
 
@@ -16,18 +18,11 @@ class GroupCard extends Component {
       newName: this.props.group.name,
       newDescription: this.props.group.description
     }
-
   }
 
   componentDidMount() {
     this.display()
     console.log("showing props", this.props)
-  }
-
-  handleThis = () => {
-    console.log("props", this.props.group)
-    console.log("group creator id", this.props.group.user_groups[0].user_id)
-    console.log("current user id", this.props.user)
   }
 
   handleEdit = () => {
@@ -36,6 +31,11 @@ class GroupCard extends Component {
     })
   }
 
+  handleRedirect = () => {
+    console.log("Inside the redirect")
+    const history = createHistory();
+    history.push('/groups');
+  }
 
   editing = (event) => {
     event.preventDefault()
@@ -58,8 +58,6 @@ class GroupCard extends Component {
           <p> {rest.veg_level_description}</p>
         </div>
       })
-    } else {
-      return <h3>Add some resturants!</h3>
     }
   }
 
@@ -97,7 +95,9 @@ class GroupCard extends Component {
       }
       return response;
     })
-      .then(alert("Invite sent!"))
+      .then(toaster.notify("Invite Sent!", {
+        duration: 1500
+      }))
       .then(this.props.grabGroups())
       .catch(function (error) { console.log(" There is an error: ", error.message) })
   }
@@ -143,7 +143,7 @@ class GroupCard extends Component {
         }
       }).then((response) => {
         this.props.grabGroups()
-      })
+      }).then(this.handleRedirect())
   }
 
   display = () => {
@@ -230,7 +230,6 @@ class GroupCard extends Component {
 
     }
     return display
-
   }
 
   render() {
@@ -241,8 +240,7 @@ class GroupCard extends Component {
           <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
         </div >
       )
-    } else { return "No Restaurants Available" }
-
+    } else { return "Looking for Restaurants" }
   }
 }
 

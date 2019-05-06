@@ -40,7 +40,6 @@
   margin: 5px;
   padding: 8px;
   border-radius: 10px;
-  /* font-weight: bold; */
 }
 
 .group-text{
@@ -60,7 +59,7 @@
 }
 
 body{
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Muli', sans-serif;
 }
 
 .single-group{
@@ -75,48 +74,36 @@ body{
   overflow: scroll;
 }
 
-.map-cont{
- margin-top: 12px;
- width: auto;
- height: 870px;
+#overall{
+  opacity: 0.94 !important;
 }
 
-.poll-item-0 {
-  color: red;
+
+.jumbotext{
+  background: radial-gradient(#65ac73, #293f50);
+  border-radius: .5em; 
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  font-family: 'Muli', sans-serif;
+  font-size: 1.2em;
+  /* opacity: 0.7; */
+  color: white;
+  text-align: center;
 }
 
-.poll-item-1 {
-  color: green;
+.opening-pages {
+  background-image: url('./Images/lettuce.jpg');
+  background-size: cover;
+  height: 100vh;
+  background-repeat: no-repeat;
+  overflow: auto;
 }
 
-.poll-item-2 {
-  color: blue;
+.h1-responsive {
+  font-size: 500% !important;
+  font-weight: bolder;
+  text-shadow: 2px 2px #084928;
 }
 
-.poll-item-3 {
-  color: purple;
-}
+.a.nav-link {
 
-.poll-item-4 {
-  color: yellow;
-}
-
-.poll-item-5 {
-  color: orange;
-}
-
-.poll-item-6 {
-  color:pink;
-}
-
-.poll-item-7 {
-  color:teal;
-}
-
-.poll-item-8 {
-  color: darkorchid;
-}
-
-.poll-item-9 {
-  color: lightgreen;
 }
