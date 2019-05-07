@@ -188,10 +188,7 @@ class App extends Component {
     }).then(response => response.json())
       .then(json => {
         if (json === null) {
-          throw Error("No Restaurants Available"),
-          this.setState({
-            restaurants: []
-          })
+          throw Error("No Restaurants Available")
         }
         this.setState({
           restaurants: json

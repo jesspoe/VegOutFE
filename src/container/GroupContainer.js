@@ -56,44 +56,46 @@ class GroupContainer extends Component {
 
   render() {
     return (
-      <Container>
+      <div className="home-page">
+        <div className="container-fluid">
 
-        <Row>
-          <Col xs={12} md={12}>
-            <NavbarPage />
-          </Col>
-        </Row>
+          <Row>
+            <Col xs={12} md={12}>
+              <NavbarPage />
+            </Col>
+          </Row>
 
 
 
-        <Row>
-          <Col align="right" className="group-form">
-            <div>
-              <form className="user-form" onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
-                <label htmlFor='group'>Group Name: </label> {" "}
-                <input type='text' name='name' id='groupName' /> {" "}
-                <br />
-                <label htmlFor='group'>Description: </label> {" "}
-                <input type='text' name='description' id='groupDescription' /> <br />
-                <Button className='form-submit-btn' type='submit' value="Add" variant="white" >Add a New Group</Button>
-              </form>
-            </div>
-          </Col>
-        </Row>
+          <Row>
+            <Col align="right" className="group-form">
+              <div>
+                <form className="user-form" onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
+                  <label htmlFor='group'>Group Name: </label> {" "}
+                  <input type='text' name='name' id='groupName' /> {" "}
+                  <br />
+                  <label htmlFor='group'>Description: </label> {" "}
+                  <input type='text' name='description' id='groupDescription' /> <br />
+                  <Button className='form-submit-btn' type='submit' value="Add" variant="white" >Add a New Group</Button>
+                </form>
+              </div>
+            </Col>
+          </Row>
 
-        <div className="single-group-card">
-          <h3>Your Groups:</h3>
-          {this.props.groups.map((group, index) => {
-            for (let i = 0; i < group.user_groups.length; i++) {
-              if (group.user_groups[i].user_id === parseInt(this.props.user)) {
-                return <div className="single-group"><Group sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} /></div>
+          <div className="single-group-card">
+            <h3>Your Groups:</h3>
+            {this.props.groups.map((group, index) => {
+              for (let i = 0; i < group.user_groups.length; i++) {
+                if (group.user_groups[i].user_id === parseInt(this.props.user)) {
+                  return <div className="single-group"><Group sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} /></div>
+                }
               }
+            })
             }
-          })
-          }
-        </div>
+          </div>
 
-      </Container>
+        </div>
+      </div>
     );
   }
 }

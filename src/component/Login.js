@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 import { Link } from 'react-router-dom'
 
 class Login extends Component {

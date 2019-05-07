@@ -66,7 +66,7 @@ class RestaurantCard extends Component {
 
 
     return (
-      <Container >
+      <div className="single-rest" >
         <div className="card border-secondary mb-3">
           <div className="card-header">
             <a href={this.props.restaurant.website} target='blank'><h5 className="card-title">{this.props.restaurant.sortable_name}</h5 ></a>
@@ -77,20 +77,21 @@ class RestaurantCard extends Component {
             <p className="card-text"><strong>Phone:</strong> <span>{this.props.restaurant.phone}</span></p>
             <p className="card-text"><strong>Address:</strong> <span>{this.props.restaurant.address1} {this.props.restaurant.city}, {this.props.restaurant.region}</span></p>
             <p className="card-text"><strong>Accepts Reservations:</strong> <span>{this.props.restaurant.accepts_reservations === 1 ? 'Yes' : 'No'} </span></p>
+            <p className="card-text"><strong>Descripton: </strong><span>{this.props.restaurant.long_description ? this.props.restaurant.long_description["text/vnd.vegguide.org-wikitext"] : "Unavailable"}</span> </p>
 
             <form onChange={(event) => { this.handleChange(event) }} >
               <select className="browser-default custom-select">
                 <option>Choose a group to add this restaurant.</option>
                 {this.populateOptions(this.props.groups)}
               </select>
-              <MDBBtn onClick={(event) => this.handleSubmit(event)} type="submit" className="btn btn-outline-secondary waves-effect btn-sm">Add </MDBBtn>
+              <MDBBtn onClick={(event) => this.handleSubmit(event)} type="submit" className="btn btn-outline-default waves-effect btn-sm">Add </MDBBtn>
             </form>
 
-            <MDBBtn onClick={this.props.handleClick} type="button" className="btn btn-outline-secondary waves-effect btn-sm">Less Info</MDBBtn>
+            <MDBBtn onClick={this.props.handleClick} type="button" className="btn btn-outline-default waves-effect btn-sm">Less Info</MDBBtn>
 
           </div>
         </div>
-      </Container >
+      </div >
     );
   }
 }

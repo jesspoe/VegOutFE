@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import {
   MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon
-} from "mdbreact";
+  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon} from "mdbreact";
 import Nav from 'react-bootstrap/Nav'
 
 class NavbarPage extends Component {
@@ -16,9 +15,9 @@ class NavbarPage extends Component {
 
   render() {
     return (
-      <MDBNavbar color="success-color-dark" dark expand="md">
+      <MDBNavbar color="white" expand="md">
         <MDBNavbarBrand>
-          <strong className="white-text">VegOut!</strong>
+          <strong className="black-text">VegOut!</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>

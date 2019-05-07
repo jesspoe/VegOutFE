@@ -80,7 +80,6 @@ class MapContainer extends Component {
           }
         })
         .then(item => {
-          console.log("location storage", local)
           this.setState({
             locations: local
           })
