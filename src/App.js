@@ -99,12 +99,9 @@ class App extends Component {
 
 
   getLocation = () => {
-    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key="
+    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=GOOGLE_KEY"
     fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.jwt}`
-      }
+      method: 'POST'
     }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
@@ -123,12 +120,9 @@ class App extends Component {
 
 
   getCity = () => {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=`
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=GOOGLE_KEY`
     fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.jwt}`
-      }
+      method: 'POST'
     }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
@@ -192,11 +186,10 @@ class App extends Component {
         }
         this.setState({
           restaurants: json
-        })
+        }, () => console.log("new search rest", this.state.restaurants))
       }).catch((error) => {
         console.log(error)
       }))
-
   }
 
   render() {

@@ -28,6 +28,7 @@ class MapContainer extends Component {
       this.props.restaurants.map((rest) => {
         newItem = { name: rest.sortable_name, veg_level: rest.veg_level_description, address: rest.address1, city: rest.city, state: rest.region }
         myAddy.push(newItem)
+        console.log("is addy full", myAddy)
         return undefined
       })
       return this.setState({
@@ -37,7 +38,7 @@ class MapContainer extends Component {
   }
 
   onMapMounted = (ref) => {
-    console.log('ref', ref)
+    console.log('ref', this.state)
     this.setState({
       mapRef: ref
     })
@@ -50,43 +51,48 @@ class MapContainer extends Component {
     this.state.addy.map((item) => {
       let encodedAddress = encodeURIComponent(`${item.address}, ${item.city}, ${item.state}`)
       let cachedKey = encodedAddress
-      // console.log("Checking cache for", cachedKey)
+      console.log("Checking cache for", cachedKey)
       let cachedResult = localStorage.getItem(cachedKey)
       if (cachedResult) {
-        // console.log("Found cache entry for", cachedKey, ':', cachedResult)
+        console.log("Found cache entry for", cachedKey, ':', cachedResult)
         let parsedResult = JSON.parse(cachedResult)
-        newItem = { name: item.name, veg_level: item.veg_level_description, lat: parsedResult.lat, lng: parsedResult.lng }
+        newItem = { name: item.name, lat: parsedResult.lat, lng: parsedResult.lng }
         local.push(newItem)
         this.setState({
           locations: local
         })
         return
-      }
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=`)
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response;
-        })
-        .then(response => response.json())
-        .then(json => {
-          if (json.results.length > 0) {
-            let lat = json.results[0].geometry.location.lat
-            let lng = json.results[0].geometry.location.lng
-            localStorage.setItem(cachedKey, JSON.stringify({ lat: lat, lng: lng }))
-            newItem = { name: item.name, veg_level: item.veg_level_description, lat: lat, lng: lng }
-            local.push(newItem)
-          }
-        })
-        .then(item => {
-          this.setState({
-            locations: local
+      } else {
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=GOOGLE_KEY`)
+          .then((response) => {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            console.log("in the fetch I need to be in", response)
+            return response;
           })
-        }).catch((error) => {
-          console.log(error)
-        });
+          .then(response => response.json())
+          .then(json => {
+            console.log("if json.results", json)
+            if (json.results.length > 0) {
+              let lat = json.results[0].geometry.location.lat
+              let lng = json.results[0].geometry.location.lng
+              localStorage.setItem(cachedKey, JSON.stringify({ lat: lat, lng: lng }))
+              newItem = { name: item.name, lat: lat, lng: lng }
+              local.push(newItem)
+              console.log("IM in the fetch else", local)
+            }
+          })
+          .then(item => {
+            this.setState({
+              locations: local
+            }, () => console.log("What is locations?", this.state.locations))
+          }).catch((error) => {
+            console.log(error)
+          })
+      };
     })
+
   }
 
   displayMarkers = () => {
@@ -124,9 +130,7 @@ class MapContainer extends Component {
 
     if (this.state.locations[0]) {
       return (
-
         <Map
-
           ref={this.onMapMounted}
           google={this.props.google}
           zoom={14}
@@ -145,7 +149,7 @@ class MapContainer extends Component {
             onClose={this.onClose}
           >
             <div>
-              <h4>{this.state.selectedPlace.name && this.state.selectedPlace.position.name}</h4>
+              <h5>{this.state.selectedPlace.name && this.state.selectedPlace.position.name}</h5>
             </div>
           </InfoWindow>
         </Map>

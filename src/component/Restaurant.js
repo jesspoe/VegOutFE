@@ -17,7 +17,6 @@ class Restaurant extends Component {
   }
 
   cuisines = () => {
-    console.log("Restdafda", this.props)
     return this.props.restaurant.cuisines.map((type) => {
       return type + " "
     })
@@ -28,7 +27,7 @@ class Restaurant extends Component {
       this.state.isShowing ?
         <div className="single-rest">
           <div className="card border-secondary mb-3">
-            <div className="card-header">
+            <div className="card-header" backgroundColor="gray">
               <a href={this.props.restaurant.website} target='blank'><h5 className="card-title">{this.props.restaurant.sortable_name}</h5 ></a>
             </div>
             <div className="card-body">

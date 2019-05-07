@@ -72,7 +72,6 @@ class GroupCard extends Component {
   }
 
 
-
   handleSubmit = event => {
     event.preventDefault()
     this.forceUpdate()

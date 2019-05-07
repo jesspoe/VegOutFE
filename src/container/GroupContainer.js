@@ -66,23 +66,23 @@ class GroupContainer extends Component {
           </Row>
 
 
-
-          <Row>
-            <Col align="right" className="group-form">
-              <div>
+          <div className="group-form">
+            <h4 >Create a New Group</h4>
+            <Row>
+              <Col className="container-fluid">
                 <form className="user-form" onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
                   <label htmlFor='group'>Group Name: </label> {" "}
                   <input type='text' name='name' id='groupName' /> {" "}
-                  <br />
+
                   <label htmlFor='group'>Description: </label> {" "}
-                  <input type='text' name='description' id='groupDescription' /> <br />
+                  <input type='text' name='description' id='groupDescription' />
                   <Button className='form-submit-btn' type='submit' value="Add" variant="white" >Add a New Group</Button>
                 </form>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </div>
 
-          <div className="single-group-card">
+          <div className="container-fluid">
             <h3>Your Groups:</h3>
             {this.props.groups.map((group, index) => {
               for (let i = 0; i < group.user_groups.length; i++) {
