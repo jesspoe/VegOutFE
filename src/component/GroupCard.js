@@ -3,7 +3,10 @@ import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 import Vote from './Vote.js'
 import toaster from 'toasted-notes';
-import createHistory from 'history/createBrowserHistory';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import NavbarPage from '../component/NavbarPage'
+import DatePicker from "react-datepicker";
 
 
 
@@ -15,6 +18,7 @@ class GroupCard extends Component {
       email: " ",
       group_id: this.props.group.id,
       editShowing: false,
+      newDate: new Date(this.props.group.date),
       newName: this.props.group.name,
       newDescription: this.props.group.description
     }
@@ -22,7 +26,6 @@ class GroupCard extends Component {
 
   componentDidMount() {
     this.display()
-    console.log("showing props", this.props)
   }
 
   handleEdit = () => {
@@ -32,34 +35,48 @@ class GroupCard extends Component {
   }
 
   handleRedirect = () => {
-    console.log("Inside the redirect")
-    const history = createHistory();
-    history.push('/groups');
+    this.props.history.push('/groups')
   }
 
+
+
   editing = (event) => {
-    event.preventDefault()
     let data = {
       group_id: this.state.group_id,
+      newDate: this.state.newDate,
       newName: this.state.newName,
       newDescription: this.state.newDescription
     }
     this.processEdit(data)
-    this.handleEdit()
   }
 
 
   restaurantInfo = () => {
     if (this.props.group.restaurants.length > 0) {
       return this.props.group.restaurants.map((rest) => {
-        return <div className="group-rest">
-          <a href={rest.website} target='blank'><h5>{rest.name}</h5 ></a>
-          <p>City: {rest.city}</p>
-          <p> {rest.veg_level_description}</p>
-        </div>
+
+        return <div className="single-rest-group" >
+          <div className="card-header" backgroundColor="gray">
+            <a href={rest.website} target='blank'><h5 className="card-title">{rest.name}</h5 ></a>
+          </div>
+          <div className="card-body">
+            <h5 className="card-title">{rest.veg_level_description}</h5>
+          </div>
+
+          <div className="card-body">
+            <p className="card-text"><strong>Price Range:</strong> <span>{rest.price_range}</span></p>
+            <p className="card-text"><strong>Neighborhood:</strong> <span>{rest.neighborhood ? rest.neighborhood : 'Unavailable'}</span></p>
+            <p className="card-text"><strong>Phone:</strong> <span>{rest.phone}</span></p>
+            <p className="card-text"><strong>Address:</strong> <span>{rest.address1} {rest.city}, {rest.region}</span></p>
+            <p className="card-text"><strong>Accepts Reservations:</strong> <span>{rest.accepts_reservations === 1 ? 'Yes' : 'No'} </span></p>
+          </div>
+        </div >
+
       })
     }
   }
+
+
 
   groupMembers = () => {
     if (this.props.group.users.length > 1) {
@@ -98,6 +115,7 @@ class GroupCard extends Component {
         duration: 1500
       }))
       .then(this.props.grabGroups())
+      .then(this.groupMembers())
       .catch(function (error) { console.log(" There is an error: ", error.message) })
   }
 
@@ -107,6 +125,11 @@ class GroupCard extends Component {
     })
   }
 
+  handleDateChange(date) {
+    this.setState({
+      newDate: date
+    });
+  }
 
   processEdit = (data) => {
     fetch(`http://localhost:3000/groups/${data.group_id}`,
@@ -114,6 +137,7 @@ class GroupCard extends Component {
         method: 'PUT',
         body: JSON.stringify({
           group: {
+            date: data.newDate,
             name: data.newName,
             description: data.newDescription
           }
@@ -130,6 +154,7 @@ class GroupCard extends Component {
       })
       .then((json) => {
         this.props.grabGroups()
+        this.handleRedirect()
       });
   }
 
@@ -146,84 +171,197 @@ class GroupCard extends Component {
   }
 
   display = () => {
+    let dateToUse = new Date(this.props.group.date);
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     let display;
     if (parseInt(this.props.group.user_groups[0].user_id) === parseInt(this.props.user) && this.state.editShowing) {
-      display = <div className="container-fluid">
-        <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
-          <div className="text">
-            <form onChange={(event) => this.handleChange(event)}>
-              <h3 className="display-5 text-left">{this.props.group.name}</h3>
-              <input type='text' name='newName' id='newName' value={this.state.newName} /> {" "}
-              <p className="display-5 text-left">{this.props.group.description}</p>
-              <input type='text' name='newDescription' id='newDescription' value={this.state.newDescription} /> {" "}
-              <Button onClick={(event) => this.editing(event)} className='form-submit-btn' value="Edit" variant="white">Make Changes</Button>
-            </form>
-          </div>
-          <div className="group-text">Group Members</div>
-          <span>{this.groupMembers()}</span>
+      display = <div className="home-page">
+        <div className="container-fluid">
+          <Row>
+            <Col >
+              <NavbarPage />
+            </Col>
+          </Row>
 
-          <hr className="my-4" />
-          <div className="group-text">Saved Restaurants</div>
-          <div >
-            {this.restaurantInfo()}
-          </div>
-          <br />
-          < Link to='/groups'>Back to Groups</Link >
-          <Button variant="white" onClick={() => this.handleDelete(this.state.group_id)}>Delete Group</Button>
+          <Row className="container-fluid">
+
+            <Col align="left">
+              <div className="group-members">
+                <h3 className="group-text">Members in This Group</h3>
+                <span>{this.groupMembers()}</span>
+              </div>
+            </Col>
+
+            <Col align="right" >
+              <div className="invite-box">
+                <h5 className="group-text">Invite Friends To Join This Group!</h5>
+                <form onChange={(event) => this.handleChange(event)}>
+                  <label htmlFor='group'>Email Please: </label> {" "}
+                  <input type='email' name='email' id='email' /> {" "}
+                  <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
+                </form>
+              </div>
+            </Col>
+          </Row>
+
+          <Col align="center" className="container-fluid">
+            <div className="group-info">
+              <form onChange={(event) => this.handleChange(event)}>
+                <h3 >{this.props.group.name}</h3>
+                <input type='text' name='newName' id='newName' value={this.state.newName} /> {" "}
+                <p>{this.props.group.description}</p>
+                <input type='text' name='newDescription' id='newDescription' value={this.state.newDescription} /> {" "}
+                <Button onClick={(event) => this.editing(event)} className='form-submit-btn' value="Edit" variant="white">Make Changes</Button>
+              </form>
+              Event Date: <DatePicker
+                selected={this.state.newDate}
+                onChange={(event) => this.handleDateChange(event)}
+              />
+            </div>
+          </Col>
+
+          <Row>
+            <Col>
+              <div className="group-restaurants">
+                <h3 className="group-text">Saved Restaurants</h3>
+                <div>
+                  {this.restaurantInfo()}
+                </div>
+                <br />
+                < Link to='/groups'>Back to Groups</Link >
+              </div>
+            </Col>
+          </Row>
+          <Col className="container-fluid">
+            <div className="group-vote">
+              <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
+            </div>
+          </Col>
         </div>
       </div>
 
     } else if (parseInt(this.props.group.user_groups[0].user_id) === parseInt(this.props.user)) {
-      display = <div className="container-fluid">
-        <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
-          <h3 className="display-5 text-left">{this.props.group.name}</h3>
-          <p className="display-5 text-left">{this.props.group.description}</p>
-          <p className="lead text-right">Invite friends to join your group!</p>
-          <div className="text-right">
-            <form onChange={(event) => this.handleChange(event)}>
-              <label htmlFor='group'>Email Please: </label> {" "}
-              <input type='email' name='email' id='email' /> {" "}
-              <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
-            </form>
-          </div>
-          <div className="group-text">Group Members</div>
-          <span>{this.groupMembers()}</span>
+      display = <div className="home-page">
+        <div className="container-fluid">
+          <Row>
+            <Col >
+              <NavbarPage />
+            </Col>
+          </Row>
 
-          <hr className="my-4" />
-          <div className="group-text" s>Saved Restaurants</div>
-          <div >
-            {this.restaurantInfo()}
-          </div>
-          <br />
-          < Link to='/groups'>Back to Groups</Link >
-          <Button variant="white" onClick={this.handleEdit}>Edit Group Info</Button>
-          <Button variant="white" onClick={() => this.handleDelete(this.state.group_id)}>Delete Group</Button>
+          <Row className="container-fluid">
+
+            <Col align="left">
+              <div className="group-members">
+                <h3 className="group-text">Group Members</h3>
+                <span>{this.groupMembers()}</span>
+              </div>
+            </Col>
+
+            <Col align="right" >
+              <div className="invite-box">
+                <h5 className="group-text">Invite Friends To Join This Group!</h5>
+                <form onChange={(event) => this.handleChange(event)}>
+                  <label htmlFor='group'>Email Please: </label> {" "}
+                  <input type='email' name='email' id='email' /> {" "}
+                  <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
+                </form>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col align="center" className="container-fluid">
+              <div className="group-info">
+                <h1 className="group-name">{this.props.group.name}</h1>
+                <p className="card-date">When: {dateToUse.toLocaleDateString("en-US", options)}</p>
+                <p className="card-description">{this.props.group.description}</p>
+                <div className="crudb">
+                  <Button variant="white" onClick={(event) => this.handleEdit(event)}>Edit Group Info</Button>
+                  <Button variant="white" onClick={() => this.handleDelete(this.state.group_id)}>Delete Group</Button>
+                </div>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col>
+              <div className="group-restaurants">
+                <h3 className="group-text">Saved Restaurants</h3>
+                <div>
+                  {this.restaurantInfo()}
+                </div>
+                <br />
+                < Link to='/groups'>Back to Groups</Link >
+              </div>
+            </Col>
+          </Row>
+          <Col className="container-fluid">
+            <div className="group-vote">
+              <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
+            </div>
+          </Col>
         </div>
       </div>
 
     } else {
-      display = display = <div className="container-fluid">
-        <div className="jumbotron mdb-color grey lighten-4  mx-2 mb-5">
-          <h3 className="display-5 text-left">{this.props.group.name}</h3>
-          <p className="display-5 text-left">{this.props.group.description}</p>
-          <p className="lead text-right">Invite friends to join your group!</p>
-          <div className="text-right">
-            <form onChange={(event) => this.handleChange(event)}>
-              <label htmlFor='group'>Email Please: </label> {" "}
-              <input type='email' name='email' id='email' /> {" "}
-              <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
-            </form>
-          </div>
-          <div className="group-text">Group Members</div>
-          <span>{this.groupMembers()}</span>
+      display = <div className="home-page">
+        <div className="container-fluid">
+          <Row>
+            <Col >
+              <NavbarPage />
+            </Col>
+          </Row>
 
-          <hr className="my-4" />
-          <div className="group-text" s>Saved Restaurants</div>
-          <div >
-            {this.restaurantInfo()}
-          </div>
-          <br />
-          < Link to='/groups'>Back to Groups</Link >
+          <Row className="container-fluid">
+
+            <Col align="left">
+              <div className="group-members">
+                <h3 className="group-text">Group Members</h3>
+                <span>{this.groupMembers()}</span>
+              </div>
+            </Col>
+
+            <Col align="right" >
+              <div className="invite-box">
+                <h5 className="group-text">Invite Friends To Join This Group!</h5>
+                <form onChange={(event) => this.handleChange(event)}>
+                  <label htmlFor='group'>Email Please: </label> {" "}
+                  <input type='email' name='email' id='email' /> {" "}
+                  <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
+                </form>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col align="center" className="container-fluid">
+              <div className="group-info">
+                <h2 className="card-name">{this.props.group.name}</h2>
+                <p className="card-description">{this.props.group.description}</p>
+                <p className="card-date">{dateToUse.toLocaleDateString("en-US", options)}</p>
+              </div>
+            </Col>
+          </Row>
+
+
+          <Row>
+            <Col>
+              <div className="group-restaurants">
+                <h3 className="group-text">Saved Restaurants</h3>
+                <div>
+                  {this.restaurantInfo()}
+                </div>
+                <br />
+                < Link to='/groups'>Back to Groups</Link >
+              </div>
+            </Col>
+          </Row>
+          <Col className="container-fluid">
+            <div className="group-vote">
+              <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
+            </div>
+          </Col>
         </div>
       </div>
 
@@ -236,7 +374,7 @@ class GroupCard extends Component {
       return (
         <div>
           {this.display()}
-          <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
+
         </div >
       )
     } else { return "Looking for Restaurants" }
@@ -244,3 +382,5 @@ class GroupCard extends Component {
 }
 
 export default GroupCard;
+
+

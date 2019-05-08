@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container'
 import { MDBBtn } from "mdbreact";
 import toaster from 'toasted-notes';
 
@@ -22,7 +21,6 @@ class RestaurantCard extends Component {
       }
     });
   }
-
 
   handleChange = (event) => {
     this.setState({ groupNum: event.target.value });

@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import Group from '../component/Group'
-import Container from 'react-bootstrap/Container'
 import NavbarPage from '../component/NavbarPage'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import toaster from 'toasted-notes';
+import DatePicker from "react-datepicker";
+import Cauli from '../Images/cauli.jpg'
+import Onion from '../Images/onion.jpg'
+import Green from '../Images/greenbell.jpg'
+import Food from '../Images/food.jpg'
+import Tom from '../Images/tomo.jpg'
+import Chips from '../Images/chips.jpg'
+import Zuc from '../Images/zuc.jpg'
+
+let imgArray = [Cauli, Onion, Green, Food, Tom, Chips, Zuc];
+console.log("Img array", imgArray)
+
+
 
 
 class GroupContainer extends Component {
@@ -13,7 +25,8 @@ class GroupContainer extends Component {
     super()
     this.state = {
       name: " ",
-      description: ""
+      description: "",
+      date: new Date()
     }
   }
 
@@ -30,7 +43,8 @@ class GroupContainer extends Component {
       body: JSON.stringify({
         group: {
           name: this.state.name,
-          description: this.state.description
+          description: this.state.description,
+          date: this.state.date
         }
       })
     }).then((response) => {
@@ -48,11 +62,23 @@ class GroupContainer extends Component {
 
 
   handleChange = event => {
+    event.preventDefault()
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
+  handleDateChange(date) {
+    this.setState({
+      date: date
+    });
+  }
+
+  gotGroups = () => {
+    if (this.props.groups > 0) {
+      return true
+    }
+  }
 
   render() {
     return (
@@ -65,39 +91,46 @@ class GroupContainer extends Component {
             </Col>
           </Row>
 
-
           <div className="group-form">
-            <h4 >Create a New Group</h4>
+            <h5 className="group-text">Create a New Group</h5>
             <Row>
               <Col className="container-fluid">
-                <form className="user-form" onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
-                  <label htmlFor='group'>Group Name: </label> {" "}
-                  <input type='text' name='name' id='groupName' /> {" "}
 
+                Event Date: <DatePicker
+                  selected={this.state.date}
+                  onChange={(event) => this.handleDateChange(event)}
+                /> <form className="user-form" onSubmit={(event) => this.handleSubmit(event)} onChange={(event) => this.handleChange(event)}>
+                  <label htmlFor='group'>Group Name: </label> {" "}
+                  <input type='text' name='name' id='groupName' />
+                  <br />
                   <label htmlFor='group'>Description: </label> {" "}
-                  <input type='text' name='description' id='groupDescription' />
-                  <Button className='form-submit-btn' type='submit' value="Add" variant="white" >Add a New Group</Button>
+                  <input type='text' name='description' id='groupDescription' /><br />
+                  <Button className='form-submit-btn' type='submit' value="Add" variant="white" >Save</Button>
                 </form>
+
               </Col>
             </Row>
           </div>
-
-          <div className="container-fluid">
-            <h3>Your Groups:</h3>
-            {this.props.groups.map((group, index) => {
-              for (let i = 0; i < group.user_groups.length; i++) {
-                if (group.user_groups[i].user_id === parseInt(this.props.user)) {
-                  return <div className="single-group"><Group sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} /></div>
+          <div className='container-fluid'>
+            <h4 className="group-text">Group List</h4>
+            <div className="row">
+              {this.props.groups.map((group, index) => {
+                let randomImg = imgArray[Math.floor(Math.random() * imgArray.length)];
+                for (let i = 0; i < group.user_groups.length; i++) {
+                  if (group.user_groups[i].user_id === parseInt(this.props.user)) {
+                    return <Group img={randomImg} sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} />
+                  }
                 }
-              }
-            })
-            }
-          </div>
+              })
 
+              }
+            </div>
+          </div>
         </div>
       </div>
     );
   }
+
 }
 
 export default GroupContainer;

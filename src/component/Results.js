@@ -15,4 +15,3 @@ const Results = (props) => {
 }
 
 export default Results;
-{/* <h4>{key}</h4> <h5>{props.percent[key]}</h5> */ }

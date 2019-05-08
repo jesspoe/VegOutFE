@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 
-const AuthRoute = ({ component: Component, ...state }) => (
-  <Route {...state} render={props => (
+const AuthRoute = ({ component: Component, ...props }) => (
+  <Route {...props} render={props => (
     localStorage.getItem('jwt') ?
       (<Component {...props} />)
       :
       (<Redirect to={{
-          pathname: '/signup',
-          state: { from: props.location }
-        }} />)
+        pathname: '/signup',
+        state: { from: props.location }
+      }} />)
   )} />
 )
 

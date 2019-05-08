@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css';
 import 'toasted-notes/src/styles.css';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import UnAuthRoute from './component/UnAuthRoute';
 import AuthRoute from './component/AuthRoute';
 import Signup from './component/Signup.js'
@@ -11,6 +13,7 @@ import Home from './container/Home.js'
 import GroupContainer from './container/GroupContainer.js'
 import GroupCard from './component/GroupCard.js'
 import Resources from './container/Resources.js'
+
 
 
 class App extends Component {
@@ -200,10 +203,10 @@ class App extends Component {
             <UnAuthRoute exact path='/signup' component={() => <Signup setUserId={this.setUserId} />} />
             <UnAuthRoute exact path='/login' component={() => <Login setUserId={this.setUserId} />} />
             <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} error={this.state.errorMsg} />} />
-            <AuthRoute exact path='/groups' component={() => <GroupContainer sendProps={this.sendProps} groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
-            <AuthRoute exact path='/card' component={() => <GroupCard user={this.state.user_id} groups={this.state.groups} grabGroups={this.grabGroups} group={this.state.singleGroup} />} />
+            <AuthRoute exact path='/groups' component={(props) => <GroupContainer {...props} sendProps={this.sendProps} groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
+            <AuthRoute exact path='/card' component={(props) => <GroupCard {...props} user={this.state.user_id} groups={this.state.groups} grabGroups={this.grabGroups} group={this.state.singleGroup} />} />
             <AuthRoute exact path='/logout' component={() => <Logout />} />
-            <AuthRoute exact path='/resources' component={() => <Resources />} />
+            <AuthRoute exact path='/resources' component={(props) => <Resources {...props} />} />
 
           </div>
         </Router>

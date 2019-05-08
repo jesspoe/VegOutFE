@@ -2,7 +2,6 @@
 .group-card-single{
   padding: 5px;
   margin: 5px;
-
 }
 
 .form-submit-btn{
@@ -49,13 +48,6 @@ body{
   font-family: 'Muli', sans-serif;
 }
 
-.single-group{
-  display: inline-block;
-  margin: 10px;
-  max-width: 310px;
-  max-height: 300px;
-}
-
 .rest-cont{
   background-size: cover;
   height: 100vh;
@@ -69,8 +61,7 @@ body{
   width: 80%;
   margin: 3% 0% 2% 8%;
   opacity: .95;
-  box-shadow: 5px 5px 8px 4px black;
-  border-radius: 5%;
+  box-shadow: 5px 5px 10px 4px black;
 }
 
 
@@ -80,11 +71,11 @@ body{
 
 
 .jumbotext{
-  background: radial-gradient(#8BD72F, #34721A);
+  background: radial-gradient(rgb(105, 165, 31), #34721A);
   border-radius: .5em; 
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgb(168,240,112,0.22);
+  box-shadow: 0 19px 30px rgba(0,0,0,0.30), 0 15px 12px rgb(168,240,112,0.22);
   font-family: 'Muli', sans-serif;
-  font-size: 1.2em;
+  font-size: .9 em;
   /* opacity: 0.7; */
   color: white;
   text-align: center;
@@ -99,8 +90,7 @@ body{
 }
 
 .h1-responsive {
-  font-size: 500% !important;
-  font-weight: bolder;
+  font-size: 400% !important;
   text-shadow: 2px 2px #084928;
 }
 
@@ -131,11 +121,7 @@ a {
 }
 
 .group-card-button{
-  border: .9px solid teal;
-  border-radius: .8em; 
-  width: 40%;
-  padding-top: 10px;
-  text-align: center;  
+color: darkgreen !important; 
 }
 
 .card-header{
@@ -148,7 +134,122 @@ h5, .h5 {
 }
 
 .group-form{
+  font-family: 'Muli', sans-serif !important;
+  padding: 15px;
   background-color: lightgray;
-  text-align: center;
+  text-align: right;
   margin-top: .5%;
+  padding-right: 3%;
+  opacity: .9;
+  border-radius: 2px;
+}
+
+.date{
+  display: inline;
+}
+
+.user-form{
+  padding-top: 6px;
+}
+
+.group-text{
+  padding-top: 12px;
+  padding-right: 2px;
+  font-family: 'Muli', sans-serif !important;
+  color: darkgreen;
+  text-shadow: #084928;
+}
+
+.button-text{
+  color: darkgreen;
+}
+
+#rest-card{
+   max-width: 300px !important;
+  margin: 28px !important;
+  opacity: .9;
+}
+
+.card-img-top{
+  max-height: 200px !important;
+  width: 300px !important;
+}
+
+.card-title{
+  color: rgb(20, 73, 11) !important;
+  font-weight: 400 !important;
+}
+
+.group-info{
+  background: white; 
+  margin: 15px;
+  opacity: .9;
+  text-align: center;
+  font-family: 'Muli', sans-serif !important;
+  padding: 30px;
+}
+
+.crudb{
+  text-align: left;
+}
+
+.invite-box{
+  margin: 15px; 
+  opacity: .9;
+}
+
+.group-vote{
+  background: white; 
+  margin: 15px;
+  opacity: .9;
+  text-align: center;
+  font-family: 'Muli', sans-serif !important;
+  padding: 10px;
+}
+
+.group-restaurants{
+  background: white; 
+  margin: 15px;
+  opacity: .9;
+  text-align: center;
+  font-family: 'Muli', sans-serif !important;
+  padding: 10px;
+}
+
+.group-vote{
+  background: white; 
+  margin: 15px;
+  opacity: .9;
+  text-align: center;
+  font-family: 'Muli', sans-serif !important;
+  padding: 10px;
+}
+
+.group-members{
+  background: transparent;
+  margin: 10px;
+  opacity: .9;
+  text-align: left;
+  font-family: 'Muli', sans-serif !important;
+  padding: 20px;
+}
+
+.single-rest-group{
+  display: inline-block;
+  overflow: scroll;
+  max-width: 350px;
+  height: 480px;
+  width: 20%;
+  margin: 3% 0% 2% 8%;
+  opacity: .95;
+  box-shadow: 5px 5px 10px 4px black;
+}
+
+.group-name{
+  padding-top: 12px;
+  padding-right: 2px;
+  font-family: 'Muli', sans-serif !important;
+  font-size: 5em;
+  color: darkgreen;
+  text-shadow: #084928;
 }
