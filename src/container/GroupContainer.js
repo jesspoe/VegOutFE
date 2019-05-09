@@ -16,13 +16,19 @@ class GroupContainer extends Component {
     this.state = {
       name: " ",
       description: "",
-      date: new Date()
+      date: new Date(),
+      showing: false
     }
+  }
+
+  updateShow = () => {
+    this.setState({
+      showing: !this.state.showing
+    })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    this.forceUpdate()
     fetch('http://localhost:3000/groups', {
       method: 'POST',
       headers: {
@@ -107,11 +113,10 @@ class GroupContainer extends Component {
               {this.props.groups.map((group, index) => {
                 for (let i = 0; i < group.user_groups.length; i++) {
                   if (group.user_groups[i].user_id === parseInt(this.props.user)) {
-                    return <Group img={Food} sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} />
+                    return <Group updateShow={this.updateShow} showing={this.state.showing} img={Food} sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} />
                   }
                 }
               })
-
               }
             </div>
           </div>

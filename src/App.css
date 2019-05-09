@@ -264,7 +264,7 @@ h5, .h5 {
 .single-rest-group{
   display: inline-block;
   width: 500px;
-  height: 700px;
+  height: 550px;
   margin: 2% 0% 2% 2%;
   opacity: .95;
   box-shadow: 5px 5px 15px 5px black;
@@ -319,4 +319,21 @@ h5, .h5 {
   background-color: lightgray;
   color: green;
   padding: 20px;
+}
+
+.resources{
+  background: white;
+  margin: 20px;
+  opacity: .9;
+  padding: 20px;
+}
+
+.vegan{
+  padding: 10px;
+}
+
+.photo{
+  background: white;
+  margin: 10px;
+  padding: 10px;
 }

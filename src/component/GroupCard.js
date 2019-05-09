@@ -24,22 +24,6 @@ class GroupCard extends Component {
     }
   }
 
-  componentDidMount() {
- 
-  }
-
-  // myGroups = () => {
-  //   this.props.groups.map((agroup) => {
-  //     if (agroup.id === this.props.group.id) {
-  //       this.setState({
-  //         group: agroup
-  //       })
-
-  //     }
-  //   })
-  // }
-
-
   handleEdit = () => {
     this.setState({
       editShowing: !this.state.editShowing
@@ -78,13 +62,9 @@ class GroupCard extends Component {
             <strong> Accepts Reservations:</strong>  <p>{rest.accepts_reservations === 1 ? 'Yes' : 'No'} </p>
           </div>
         </div>
-
-
       })
     }
   }
-
-
 
   groupMembers = () => {
     if (this.props.group.users.length > 0) {
@@ -117,8 +97,8 @@ class GroupCard extends Component {
         throw Error(response.statusText);
       }
       return response;
-    }).then(this.props.sendProps(this.props.group.id))
-      .then(this.props.grabGroups())
+    }).then(this.props.sendProps(this.props.group))
+      // .then(this.props.grabGroups())
       .then(toaster.notify("Invite Sent!", {
         duration: 1500
       }))
@@ -160,7 +140,7 @@ class GroupCard extends Component {
       })
       .then((json) => {
         this.props.grabGroups()
-        this.handleRedirect()
+        // this.handleRedirect()
       });
   }
 
@@ -271,7 +251,7 @@ class GroupCard extends Component {
                 <form >
                   <label htmlFor='group'>Email Please: </label> {" "}
                   <input type='email' name='email' id='email' onChange={(event) => this.handleChange(event)} /> {" "}
-                  <Button onClick={(event) => this.handleSubmit(this.props.group.id)} className='form-submit-btn' value="Add" variant="white">Add</Button>
+                  <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
                 </form>
               </div>
             </Col>
