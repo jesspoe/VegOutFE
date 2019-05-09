@@ -25,8 +25,20 @@ class GroupCard extends Component {
   }
 
   componentDidMount() {
-    this.display()
+ 
   }
+
+  // myGroups = () => {
+  //   this.props.groups.map((agroup) => {
+  //     if (agroup.id === this.props.group.id) {
+  //       this.setState({
+  //         group: agroup
+  //       })
+
+  //     }
+  //   })
+  // }
+
 
   handleEdit = () => {
     this.setState({
@@ -37,7 +49,6 @@ class GroupCard extends Component {
   handleRedirect = () => {
     this.props.history.push('/groups')
   }
-
 
 
   editing = (event) => {
@@ -56,21 +67,18 @@ class GroupCard extends Component {
       return this.props.group.restaurants.map((rest) => {
 
         return <div className="single-rest-group" >
-          <div className="card-header" backgroundColor="gray">
-            <a href={rest.website} target='blank'><h5 className="card-title">{rest.name}</h5 ></a>
+          <div className="scroll">
+            <a href={rest.website} target='blank'><h5 className="simple-title">{rest.name}</h5 ></a>
+            <h5 className="c-title">{rest.veg_level_description}</h5>
+            <strong> Descripton:</strong> <p>{rest.long_description ? rest.long_description : "Unavailable"} </p>
+            <strong>  Price Range:</strong><p> {rest.price_range}</p>
+            <strong>  Neighborhood:</strong><p> {rest.neighborhood ? rest.neighborhood : 'Unavailable'}</p>
+            <strong>  Phone:</strong> <p>{rest.phone}</p>
+            <strong> Address:</strong><p> {rest.address1} {rest.city}, {rest.region}</p>
+            <strong> Accepts Reservations:</strong>  <p>{rest.accepts_reservations === 1 ? 'Yes' : 'No'} </p>
           </div>
-          <div className="card-body">
-            <h5 className="card-title">{rest.veg_level_description}</h5>
-          </div>
+        </div>
 
-          <div className="card-body">
-            <p className="card-text"><strong>Price Range:</strong> <span>{rest.price_range}</span></p>
-            <p className="card-text"><strong>Neighborhood:</strong> <span>{rest.neighborhood ? rest.neighborhood : 'Unavailable'}</span></p>
-            <p className="card-text"><strong>Phone:</strong> <span>{rest.phone}</span></p>
-            <p className="card-text"><strong>Address:</strong> <span>{rest.address1} {rest.city}, {rest.region}</span></p>
-            <p className="card-text"><strong>Accepts Reservations:</strong> <span>{rest.accepts_reservations === 1 ? 'Yes' : 'No'} </span></p>
-          </div>
-        </div >
 
       })
     }
@@ -79,7 +87,7 @@ class GroupCard extends Component {
 
 
   groupMembers = () => {
-    if (this.props.group.users.length > 1) {
+    if (this.props.group.users.length > 0) {
       return this.props.group.users.map((user) => {
         return <div className="member">{user.first_name + " " + user.last_name}</div>
       })
@@ -89,9 +97,8 @@ class GroupCard extends Component {
   }
 
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault()
-    this.forceUpdate()
     fetch('http://localhost:3000/addUserGroup', {
       method: 'POST',
       headers: {
@@ -110,12 +117,11 @@ class GroupCard extends Component {
         throw Error(response.statusText);
       }
       return response;
-    })
+    }).then(this.props.sendProps(this.props.group.id))
+      .then(this.props.grabGroups())
       .then(toaster.notify("Invite Sent!", {
         duration: 1500
       }))
-      .then(this.props.grabGroups())
-      .then(this.groupMembers())
       .catch(function (error) { console.log(" There is an error: ", error.message) })
   }
 
@@ -187,55 +193,56 @@ class GroupCard extends Component {
 
             <Col align="left">
               <div className="group-members">
-                <h3 className="group-text">Members in This Group</h3>
+                <h5 className="text">Members in This Group</h5>
                 <span>{this.groupMembers()}</span>
               </div>
             </Col>
 
             <Col align="right" >
               <div className="invite-box">
-                <h5 className="group-text">Invite Friends To Join This Group!</h5>
-                <form onChange={(event) => this.handleChange(event)}>
+                <h5 className="text">Invite Friends To Join This Group!</h5>
+                <form >
                   <label htmlFor='group'>Email Please: </label> {" "}
-                  <input type='email' name='email' id='email' /> {" "}
-                  <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
+                  <input type='email' name='email' id='email' onChange={(event) => this.handleChange(event)} /> {" "}
+                  <Button onClick={() => this.handleSubmit()} className='form-submit-btn' value="Add" variant="white">Add</Button>
                 </form>
               </div>
             </Col>
           </Row>
 
           <Col align="center" className="container-fluid">
-            <div className="group-info">
-              <form onChange={(event) => this.handleChange(event)}>
-                <h3 >{this.props.group.name}</h3>
-                <input type='text' name='newName' id='newName' value={this.state.newName} /> {" "}
-                <p>{this.props.group.description}</p>
-                <input type='text' name='newDescription' id='newDescription' value={this.state.newDescription} /> {" "}
-                <Button onClick={(event) => this.editing(event)} className='form-submit-btn' value="Edit" variant="white">Make Changes</Button>
-              </form>
+            <div className="edit-group-info">
               Event Date: <DatePicker
                 selected={this.state.newDate}
                 onChange={(event) => this.handleDateChange(event)}
               />
+              <form onChange={(event) => this.handleChange(event)}>
+                Title: <input type='text' name='newName' id='newName' value={this.state.newName} /> {" "}
+                Description: <input type='text' name='newDescription' id='newDescription' value={this.state.newDescription} />
+                <br />
+                <Button onClick={(event) => this.editing(event)} className='form-submit-btn' value="Edit" variant="white">Make Changes</Button>
+              </form>
+
             </div>
           </Col>
 
           <Row>
             <Col>
               <div className="group-restaurants">
-                <h3 className="group-text">Saved Restaurants</h3>
-                <div>
-                  {this.restaurantInfo()}
-                </div>
+                <h3 className="group-text">SAVED RESTAURANTS</h3>
+
+                {this.restaurantInfo()}
+
                 <br />
-                < Link to='/groups'>Back to Groups</Link >
               </div>
             </Col>
           </Row>
           <Col className="container-fluid">
             <div className="group-vote">
+
               <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
             </div>
+            < Link align="center" to='/groups'>Back to Groups</Link >
           </Col>
         </div>
       </div>
@@ -253,18 +260,18 @@ class GroupCard extends Component {
 
             <Col align="left">
               <div className="group-members">
-                <h3 className="group-text">Group Members</h3>
+                <h5 className="text">Members in This Group</h5>
                 <span>{this.groupMembers()}</span>
               </div>
             </Col>
 
             <Col align="right" >
               <div className="invite-box">
-                <h5 className="group-text">Invite Friends To Join This Group!</h5>
-                <form onChange={(event) => this.handleChange(event)}>
+                <h5 className="text">Invite Friends To Join This Group!</h5>
+                <form >
                   <label htmlFor='group'>Email Please: </label> {" "}
-                  <input type='email' name='email' id='email' /> {" "}
-                  <Button onClick={(event) => this.handleSubmit(event)} className='form-submit-btn' value="Add" variant="white">Add</Button>
+                  <input type='email' name='email' id='email' onChange={(event) => this.handleChange(event)} /> {" "}
+                  <Button onClick={(event) => this.handleSubmit(this.props.group.id)} className='form-submit-btn' value="Add" variant="white">Add</Button>
                 </form>
               </div>
             </Col>
@@ -287,12 +294,11 @@ class GroupCard extends Component {
           <Row>
             <Col>
               <div className="group-restaurants">
-                <h3 className="group-text">Saved Restaurants</h3>
-                <div>
-                  {this.restaurantInfo()}
-                </div>
+                <h3 className="group-text">SAVED RESTAURANTS</h3>
+
+                {this.restaurantInfo()}
+
                 <br />
-                < Link to='/groups'>Back to Groups</Link >
               </div>
             </Col>
           </Row>
@@ -300,6 +306,7 @@ class GroupCard extends Component {
             <div className="group-vote">
               <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
             </div>
+            < Link align="center" to='/groups'>Back to Groups</Link >
           </Col>
         </div>
       </div>
@@ -317,14 +324,14 @@ class GroupCard extends Component {
 
             <Col align="left">
               <div className="group-members">
-                <h3 className="group-text">Group Members</h3>
+                <h5 className="text">Members in This Group</h5>
                 <span>{this.groupMembers()}</span>
               </div>
             </Col>
 
             <Col align="right" >
               <div className="invite-box">
-                <h5 className="group-text">Invite Friends To Join This Group!</h5>
+                <h5 className="text">Invite Friends To Join This Group!</h5>
                 <form onChange={(event) => this.handleChange(event)}>
                   <label htmlFor='group'>Email Please: </label> {" "}
                   <input type='email' name='email' id='email' /> {" "}
@@ -337,7 +344,7 @@ class GroupCard extends Component {
           <Row>
             <Col align="center" className="container-fluid">
               <div className="group-info">
-                <h2 className="card-name">{this.props.group.name}</h2>
+                <h2 className="group-name">{this.props.group.name}</h2>
                 <p className="card-description">{this.props.group.description}</p>
                 <p className="card-date">{dateToUse.toLocaleDateString("en-US", options)}</p>
               </div>
@@ -348,12 +355,9 @@ class GroupCard extends Component {
           <Row>
             <Col>
               <div className="group-restaurants">
-                <h3 className="group-text">Saved Restaurants</h3>
-                <div>
-                  {this.restaurantInfo()}
-                </div>
+                <h3 className="group-text">SAVED RESTAURANTS</h3>
+                {this.restaurantInfo()}
                 <br />
-                < Link to='/groups'>Back to Groups</Link >
               </div>
             </Col>
           </Row>
@@ -361,6 +365,7 @@ class GroupCard extends Component {
             <div className="group-vote">
               <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
             </div>
+            < Link align="center" to='/groups'>Back to Groups</Link >
           </Col>
         </div>
       </div>

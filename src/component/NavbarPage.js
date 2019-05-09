@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import Nav from 'react-bootstrap/Nav'
 import {
   MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon} from "mdbreact";
-import Nav from 'react-bootstrap/Nav'
+  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon
+} from "mdbreact";
+
 
 class NavbarPage extends Component {
   state = {
@@ -23,20 +25,20 @@ class NavbarPage extends Component {
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
             <MDBNavItem >
-              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link className="black-text" href="/">Home</Nav.Link>
             </MDBNavItem>
             <MDBNavItem >
-              <Nav.Link href="/groups">Groups</Nav.Link>
+              <Nav.Link className="black-text" href="/groups">Groups</Nav.Link>
             </MDBNavItem>
             <MDBNavItem>
-              <Nav.Link href="/resources">Resources</Nav.Link>
+              <Nav.Link className="black-text" href="/resources">Resources</Nav.Link>
             </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>
             <MDBNavItem>
               <MDBDropdown>
                 <MDBDropdownToggle nav caret>
-                  <MDBIcon icon="user" />
+                  <span className="black-text" >More</span>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu className="dropdown-default" right>
                   <MDBDropdownItem href="/logout">Log Out</MDBDropdownItem>
@@ -51,3 +53,5 @@ class NavbarPage extends Component {
 }
 
 export default NavbarPage;
+
+

@@ -5,11 +5,13 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 const Results = (props) => {
   return (
     <div >
-      <h4>Poll Results</h4>
-      <div>Total Votes: {props.total} </div>
+      <h4 className="group-text">Poll Results</h4>
+      <div className="text">Total Votes: {props.total} </div>
+      <br />
       <div >{Object.keys(props.percent).map(function (key, index) {
-        return <div>{key}: <ProgressBar max={100} animated now={props.percent[key]} label={props.percent[key].toFixed(2) + '%'} /></div>
+        return <div><h3>{key}:</h3> <ProgressBar variant='success' max={100} now={props.percent[key]} label={props.percent[key].toFixed(2) + '%'} /></div>
       })}</div>
+      <button className="vote-btn" onClick={() => props.showing()}>Close Results</button>
     </div >
   );
 }

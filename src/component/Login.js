@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 import { Link } from 'react-router-dom'
+import toaster from 'toasted-notes';
+
 
 class Login extends Component {
   constructor() {
     super()
-    this.state = this.initialState
+    this.state = {
+      email: "",
+      password: "",
+      error: false
+    }
   }
 
-  initialState = {
-    email: "",
-    password: ""
-  }
+
 
   handleFormReset = () => {
-    this.setState(() => this.initialState)
+    this.setState({
+      email: "",
+      password: "",
+      error: false
+    })
   }
 
   handleSubmit = event => {
-    console.log("I'm here in the click")
     event.preventDefault()
     fetch('http://localhost:3000/login', {
       method: 'POST',
@@ -31,7 +37,7 @@ class Login extends Component {
       })
     }).then((response) => {
       if (!response.ok) {
-        throw Error(response.statusText);
+        throw Error(response.statusText)
       }
       return response;
     }).then(response => response.json())
@@ -39,7 +45,13 @@ class Login extends Component {
         localStorage.setItem('jwt', json.jwt)
         this.props.setUserId(json.user.id)
       })
-      .catch(function (error) { console.log(" There is an error: ", error.message) })
+      // .catch(function (error) { console.log(" There is an error: ", error.message) })
+      .catch(err => {
+        toaster.notify('Invalid Login, Please try again', {
+          duration: 1000
+        })
+        this.handleFormReset()
+      })
   }
 
   handleChange = event => {
@@ -73,7 +85,7 @@ class Login extends Component {
                       <MDBCard>
                         <MDBCardBody>
 
-                          <form onReset={this.handleFormReset} >
+                          <form >
                             <p className="h4 text-center mb-4">Sign in</p>
                             <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
                               Email

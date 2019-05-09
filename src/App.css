@@ -29,7 +29,7 @@
 }
 
 .group-text{
-  font-size: 20px;
+  font-size: 30px;
   padding-bottom: 10px;
   padding-left: 7px;
   font-weight: bold;
@@ -61,7 +61,7 @@ body{
   width: 80%;
   margin: 3% 0% 2% 8%;
   opacity: .95;
-  box-shadow: 5px 5px 10px 4px black;
+  box-shadow: 3px 5px 10px 3px black;
 }
 
 
@@ -96,6 +96,7 @@ body{
 
 .home-page{
   background-image: url('./Images/art-close-up-ecology-886521.jpg');
+  /* background-image: url('./Images/palm.jpg'); */
   background-size: cover;
   height: 100vh;
   background-repeat: no-repeat;
@@ -124,6 +125,7 @@ a {
 color: darkgreen !important; 
 }
 
+
 .card-header{
   background-color: lightgray !important; 
  
@@ -142,6 +144,7 @@ h5, .h5 {
   padding-right: 3%;
   opacity: .9;
   border-radius: 2px;
+  margin-bottom: 30px;
 }
 
 .date{
@@ -158,6 +161,16 @@ h5, .h5 {
   font-family: 'Muli', sans-serif !important;
   color: darkgreen;
   text-shadow: #084928;
+  font-size: 2.5em;
+}
+
+.text{
+  padding-top: 12px;
+  padding-right: 2px;
+  font-family: 'Muli', sans-serif !important;
+  color: darkgreen;
+  text-shadow: #084928;
+  font-size: 1.5em;
 }
 
 .button-text{
@@ -165,19 +178,33 @@ h5, .h5 {
 }
 
 #rest-card{
-   max-width: 300px !important;
+  width: 280px !important;
   margin: 28px !important;
   opacity: .9;
 }
 
 .card-img-top{
   max-height: 200px !important;
-  width: 300px !important;
+  width: 280px !important;
 }
 
 .card-title{
   color: rgb(20, 73, 11) !important;
-  font-weight: 400 !important;
+}
+
+.c-title{
+  margin: 15px;
+}
+
+
+.edit-group-info{
+  background: white; 
+  margin: 15px;
+  margin-bottom: 250px;
+  opacity: .9;
+  text-align: center;
+  font-family: 'Muli', sans-serif !important;
+  padding: 30px;
 }
 
 .group-info{
@@ -236,20 +263,60 @@ h5, .h5 {
 
 .single-rest-group{
   display: inline-block;
-  overflow: scroll;
-  max-width: 350px;
-  height: 480px;
-  width: 20%;
-  margin: 3% 0% 2% 8%;
+  width: 500px;
+  height: 700px;
+  margin: 2% 0% 2% 2%;
   opacity: .95;
-  box-shadow: 5px 5px 10px 4px black;
+  box-shadow: 5px 5px 15px 5px black;
+  overflow: scroll;
+  position: relative;
+
 }
 
-.group-name{
+.group-name {
   padding-top: 12px;
   padding-right: 2px;
   font-family: 'Muli', sans-serif !important;
   font-size: 5em;
   color: darkgreen;
   text-shadow: #084928;
+}
+
+.progress{
+  background: rgba(245, 245, 245, 1) !important; 
+  border: 0px solid rgba(245, 245, 245, 1) !important;  
+  border-radius: 30px; height: 60px !important; 
+}
+
+.vote-btn{
+  color: green; 
+ margin-left: 25px;
+ }
+
+.react-datepicker__input-container{
+  margin-bottom: 20px !important;
+}
+
+.vote-name{
+  padding-top: 12px;
+  padding-right: 2px;
+  padding-bottom: 10px;
+  font-family: 'Muli', sans-serif !important;
+  font-size: 1.5em;
+  color: black;
+  text-shadow: #084928;
+  text-justify: left !important;
+}
+
+.scroll{
+  height: 100vh; 
+  height: 100% !important;
+  overflow: scroll !important;
+  position: relative;
+}
+
+.simple-title{
+  background-color: lightgray;
+  color: green;
+  padding: 20px;
 }

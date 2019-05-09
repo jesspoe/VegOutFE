@@ -6,17 +6,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import toaster from 'toasted-notes';
 import DatePicker from "react-datepicker";
-import Cauli from '../Images/cauli.jpg'
-import Onion from '../Images/onion.jpg'
-import Green from '../Images/greenbell.jpg'
 import Food from '../Images/food.jpg'
-import Tom from '../Images/tomo.jpg'
-import Chips from '../Images/chips.jpg'
-import Zuc from '../Images/zuc.jpg'
-
-let imgArray = [Cauli, Onion, Green, Food, Tom, Chips, Zuc];
-console.log("Img array", imgArray)
-
 
 
 
@@ -92,7 +82,7 @@ class GroupContainer extends Component {
           </Row>
 
           <div className="group-form">
-            <h5 className="group-text">Create a New Group</h5>
+            <h5 className="text">Create a New Group</h5>
             <Row>
               <Col className="container-fluid">
 
@@ -112,13 +102,12 @@ class GroupContainer extends Component {
             </Row>
           </div>
           <div className='container-fluid'>
-            <h4 className="group-text">Group List</h4>
+            <h4 align="center" className="group-text">Group List</h4>
             <div className="row">
               {this.props.groups.map((group, index) => {
-                let randomImg = imgArray[Math.floor(Math.random() * imgArray.length)];
                 for (let i = 0; i < group.user_groups.length; i++) {
                   if (group.user_groups[i].user_id === parseInt(this.props.user)) {
-                    return <Group img={randomImg} sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} />
+                    return <Group img={Food} sendProps={this.props.sendProps} group={group} key={index} grabGroups={this.props.grabGroups} user={this.props.user} />
                   }
                 }
               })

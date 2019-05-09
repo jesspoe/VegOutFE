@@ -14,7 +14,7 @@ class RestaurantContainer extends Component {
           }
         </div>
       )
-    } else { return "Loading....or sadly, there are no restaurants available." }
+    } else { return null }
   }
 }
 

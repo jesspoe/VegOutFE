@@ -80,7 +80,6 @@ class MapContainer extends Component {
               localStorage.setItem(cachedKey, JSON.stringify({ lat: lat, lng: lng }))
               newItem = { name: item.name, lat: lat, lng: lng }
               local.push(newItem)
-              console.log("IM in the fetch else", local)
             }
           })
           .then(item => {

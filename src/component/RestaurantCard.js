@@ -12,6 +12,7 @@ class RestaurantCard extends Component {
     }
   }
 
+
   populateOptions(groups) {
     return groups.map((group, index) => {
       for (let i = 0; i < group.user_groups.length; i++) {
@@ -23,10 +24,13 @@ class RestaurantCard extends Component {
   }
 
   handleChange = (event) => {
+    console.log('handle change event', event)
     this.setState({ groupNum: event.target.value });
   }
 
   handleSubmit = (event) => {
+    console.log('here is the event', event)
+    console.log("this.props", this.props)
     event.preventDefault()
     fetch('http://localhost:3000/restaurants', {
       method: 'POST',
@@ -42,7 +46,7 @@ class RestaurantCard extends Component {
         name: this.props.restaurant.name,
         phone: this.props.restaurant.phone,
         price_range: this.props.restaurant.price_range,
-        short_descrition: this.props.restaurant.short_description,
+        long_description: this.props.restaurant.long_description["text/vnd.vegguide.org-wikitext"],
         veg_level_description: this.props.restaurant.veg_level_description
       })
     }).then((response) => {
@@ -50,11 +54,9 @@ class RestaurantCard extends Component {
         throw Error(response.statusText);
       }
       return response;
-    })
-      .then(toaster.notify("Restaurant Added!", {
-        position: 'top-left',
-        duration: 1500
-      }))
+    }).then(toaster.notify('Restaurant Added!', {
+      duration: 1000
+    }))
       .catch((error) => {
         console.log(error)
       });
@@ -77,12 +79,12 @@ class RestaurantCard extends Component {
             <p className="card-text"><strong>Accepts Reservations:</strong> <span>{this.props.restaurant.accepts_reservations === 1 ? 'Yes' : 'No'} </span></p>
             <p className="card-text"><strong>Descripton: </strong><span>{this.props.restaurant.long_description ? this.props.restaurant.long_description["text/vnd.vegguide.org-wikitext"] : "Unavailable"}</span> </p>
             <h6>Add this restaurant to a group.</h6>
-            <form onChange={(event) => { this.handleChange(event) }} >
+            <form onChange={(event) => { this.handleChange(event) }} onSubmit={(event) => this.handleSubmit(event)}>
               <select className="browser-default custom-select">
                 <option>Select a Restaurant</option>
                 {this.populateOptions(this.props.groups)}
               </select>
-              <MDBBtn onClick={(event) => this.handleSubmit(event)} type="submit" className="btn btn-outline-default waves-effect btn-sm">Add </MDBBtn>
+              <MDBBtn type="submit" className="btn btn-outline-default waves-effect btn-sm">Add </MDBBtn>
             </form>
 
             <MDBBtn onClick={this.props.handleClick} type="button" className="btn btn-outline-default waves-effect btn-sm">Less Info</MDBBtn>

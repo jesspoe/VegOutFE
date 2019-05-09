@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Results from './Results'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class Vote extends Component {
   constructor(props) {
@@ -24,8 +26,36 @@ class Vote extends Component {
 
   showResults = () => {
     this.setState({
-      isShowing: false
+      isShowing: !this.state.isShowing
     })
+  }
+
+  getVotes = () => {
+    fetch('http://localhost:3000/getVotes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
+      body: JSON.stringify({
+
+        group_id: this.props.group.id,
+
+      })
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    }).then(response => response.json())
+      .then(json => {
+        console.log("filtered json", json)
+        this.setState({
+          counts: json.counts,
+          total: json.total,
+          percents: json.percents
+        })
+      }).then(this.showResults())
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
 
@@ -59,26 +89,29 @@ class Vote extends Component {
   }
 
   render() {
+    if (this.props) {
+      return (
+        this.state.isShowing ?
+          <div className="container-fluid">
+            <h3 className="group-text">VOTE!</h3>
+            <p onClick={() => this.getVotes()}>Show Results</p>
+            {this.props.group.restaurants.map((rest) => {
+              if (rest.name === undefined) {
+                return
+              } else {
+                return <div className="container-fluid">
+                  <Row><Col></Col> <span> <Col align="right" className="vote-name">{rest.name} <button className="vote-btn" onClick={() => this.castVotes(rest.name)}>Vote</button></Col></span><Col></Col></Row>
 
-    return (
-      this.state.isShowing ?
-        <div>
-          {this.props.group.restaurants.map((rest) => {
-            if (rest.name === undefined) {
-              return
-            } else {
-              return <div>
-                {rest.name}
-                <button onClick={() => this.castVotes(rest.name)}>Vote</button>
-              </div>
+                </div>
+              }
+            })
             }
-          })
-          }
-        </div>
-        :
-        <Results percent={this.state.percents} total={this.state.total} />
+          </div>
+          :
+          <Results showing={this.showResults} percent={this.state.percents} total={this.state.total} />
 
-    );
+      );
+    } else { return null }
   }
 }
 

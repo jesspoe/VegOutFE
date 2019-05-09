@@ -63,11 +63,18 @@ class App extends Component {
 
   sendProps = (group) => {
     console.log('sendProps fired')
-    this.setState({
-      singleGroup: group
+    this.state.groups.map((agroup) => {
+      console.log("agroup", agroup.id)
+      console.log("group pass id", group.id)
+      if (agroup.id === group.id) {
+        this.setState({
+          singleGroup: agroup
+        })
+      } else {
+        console.log("NOPE")
+      }
     })
   }
-
 
   setUserId = (id) => {
     this.setState({ user_id: id }, () => localStorage.setItem('user', id))
@@ -158,6 +165,7 @@ class App extends Component {
       .then(response => {
         return response.json()
       }).then(json => {
+        console.log('grabGroups', json)
         this.setState({
           groups: json
         })
@@ -185,11 +193,14 @@ class App extends Component {
     }).then(response => response.json())
       .then(json => {
         if (json === null) {
+          this.setState({
+            restaurants: []
+          })
           throw Error("No Restaurants Available")
         }
         this.setState({
           restaurants: json
-        }, () => console.log("new search rest", this.state.restaurants))
+        })
       }).catch((error) => {
         console.log(error)
       }))
@@ -201,10 +212,10 @@ class App extends Component {
         <Router>
           <div>
             <UnAuthRoute exact path='/signup' component={() => <Signup setUserId={this.setUserId} />} />
-            <UnAuthRoute exact path='/login' component={() => <Login setUserId={this.setUserId} />} />
-            <AuthRoute exact path='/' component={() => <Home restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} error={this.state.errorMsg} />} />
+            <UnAuthRoute exact path='/login' component={(props) => <Login setUserId={this.setUserId} {...props} />} />
+            <AuthRoute exact path='/' component={(props) => <Home {...props} restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} error={this.state.errorMsg} />} />
             <AuthRoute exact path='/groups' component={(props) => <GroupContainer {...props} sendProps={this.sendProps} groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
-            <AuthRoute exact path='/card' component={(props) => <GroupCard {...props} user={this.state.user_id} groups={this.state.groups} grabGroups={this.grabGroups} group={this.state.singleGroup} />} />
+            <AuthRoute exact path='/card' component={(props) => <GroupCard {...props} user={this.state.user_id} groups={this.state.groups} sendProps={this.sendProps} grabGroups={this.grabGroups} group={this.state.singleGroup} />} />
             <AuthRoute exact path='/logout' component={() => <Logout />} />
             <AuthRoute exact path='/resources' component={(props) => <Resources {...props} />} />
 
