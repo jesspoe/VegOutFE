@@ -98,7 +98,7 @@ class GroupCard extends Component {
       }
       return response;
     }).then(this.props.sendProps(this.props.group))
-      // .then(this.props.grabGroups())
+      .then(this.props.grabGroups())
       .then(toaster.notify("Invite Sent!", {
         duration: 1500
       }))

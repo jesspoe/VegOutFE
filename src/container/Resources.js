@@ -47,11 +47,11 @@ class Resources extends Component {
           <Row className="photo">
             <Col />
             <ul>
-              <li> <p><a href="https://www.happycow.net/">Happy Cow</a></p></li>
-              <li> <p> <a href="https://www.onegreenplanet.org/">One Green Planet</a></p></li>
-              <li> <p> <a href="https://www.onegreenplanet.org/">One Green Planet</a></p></li>
-              <li> <p> <a href="http://www.barnivore.com/">Barnivore</a></p></li>
-              <li> <p> <a href="https://ohsheglows.com/">Oh She Glows</a></p></li>
+              <li> <p><a href="https://www.happycow.net/" target='blank'>Happy Cow</a></p></li>
+              <li> <p> <a href="https://www.onegreenplanet.org/" target='blank'>One Green Planet</a></p></li>
+              <li> <p> <a href="https://www.onegreenplanet.org/" target='blank'>One Green Planet</a></p></li>
+              <li> <p> <a href="http://www.barnivore.com/" target='blank'>Barnivore</a></p></li>
+              <li> <p> <a href="https://ohsheglows.com/" target='blank'>Oh She Glows</a></p></li>
             </ul>
             <Col />
           </Row>

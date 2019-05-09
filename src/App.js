@@ -62,7 +62,6 @@ class App extends Component {
   }
 
   sendProps = (group) => {
-    console.log('sendProps fired')
     this.setState({
       singleGroupId: group.id
     })
@@ -112,7 +111,7 @@ class App extends Component {
 
 
   getLocation = () => {
-    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=GOOGLE_KEY"
+    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key="
     fetch(url, {
       method: 'POST'
     }).then((response) => {
@@ -133,7 +132,7 @@ class App extends Component {
 
 
   getCity = () => {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=GOOGLE_KEY`
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=`
     fetch(url, {
       method: 'POST'
     }).then((response) => {
@@ -188,7 +187,6 @@ class App extends Component {
         citySearch: this.state.citySearch
       })
     }).then((response) => {
-      console.log("map search response", response)
       if (!response.ok) {
         throw Error(response.statusText);
       }

@@ -28,7 +28,6 @@ class MapContainer extends Component {
       this.props.restaurants.map((rest) => {
         newItem = { name: rest.sortable_name, veg_level: rest.veg_level_description, address: rest.address1, city: rest.city, state: rest.region }
         myAddy.push(newItem)
-        console.log("is addy full", myAddy)
         return undefined
       })
       return this.setState({
@@ -36,14 +35,6 @@ class MapContainer extends Component {
       }, () => this.getGeo())
     }
   }
-
-  onMapMounted = (ref) => {
-    console.log('ref', this.state)
-    this.setState({
-      mapRef: ref
-    })
-  }
-
 
   getGeo = () => {
     let local = []
@@ -63,7 +54,7 @@ class MapContainer extends Component {
         })
         return
       } else {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=GOOGLE_KEY`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=`)
           .then((response) => {
             if (!response.ok) {
               throw Error(response.statusText);
@@ -85,7 +76,7 @@ class MapContainer extends Component {
           .then(item => {
             this.setState({
               locations: local
-            }, () => console.log("What is locations?", this.state.locations))
+            })
           }).catch((error) => {
             console.log(error)
           })
@@ -111,7 +102,7 @@ class MapContainer extends Component {
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
-    }, async () => console.log("on click selected places", this.state.selectedPlace))
+    })
 
   }
 
