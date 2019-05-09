@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { MDBContainer, MDBRow, MDBCol, MDBCardTitle, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import toaster from 'toasted-notes';
+
 class Signup extends Component {
   constructor() {
     super()
@@ -12,6 +14,7 @@ class Signup extends Component {
       password: ""
     }
   }
+
 
 
   handleSubmit = event => {
@@ -39,8 +42,13 @@ class Signup extends Component {
         localStorage.setItem('jwt', json.jwt);
         this.props.setUserId(json.user.id)
       })
-      .catch(function (error) { console.log(" There is an error: ", error.message) })
+      .catch(err => {
+        toaster.notify('Email already exists. Please try to login.', {
+          duration: 2000
+        })
+      })
   }
+
 
 
   handleChange = event => {

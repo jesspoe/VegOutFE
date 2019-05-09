@@ -93,14 +93,15 @@ class Vote extends Component {
       return (
         this.state.isShowing ?
           <div className="container-fluid">
-            <h3 className="group-text">VOTE!</h3>
-            <p onClick={() => this.getVotes()}>Show Results</p>
+            <Row> <Col align="center" xs={12}><h3 className="group-text">VOTE!</h3> </Col></Row>
+            <Row> <Col align="center" xs={12}><p className="text" onClick={() => this.getVotes()}>See where we're heading..</p></Col></Row>
+
             {this.props.group.restaurants.map((rest) => {
               if (rest.name === undefined) {
                 return
               } else {
                 return <div className="container-fluid">
-                  <Row><Col></Col> <span> <Col align="right" className="vote-name">{rest.name} <button className="vote-btn" onClick={() => this.castVotes(rest.name)}>Vote</button></Col></span><Col></Col></Row>
+                  <Row> <Col align="center" xs={12} className="vote-name">{rest.name} <button className="vote-btn" onClick={() => this.castVotes(rest.name)}>Vote</button></Col></Row>
 
                 </div>
               }

@@ -54,10 +54,10 @@ class GroupCard extends Component {
           <div className="scroll">
             <a href={rest.website} target='blank'><h5 className="simple-title">{rest.name}</h5 ></a>
             <h5 className="c-title">{rest.veg_level_description}</h5>
-            <strong> Descripton:</strong> <p>{rest.long_description ? rest.long_description : "Unavailable"} </p>
+            <strong> Descripton:</strong> <p className="desc">{rest.long_description ? rest.long_description : "Unavailable"} </p>
             <strong>  Price Range:</strong><p> {rest.price_range}</p>
-            <strong>  Neighborhood:</strong><p> {rest.neighborhood ? rest.neighborhood : 'Unavailable'}</p>
-            <strong>  Phone:</strong> <p>{rest.phone}</p>
+            {/* <strong>  Neighborhood:</strong><p> {rest.neighborhood ? rest.neighborhood : 'Unavailable'}</p> */}
+            <strong>  Phone:</strong> <p><a href={rest.phone}>{rest.phone}</a></p>
             <strong> Address:</strong><p> {rest.address1} {rest.city}, {rest.region}</p>
             <strong> Accepts Reservations:</strong>  <p>{rest.accepts_reservations === 1 ? 'Yes' : 'No'} </p>
           </div>
@@ -209,7 +209,7 @@ class GroupCard extends Component {
           <Row>
             <Col>
               <div className="group-restaurants">
-                <h3 className="group-text">SAVED RESTAURANTS</h3>
+                <h3 className="group-text">Saved Restaurants</h3>
 
                 {this.restaurantInfo()}
 
@@ -222,7 +222,7 @@ class GroupCard extends Component {
 
               <Vote groups={this.props.groups} group_id={this.state.group_id} group={this.props.group} />
             </div>
-            < Link align="center" to='/groups'>Back to Groups</Link >
+            < Link to='/groups'>Back to Groups</Link >
           </Col>
         </div>
       </div>
@@ -274,7 +274,7 @@ class GroupCard extends Component {
           <Row>
             <Col>
               <div className="group-restaurants">
-                <h3 className="group-text">SAVED RESTAURANTS</h3>
+                <h3 className="group-text">Saved Restaurants</h3>
 
                 {this.restaurantInfo()}
 
@@ -335,7 +335,7 @@ class GroupCard extends Component {
           <Row>
             <Col>
               <div className="group-restaurants">
-                <h3 className="group-text">SAVED RESTAURANTS</h3>
+                <h3 className="group-text">Saved Restaurants</h3>
                 {this.restaurantInfo()}
                 <br />
               </div>

@@ -21,18 +21,14 @@
   
 }
 .member{
-  text-align: center;
-  display: inline;
-  margin: 5px;
-  padding: 8px;
-  border-radius: 10px;
+  text-align: left;
+  /* display: inline; */
+  /* margin: 5px; */
+  padding: 4px;
 }
 
-.group-text{
-  font-size: 30px;
-  padding-bottom: 10px;
-  padding-left: 7px;
-  font-weight: bold;
+.img-responsive{
+  margin-left: 20%;
 }
 
 .group-rest{
@@ -59,9 +55,9 @@ body{
 
 .single-rest{
   width: 80%;
-  margin: 3% 0% 2% 8%;
   opacity: .95;
-  box-shadow: 3px 5px 10px 3px black;
+  box-shadow: 3px 6px 12px 0px rgb(73, 100, 73);
+  margin-top: 2px;
 }
 
 
@@ -112,7 +108,7 @@ body{
   font-size: 1.5em;
 }
 
-a {
+#tab-banner a{
   color: teal;
   font-weight: bolder !important;
 }
@@ -141,7 +137,7 @@ h5, .h5 {
   background-color: lightgray;
   text-align: right;
   margin-top: .5%;
-  padding-right: 3%;
+  padding-right: 4%;
   opacity: .9;
   border-radius: 2px;
   margin-bottom: 30px;
@@ -151,17 +147,17 @@ h5, .h5 {
   display: inline;
 }
 
-.user-form{
-  padding-top: 6px;
-}
+
 
 .group-text{
   padding-top: 12px;
   padding-right: 2px;
+  padding-bottom: 12px;
   font-family: 'Muli', sans-serif !important;
   color: darkgreen;
   text-shadow: #084928;
-  font-size: 2.5em;
+  font-size: 2em;
+  font-weight: 500;
 }
 
 .text{
@@ -180,6 +176,7 @@ h5, .h5 {
 #rest-card{
   width: 280px !important;
   margin: 28px !important;
+  text-overflow: ellipsis;
   opacity: .9;
 }
 
@@ -263,11 +260,11 @@ h5, .h5 {
 
 .single-rest-group{
   display: inline-block;
-  width: 500px;
-  height: 550px;
+  width: 380px;
+  height: 450px;
   margin: 2% 0% 2% 2%;
   opacity: .95;
-  box-shadow: 5px 5px 15px 5px black;
+  box-shadow: 0px 0px 20px 0px rgb(117, 133, 120);
   overflow: scroll;
   position: relative;
 
@@ -277,7 +274,7 @@ h5, .h5 {
   padding-top: 12px;
   padding-right: 2px;
   font-family: 'Muli', sans-serif !important;
-  font-size: 5em;
+  font-size: 4em;
   color: darkgreen;
   text-shadow: #084928;
 }
@@ -290,11 +287,17 @@ h5, .h5 {
 
 .vote-btn{
   color: green; 
- margin-left: 25px;
+  margin-left: 25px;
+ }
+
+ .vote-btn-two{
+   color: green;
+   padding: 5px;
+   margin: 10px;
  }
 
 .react-datepicker__input-container{
-  margin-bottom: 20px !important;
+  margin-bottom: 5px !important;
 }
 
 .vote-name{
@@ -305,7 +308,7 @@ h5, .h5 {
   font-size: 1.5em;
   color: black;
   text-shadow: #084928;
-  text-justify: left !important;
+  /* text-justify: left !important; */
 }
 
 .scroll{
@@ -330,10 +333,45 @@ h5, .h5 {
 
 .vegan{
   padding: 10px;
+  
 }
 
-.photo{
-  background: white;
-  margin: 10px;
-  padding: 10px;
+
+.desc{
+justify-content: left;
+margin: 8px;
 }
+
+a {
+color: rgb(13, 110, 21) !important;
+position: relative;
+text-transform: uppercase;
+}
+
+a:hover {
+cursor: pointer;
+}
+
+a:active {
+box-shadow: none;
+top: 5px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.source{
+  display: inherit;
+  margin-bottom: 4%;
+}
+
+.linkz{
+  padding: 5px;
+  margin-left: 13%;
+}
+
+
+
+
+/* box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2); */

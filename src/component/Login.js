@@ -9,8 +9,7 @@ class Login extends Component {
     super()
     this.state = {
       email: "",
-      password: "",
-      error: false
+      password: ""
     }
   }
 
@@ -19,8 +18,7 @@ class Login extends Component {
   handleFormReset = () => {
     this.setState({
       email: "",
-      password: "",
-      error: false
+      password: ""
     })
   }
 

@@ -13,6 +13,8 @@ import Home from './container/Home.js'
 import GroupContainer from './container/GroupContainer.js'
 import GroupCard from './component/GroupCard.js'
 import Resources from './container/Resources.js'
+import toaster from 'toasted-notes';
+
 
 
 
@@ -202,9 +204,12 @@ class App extends Component {
         this.setState({
           restaurants: json
         })
-      }).catch((error) => {
-        console.log(error)
-      }))
+      }).catch(err => {
+        toaster.notify('Sorry, no results found.', {
+          duration: 3000
+        })
+      })
+      )
   }
 
   render() {
