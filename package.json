@@ -21,6 +21,10 @@
     "react-vote": "^3.3.3",
     "toasted-notes": "^2.1.5"
   },
+  "engines": {
+    "node": "11.13.0",
+    "npm": "6.7.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
