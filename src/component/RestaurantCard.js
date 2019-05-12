@@ -29,8 +29,7 @@ class RestaurantCard extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log('here is the event', event)
-    console.log("this.props", this.props)
+
     event.preventDefault()
     fetch('http://localhost:3000/restaurants', {
       method: 'POST',
@@ -46,7 +45,7 @@ class RestaurantCard extends Component {
         name: this.props.restaurant.name,
         phone: this.props.restaurant.phone,
         price_range: this.props.restaurant.price_range,
-        long_description: this.props.restaurant.long_description["text/vnd.vegguide.org-wikitext"],
+        long_description: this.props.restaurant.long_description === undefined ? "Unavailable" : this.props.restaurant.long_description["text/vnd.vegguide.org-wikitext"],
         veg_level_description: this.props.restaurant.veg_level_description
       })
     }).then((response) => {
@@ -77,7 +76,7 @@ class RestaurantCard extends Component {
             <p className="card-text"><strong>Phone:</strong> <span>{this.props.restaurant.phone}</span></p>
             <p className="card-text"><strong>Address:</strong> <span>{this.props.restaurant.address1} {this.props.restaurant.city}, {this.props.restaurant.region}</span></p>
             <p className="card-text"><strong>Accepts Reservations:</strong> <span>{this.props.restaurant.accepts_reservations === 1 ? 'Yes' : 'No'} </span></p>
-            <p className="card-text"><strong>Descripton: </strong><span>{this.props.restaurant.long_description ? this.props.restaurant.long_description["text/vnd.vegguide.org-wikitext"] : "Unavailable"}</span> </p>
+            <p className="card-text"><strong>Descripton: </strong><span>{this.props.restaurant.long_description === undefined ? "Unavailable" : this.props.restaurant.long_description["text/vnd.vegguide.org-wikitext"]}</span> </p>
             <h6>Add this restaurant to a group.</h6>
             <form onChange={(event) => { this.handleChange(event) }} onSubmit={(event) => this.handleSubmit(event)}>
               <select className="browser-default custom-select">
