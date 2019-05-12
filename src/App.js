@@ -212,20 +212,20 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Router>
-          <div>
-            <UnAuthRoute exact path='/signup' component={() => <Signup setUserId={this.setUserId} />} />
-            <UnAuthRoute exact path='/login' component={(props) => <Login setUserId={this.setUserId} {...props} />} />
-            <AuthRoute exact path='/' component={(props) => <Home {...props} restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} error={this.state.errorMsg} />} />
-            <AuthRoute exact path='/groups' component={(props) => <GroupContainer {...props} sendProps={this.sendProps} groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
-            <AuthRoute exact path='/card' component={(props) => <GroupCard {...props} user={this.state.user_id} groups={this.state.groups} sendProps={this.sendProps} grabGroups={this.grabGroups} group={this.getSingleGroup()} />} />
-            <AuthRoute exact path='/logout' component={() => <Logout />} />
-            <AuthRoute exact path='/resources' component={(props) => <Resources {...props} />} />
 
-          </div>
-        </Router>
-      </div>
+      <Router>
+        <div>
+          <UnAuthRoute exact path='/signup' component={() => <Signup setUserId={this.setUserId} />} />
+          <UnAuthRoute exact path='/login' component={(props) => <Login setUserId={this.setUserId} {...props} />} />
+          <AuthRoute exact path='/' component={(props) => <Home {...props} restaurants={this.state.restaurants} searchResults={this.searchResults} currentLat={this.state.currentLat} currentLong={this.state.currentLong} user={this.state.user_id} groups={this.state.groups} error={this.state.errorMsg} />} />
+          <AuthRoute exact path='/groups' component={(props) => <GroupContainer {...props} sendProps={this.sendProps} groups={this.state.groups} grabGroups={this.grabGroups} user={this.state.user_id} />} />
+          <AuthRoute exact path='/card' component={(props) => <GroupCard {...props} user={this.state.user_id} groups={this.state.groups} sendProps={this.sendProps} grabGroups={this.grabGroups} group={this.getSingleGroup()} />} />
+          <AuthRoute exact path='/logout' component={() => <Logout />} />
+          <AuthRoute exact path='/resources' component={(props) => <Resources {...props} />} />
+
+        </div>
+      </Router>
+
     );
   }
 }
