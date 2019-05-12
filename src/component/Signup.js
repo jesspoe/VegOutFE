@@ -19,7 +19,7 @@ class Signup extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    fetch('http://localhost:3000/users', {
+    fetch('https://veggout-be.herokuapp.com/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
