@@ -41,7 +41,7 @@ class App extends Component {
     // this.getCity()
     // this.grabGroups()
 
-    fetch(`http://localhost:3000/api`, {
+    fetch(`https://git.heroku.com/veggout-be.git/api`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ class App extends Component {
 
 
   setInitial = () => {
-    fetch(`http://localhost:3000/initial`, {
+    fetch(`https://git.heroku.com/veggout-be.git/initial`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({
@@ -153,7 +153,7 @@ class App extends Component {
 
 
   grabGroups = () => {
-    fetch('http://localhost:3000/groups', {
+    fetch('https://git.heroku.com/veggout-be.git/groups', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.jwt}`
@@ -180,7 +180,7 @@ class App extends Component {
   searchResults = (data) => {
     this.setState({
       citySearch: data
-    }, () => fetch(`http://localhost:3000/search`, {
+    }, () => fetch(`https://git.heroku.com/veggout-be.git/search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({
