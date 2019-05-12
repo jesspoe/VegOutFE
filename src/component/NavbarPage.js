@@ -17,6 +17,7 @@ class NavbarPage extends Component {
 
   render() {
     return (
+      <div>
       <MDBNavbar color="white" expand="md">
         <MDBNavbarBrand>
           <strong className="black-text">VegOut!</strong>
@@ -48,6 +49,7 @@ class NavbarPage extends Component {
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
+      </div>
     );
   }
 }
