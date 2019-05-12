@@ -19,7 +19,7 @@ class NavbarPage extends Component {
   render() {
     return (
     
-<Navbar bg="light" variant="light">
+<Navbar sticky="top" bg="light" variant="light">
 <Navbar.Brand href="#home">VegOut!</Navbar.Brand>
 <Nav className="mr-auto">
   <Nav.Link href="/">Home</Nav.Link>

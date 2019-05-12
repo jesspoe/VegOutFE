@@ -31,7 +31,7 @@ class Vote extends Component {
   }
 
   getVotes = () => {
-    fetch('http://localhost:3000/getVotes', {
+    fetch('https://veggout-be.herokuapp.com/getVotes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({
@@ -60,7 +60,7 @@ class Vote extends Component {
 
 
   castVotes = (rest) => {
-    fetch('http://localhost:3000/votes', {
+    fetch('https://veggout-be.herokuapp.com/votes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({

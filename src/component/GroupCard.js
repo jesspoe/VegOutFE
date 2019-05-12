@@ -79,7 +79,7 @@ class GroupCard extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    fetch('http://localhost:3000/addUserGroup', {
+    fetch('https://veggout-be.herokuapp.com/addUserGroup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ class GroupCard extends Component {
   }
 
   processEdit = (data) => {
-    fetch(`http://localhost:3000/groups/${data.group_id}`,
+    fetch(`https://veggout-be.herokuapp.com/groups/${data.group_id}`,
       {
         method: 'PUT',
         body: JSON.stringify({
@@ -145,7 +145,7 @@ class GroupCard extends Component {
   }
 
   handleDelete = (id) => {
-    fetch(`http://localhost:3000/groups/${id}`,
+    fetch(`https://veggout-be.herokuapp.com/groups/${id}`,
       {
         method: 'DELETE',
         headers: {

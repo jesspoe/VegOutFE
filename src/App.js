@@ -37,10 +37,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // this.getLocation()
-    // this.getCity()
-    // this.grabGroups()
-
     fetch(`https://veggout-be.herokuapp.com/api`, {
       method: 'GET',
       headers: {

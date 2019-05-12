@@ -31,7 +31,7 @@ class RestaurantCard extends Component {
   handleSubmit = (event) => {
 
     event.preventDefault()
-    fetch('http://localhost:3000/restaurants', {
+    fetch('https://veggout-be.herokuapp.com/restaurants', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({
