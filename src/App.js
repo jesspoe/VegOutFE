@@ -37,9 +37,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getLocation()
-    this.getCity()
-    this.grabGroups()
+    // this.getLocation()
+    // this.getCity()
+    // this.grabGroups()
 
     fetch(`http://localhost:3000/api`, {
       method: 'GET',
@@ -181,7 +181,7 @@ class App extends Component {
 
   searchResults = (data) => {
     this.setState({
-      citySearch: data.search
+      citySearch: data
     }, () => fetch(`http://localhost:3000/search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
@@ -209,7 +209,7 @@ class App extends Component {
           duration: 3000
         })
       })
-      )
+    )
   }
 
   render() {

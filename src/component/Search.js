@@ -18,7 +18,9 @@ class Search extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.searchResults(this.state)
+    let terms = this.state
+    let search = terms.search.split(" ").join("")
+    this.props.searchResults(search)
   }
 
   render() {

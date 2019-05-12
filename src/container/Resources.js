@@ -35,13 +35,9 @@ class Resources extends Component {
               <h4 className="group-text" align="center">Protein</h4>
               <p className="vegan">It is very easy for a vegan diet to meet the recommendations for protein as long as calorie intake is adequate. Strict protein planning or combining is not necessary. The key is to eat a varied diet.
              Almost all foods except for alcohol, sugar, and fats provide some protein. Vegan sources include: lentils, chickpeas, tofu, peas, peanut butter, soy milk, almonds, spinach, rice, whole wheat bread, potatoes, broccoli, kale...</p>
-             <img align="center" src={Vegan} alt="boohoo" className="img-responsive" />;
+             <img src={Vegan} alt="boohoo" className="img-responsive" />;
              
             </div>
-         
-
-         
-          
               </Row>
 
         
@@ -54,6 +50,7 @@ class Resources extends Component {
               <p className="linkz"> <a href="https://www.onegreenplanet.org/" target='blank'>One Green Planet</a></p>
               <p className="linkz"> <a href="http://www.barnivore.com/" target='blank'>Barnivore</a></p>
               <p className="linkz"> <a href="https://ohsheglows.com/" target='blank'>Oh She Glows</a></p>
+              <p className="linkz"> <a href="https://www.vrg.org/" target='blank'>Vegetarian Resource Group</a></p>
             </Col>
 
           </Row>

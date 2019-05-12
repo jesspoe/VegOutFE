@@ -36,6 +36,13 @@ class MapContainer extends Component {
     }
   }
 
+  onMapMounted = (ref) => {
+    console.log('ref', this.state)
+    this.setState({
+      mapRef: ref
+    })
+  }
+
   getGeo = () => {
     let local = []
     let newItem = {}
@@ -102,7 +109,7 @@ class MapContainer extends Component {
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
-    })
+    }, async () => console.log("on click selected places", this.state.selectedPlace))
 
   }
 

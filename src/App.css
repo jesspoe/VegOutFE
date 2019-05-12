@@ -28,7 +28,10 @@
 }
 
 .img-responsive{
-  margin-left: 20%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 .group-rest{
@@ -336,7 +339,6 @@ h5, .h5 {
   
 }
 
-
 .desc{
 justify-content: left;
 margin: 8px;
@@ -357,21 +359,18 @@ box-shadow: none;
 top: 5px;
 }
 
-li {
-  list-style-type: none;
-}
-
 .source{
   display: inherit;
   margin-bottom: 4%;
 }
 
 .linkz{
-  padding: 5px;
-  margin-left: 13%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 
 
 
-/* box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2); */
