@@ -35,6 +35,7 @@ class GroupCard extends Component {
   }
 
 
+
   editing = (event) => {
     let data = {
       group_id: this.state.group_id,
@@ -355,6 +356,17 @@ class GroupCard extends Component {
   }
 
   render() {
+    window.onbeforeunload = function (evt) {
+      var message = 'Are you sure you want to leave?';
+      if (typeof evt == 'undefined') {
+        evt = window.event;
+      }
+      if (evt) {
+        evt.returnValue = message;
+      }
+      return message;
+    }
+    
     if (this.state.group_id) {
       return (
         <div>

@@ -69,7 +69,7 @@ class Login extends Component {
                 <MDBCol className="jumbotext">
                   <MDBCol className="py-5">
                     <h1 className="h1-responsive  m-5 font-bold">VegOut!</h1>
-                    <p className="mx-5 mb-5">A place to find vegan-friendly restaurants with the ability to collobrate and vote on your favorites with friends and family!
+                    <p className="mx-5 mb-5">A place for the vegan tourist to create a trip and add restaurants that you're looking forward to visiting!
                   </p>
                   </MDBCol>
                 </MDBCol>
