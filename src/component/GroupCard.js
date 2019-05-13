@@ -363,10 +363,11 @@ class GroupCard extends Component {
       }
       if (evt) {
         evt.returnValue = message;
+        this.handleRedirect()
       }
       return message;
     }
-    
+
     if (this.state.group_id) {
       return (
         <div>
