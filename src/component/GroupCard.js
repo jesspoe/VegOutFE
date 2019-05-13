@@ -359,11 +359,12 @@ class GroupCard extends Component {
     window.onbeforeunload = function (evt) {
       var message = 'Are you sure you want to leave?';
       if (typeof evt == 'undefined') {
-        evt = window.event;
+        evt = window.event
+        this.handleRedirect()
       }
       if (evt) {
         evt.returnValue = message;
-        this.handleRedirect()
+
       }
       return message;
     }
