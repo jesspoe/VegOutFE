@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
+require('dotenv').config();
+
 
 
 class MapContainer extends Component {
@@ -61,7 +63,7 @@ class MapContainer extends Component {
         })
         return
       } else {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=(process.env.GOOGLE_KEY)`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=process.env.GOOGLE_KEY`)
           .then((response) => {
             if (!response.ok) {
               throw Error(response.statusText);
@@ -157,5 +159,5 @@ class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'GOOGLE_KEY'
+  apiKey: `process.env.GOOGLE_KEY`
 })(MapContainer);
