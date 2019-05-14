@@ -37,6 +37,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // this.getLocation()
+    // this.getCity()
+    // this.grabGroups()
+
     fetch(`https://veggout-be.herokuapp.com/api`, {
       method: 'GET',
       headers: {
@@ -83,7 +87,7 @@ class App extends Component {
 
 
   setInitial = () => {
-    fetch(`https://veggout-be.herokuapp.com/initial`, {
+    fetch(`http://localhost:3000/initial`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({
@@ -107,7 +111,7 @@ class App extends Component {
 
 
   getLocation = () => {
-    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=GOOGLE_KEY"
+    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=(process.env.GOOGLE_KEY)"
     fetch(url, {
       method: 'POST'
     }).then((response) => {
@@ -128,7 +132,7 @@ class App extends Component {
 
 
   getCity = () => {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=GOOGLE_KEY`
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=(process.env.GOOGLE_KEY)`
     fetch(url, {
       method: 'POST'
     }).then((response) => {

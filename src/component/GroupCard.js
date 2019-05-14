@@ -24,16 +24,6 @@ class GroupCard extends Component {
     }
   }
 
-  componentWillReceive (nextProps) {
-
-    this.setState({ 
-      email: nextProps.email,
-      group_id: nextProps.group.id,
-      editShowing: false,
-      newDate: new Date(nextProps.group.date),
-      newName: nextProps.group.name,
-      newDescription:nextProps.group.description})
-    }
 
 
   handleEdit = () => {
