@@ -155,7 +155,7 @@ class MapContainer extends Component {
         </Map>
 
       );
-    } else { return <Map></Map> }
+    } else { return null }
   }
 }
 
