@@ -141,7 +141,6 @@ class GroupCard extends Component {
       })
       .then((json) => {
         this.props.grabGroups()
-        // this.handleRedirect()
       })
   }
 
@@ -356,19 +355,7 @@ class GroupCard extends Component {
   }
 
   render() {
-    window.onbeforeunload = function (evt) {
-      var message = 'Are you sure you want to leave?';
-      if (typeof evt == 'undefined') {
-        evt = window.event
-        this.handleRedirect()
-      }
-      if (evt) {
-        evt.returnValue = message;
-
-      }
-      return message;
-    }
-
+    window.addEventListener("unload", function (event) { this.handleRedirect() });
     if (this.state.group_id) {
       return (
         <div>
