@@ -46,6 +46,7 @@ class MapContainer extends Component {
   }
 
   getGeo = () => {
+    console.log("keyyy", process.env.GOOGLE_KEY)
     let local = []
     let newItem = {}
     this.state.addy.map((item) => {
