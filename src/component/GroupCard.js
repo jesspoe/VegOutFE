@@ -15,6 +15,17 @@ class GroupCard extends Component {
     super(props);
 
     this.state = {
+      email: null,
+      group_id: null,
+      editShowing: null,
+      newDate: null,
+      newName: null,
+      newDescription: null
+    }
+  }
+
+  componentDidMount(){
+    this.setState = {
       email: " ",
       group_id: this.props.group.id,
       editShowing: false,
