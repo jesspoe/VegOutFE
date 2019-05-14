@@ -128,34 +128,34 @@ class MapContainer extends Component {
 
   render() {
 
-    // if (this.state.locations[0]) {
-    return (
-      <Map
-        ref={this.onMapMounted}
-        google={this.props.google}
-        zoom={14}
-        onClick={this.onMapClicked}
-        center={
-          {
-            lat: this.state.locations[0].lat,
-            lng: this.state.locations[0].lng
-          }}
-      >
-        {this.state.locations.length > 0 ? this.displayMarkers() : null}
-
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
+    if (this.state.locations[0]) {
+      return (
+        <Map
+          ref={this.onMapMounted}
+          google={this.props.google}
+          zoom={14}
+          onClick={this.onMapClicked}
+          center={
+            {
+              lat: this.state.locations[0].lat,
+              lng: this.state.locations[0].lng
+            }}
         >
-          <div>
-            <h5>{this.state.selectedPlace.name && this.state.selectedPlace.position.name}</h5>
-          </div>
-        </InfoWindow>
-      </Map>
+          {this.state.locations.length > 0 ? this.displayMarkers() : null}
 
-    );
-    // } else { return null }
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            onClose={this.onClose}
+          >
+            <div>
+              <h5>{this.state.selectedPlace.name && this.state.selectedPlace.position.name}</h5>
+            </div>
+          </InfoWindow>
+        </Map>
+
+      );
+    } else { return <Map></Map> }
   }
 }
 

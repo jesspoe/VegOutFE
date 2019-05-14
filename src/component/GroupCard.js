@@ -53,7 +53,7 @@ class GroupCard extends Component {
     if (this.props.group.restaurants.length > 0) {
       return this.props.group.restaurants.map((rest) => {
 
-        return <div className="single-rest-group" >
+        return <div className="container-fluid"><div className="single-rest-group" >
           <div className="scroll">
             <a href={rest.website} target='blank'><h5 className="simple-title">{rest.name}</h5 ></a>
             <h5 className="c-title">{rest.veg_level_description}</h5>
@@ -64,6 +64,7 @@ class GroupCard extends Component {
             <strong> Address:</strong><p> {rest.address1} {rest.city}, {rest.region}</p>
             <strong> Accepts Reservations:</strong>  <p>{rest.accepts_reservations === 1 ? 'Yes' : 'No'} </p>
           </div>
+        </div>
         </div>
       })
     }
