@@ -64,7 +64,7 @@ class MapContainer extends Component {
         })
         return
       } else {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=process.env.GOOGLE_KEY`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=GOOGLE_KEY`)
           .then((response) => {
             if (!response.ok) {
               throw Error(response.statusText);
@@ -160,5 +160,5 @@ class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: `process.env.GOOGLE_KEY`
+  apiKey: `GOOGLE_KEY`
 })(MapContainer);

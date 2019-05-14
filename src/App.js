@@ -111,7 +111,7 @@ class App extends Component {
 
 
   getLocation = () => {
-    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=(process.env.GOOGLE_KEY)"
+    let url = "https://www.googleapis.com/geolocation/v1/geolocate?key=GOOGLE_KEY"
     fetch(url, {
       method: 'POST'
     }).then((response) => {
@@ -132,7 +132,7 @@ class App extends Component {
 
 
   getCity = () => {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=(process.env.GOOGLE_KEY)`
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.currentLat},${this.state.currentLong}&key=GOOGLE_KEY`
     fetch(url, {
       method: 'POST'
     }).then((response) => {
