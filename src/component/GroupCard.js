@@ -59,8 +59,8 @@ class GroupCard extends Component {
             <h5 className="c-title">{rest.veg_level_description}</h5>
             <strong> Descripton:</strong> <p className="desc">{rest.long_description ? rest.long_description : "Unavailable"} </p>
             <strong>  Price Range:</strong><p> {rest.price_range}</p>
-            {/* <strong>  Neighborhood:</strong><p> {rest.neighborhood ? rest.neighborhood : 'Unavailable'}</p> */}
-            <strong>  Phone:</strong> <p><a href={rest.phone}>{rest.phone}</a></p>
+            <strong>  Neighborhood:</strong><p> {rest.neighborhood ? rest.neighborhood : 'Unavailable'}</p>
+            <strong>  Phone:</strong> <p>{rest.phone}</p>
             <strong> Address:</strong><p> {rest.address1} {rest.city}, {rest.region}</p>
             <strong> Accepts Reservations:</strong>  <p>{rest.accepts_reservations === 1 ? 'Yes' : 'No'} </p>
           </div>
