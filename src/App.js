@@ -87,7 +87,7 @@ class App extends Component {
 
 
   setInitial = () => {
-    fetch(`http://localhost:3000/initial`, {
+    fetch(`https://veggout-be.herokuapp.com/initial`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.jwt}` },
       body: JSON.stringify({

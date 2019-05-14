@@ -29,7 +29,7 @@ class GroupContainer extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    fetch('http://localhost:3000/groups', {
+    fetch('https://veggout-be.herokuapp.com/groups', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
