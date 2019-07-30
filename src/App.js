@@ -37,6 +37,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     // this.getLocation()
     // this.getCity()
     // this.grabGroups()

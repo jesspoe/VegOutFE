@@ -7,14 +7,17 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import NavbarPage from '../component/NavbarPage'
 import DatePicker from "react-datepicker";
+import { Redirect } from 'react-router-dom';
+
+
 
 
 
 class GroupCard extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      navigate: false,
       email: " ",
       group_id: this.props.group.id,
       editShowing: false,
@@ -24,7 +27,16 @@ class GroupCard extends Component {
     }
   }
 
+  onUnload = e => {
+    e.preventDefault()
+    this.setState({
+      navigate: true
+    })
+  };
 
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.onUnload)
+  }
 
   handleEdit = () => {
     this.setState({
@@ -35,7 +47,6 @@ class GroupCard extends Component {
   handleRedirect = () => {
     this.props.history.push('/groups')
   }
-
 
 
   editing = (event) => {
@@ -183,10 +194,10 @@ class GroupCard extends Component {
             <Col align="right" >
               <div className="invite-box">
                 <h5 className="text">Invite Friends To Join This Group!</h5>
-                <form >
+                <form onSubmit={() => this.handleSubmit()}>
                   <label htmlFor='group'>Email Please: </label> {" "}
                   <input type='email' name='email' id='email' onChange={(event) => this.handleChange(event)} /> {" "}
-                  <Button onClick={() => this.handleSubmit()} className='form-submit-btn' value="Add" variant="white">Add</Button>
+                  <Button className='form-submit-btn' type="submit" value="Add" variant="white">Add</Button>
                 </form>
               </div>
             </Col>
@@ -358,14 +369,14 @@ class GroupCard extends Component {
 
   render() {
 
-    if (this.state.group_id) {
+    if (this.state.navigate === false) {
       return (
         <div>
           {this.display()}
 
         </div >
       )
-    } else { return "Looking for Restaurants" }
+    } else { return <Redirect to="/" /> }
   }
 }
 
